@@ -42,16 +42,16 @@ function listen_rss() {
         if [[ "$url" == http* ]]; then 
             echo -e "${BLUE}Recived RSS URL: ${GREEN}${url}${NC}"
 
-            filename=$(yt-dlp "$url" -o "$TITLE" $YT_DLP_ARGS --no-warnings --print filename)
-            old_filename=$(yt-dlp "$url" -o "$TITLE" $YT_DLP_ARGS --no-warnings --restrict-filenames --print filename)
-            if [ -f "$VIDEOS_DIR/$filename" ] || [ -f "$VIDEOS_DIR/$old_filename" ]; then 
-                echo -e "${GREEN}Filename: '${BLUE}${filename}${GREEN}' exists, skipping${NC}"
-            else
+            #filename=$(yt-dlp "$url" -o "$TITLE" $YT_DLP_ARGS --no-warnings --print filename)
+            #old_filename=$(yt-dlp "$url" -o "$TITLE" $YT_DLP_ARGS --no-warnings --restrict-filenames --print filename)
+            #if [ -f "$VIDEOS_DIR/$filename" ] || [ -f "$VIDEOS_DIR/$old_filename" ]; then 
+            #    echo -e "${GREEN}Filename: '${BLUE}${filename}${GREEN}' exists, skipping${NC}"
+            #else
                 echo -e "${GREEN}Downloading URL: ${BLUE}${url}${GREEN}  Filename: '${BLUE}${filename}${GREEN}'${NC}"
                 yt-dlp $YT_DLP_ARGS -o "$TITLE" -P "$VIDEOS_DIR" -P "temp:$TEMP_DIR" "$url"
                 echo -e "${GREEN}Video: '${BLUE}${filename}${GREEN}' download done${NC}"
                 check_space
-            fi
+            #fi
         fi
     done
 }
