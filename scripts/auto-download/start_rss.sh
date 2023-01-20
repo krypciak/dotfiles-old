@@ -1,5 +1,4 @@
 export DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-sh $DIR/kill.sh
 
 RED='\e[91m'
 GREEN='\e[32m'
