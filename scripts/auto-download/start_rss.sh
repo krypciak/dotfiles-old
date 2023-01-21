@@ -20,7 +20,7 @@ YT_DLP_ARGS='--sponsorblock-remove all --embed-thumbnail --add-metadata --embed-
 TITLE='%(channel)s - %(title)s.%(ext)s'
 
 function check_space() {
-        # If there is less than 2 GiB space left
+        # If there is less than 10 GiB space left
         while [[ "$(df $VIDEOS_DIR --output=avail | tail +2)" -le 10485760 ]]; do
             # If no files left to delete, exit
             if [[ "$(ls $VIDEOS_DIR | wc -l)" -eq 0 ]]; then
@@ -41,22 +41,21 @@ function listen_rss() {
         if [[ "$url" == http* ]]; then 
             echo -e "${BLUE}Recived RSS URL: ${GREEN}${url}${NC}"
 
-            #filename=$(yt-dlp "$url" -o "$TITLE" $YT_DLP_ARGS --no-warnings --print filename)
-            #old_filename=$(yt-dlp "$url" -o "$TITLE" $YT_DLP_ARGS --no-warnings --restrict-filenames --print filename)
-            #if [ -f "$VIDEOS_DIR/$filename" ] || [ -f "$VIDEOS_DIR/$old_filename" ]; then 
-            #    echo -e "${GREEN}Filename: '${BLUE}${filename}${GREEN}' exists, skipping${NC}"
-            #else
+            filename=$(yt-dlp "$url" -o "$TITLE" $YT_DLP_ARGS --no-warnings --print filename)
+            if [ -f "$VIDEOS_DIR/$filename" ] ; then 
+                echo -e "${GREEN}Filename: '${BLUE}${filename}${GREEN}' exists, skipping${NC}"
+            else
                 echo -e "${GREEN}Downloading URL: ${BLUE}${url}${GREEN}  Filename: '${BLUE}${filename}${GREEN}'${NC}"
                 yt-dlp $YT_DLP_ARGS -o "$TITLE" -P "$VIDEOS_DIR" -P "temp:$TEMP_DIR" "$url"
                 echo -e "${GREEN}Video: '${BLUE}${filename}${GREEN}' download done${NC}"
                 check_space
-            #fi
+            fi
         fi
     done
 }
 
 i=0
-    for feed in ${CHANNEL_FEEDS[@]}; do
+for feed in ${CHANNEL_FEEDS[@]}; do
     listen_rss "${INSTANCES[$i]}/feed/channel/$feed" &
     sleep 60
     i=$((i+1))
