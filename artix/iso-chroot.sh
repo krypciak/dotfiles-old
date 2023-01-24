@@ -67,9 +67,10 @@ umount $USER_HOME/.cache/paru/clone
 umount $USER_HOME/.cargo
 rm /after-chroot.sh -f
 
-neofetch
 
 wait < <(jobs -p)
+
+neofetch
 
 if [ $PAUSE_AFTER_DONE -eq 1 ]; then
     confirm "" "ignore"
