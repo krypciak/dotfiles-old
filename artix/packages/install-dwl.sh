@@ -17,5 +17,7 @@ function configure_dwl() {
     doas -u $USER1 make &
 
     cd $USER_HOME/.config/dwl/dpms-off
-    doas -u $USER1 cargo build --release &
+    doas -u $USER1 cargo build --release
+    rm -rf $USER_HOME/.config/dotfiles/dotfiles/dwl/dpms-off/target/release/{deps,build}
+
 }
