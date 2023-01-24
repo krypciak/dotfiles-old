@@ -1,6 +1,6 @@
 #~/bin/sh
 if [ "$1" != "yes!" ]; then
-    echo "This script is damaging to run on a host system. Exiting..."
+    echo "This script damages your host system. Exiting..."
     exit 1
 fi
 
