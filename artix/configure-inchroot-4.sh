@@ -54,7 +54,3 @@ rm -r /dotfiles
 echo "0" > $USER_HOME/.cache/update
 chown -R $USER1:$USER_GROUP $USER_HOME/.cache/update
 
-# Let firefox extensions init
-doas -u $USER1 timeout 5s icecat --headless
-doas -u $USER1 timeout 5s firefox --class invidious --profile $USER_HOME/.local/share/ice/firefox/invidious --headless
-
