@@ -26,13 +26,6 @@ export CONFIGD_DIR=$DOTFILES_DIR/config-files
 source $ARTIXD_DIR/configure-inchroot-3.sh
 
 
-# install icecat
-cd $USER_HOME/.cache/paru/clone/icecat
-chown $USER1:1001 -R $USER_HOME/.cache/paru/clone/icecat
-doas -u $USER1 makepkg -sie --noconfirm
-cd /
-
-
 pri "Copying configs"
 printf "$LBLUE"
 rsync -av --progress $CONFIGD_DIR/root/ / --exclude etc/fstab --exclude etc/pacman.conf --exclude etc/default/grub --exclude etc/doas.conf --exclude etc/pacman.d --exclude etc/mkinitcpio.conf
