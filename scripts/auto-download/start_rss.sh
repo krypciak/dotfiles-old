@@ -59,7 +59,7 @@ function listen_rss() {
     export channel_id="$3"
     export rss_feed="${instance}${feed_suffix}${channel_id}"
     export index="$4"
-
+    
     rsstail -z -l -N -n 1 -i 300 -P -u "$rss_feed" | while read url; do
         check_space
 
@@ -82,7 +82,7 @@ function listen_rss() {
 i=0
 for feed in ${CHANNEL_FEEDS[@]}; do
     listen_rss "${INSTANCES[$i]}" "/feed/channel/" "$feed" $i &
-    sleep 60
+    sleep 64
     i=$((i+1))
     if [[ ${#INSTANCES[@]} -eq $i ]]; then
         i=0
@@ -91,6 +91,6 @@ done
 
 for feed in ${ODYSEE_FEEDS[@]}; do
     listen_rss "https://odysee.com" "/$/rss/" "$feed" $i &
-    sleep 60
+    sleep 64
 done
 
