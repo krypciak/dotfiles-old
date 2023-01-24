@@ -69,6 +69,8 @@ rm /after-chroot.sh -f
 
 neofetch
 
+wait < <(jobs -p)
+
 if [ $PAUSE_AFTER_DONE -eq 1 ]; then
     confirm "" "ignore"
 fi
