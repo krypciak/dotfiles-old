@@ -77,7 +77,7 @@ function pri() {
 
 function confirm() {
     echo -en "$LBLUE |||$LGREEN $1 $LBLUE(Y/n/shell)? >> $NC"
-    if [ $YOLO -eq 1 ] && [ "$2" != "ignore" ]; then echo "y"; return 0; fi 
+    if [ "$YOLO" -eq 1 ] && [ "$2" != "ignore" ]; then echo "y"; return 0; fi 
     read choice
     case "$choice" in 
     y|Y|"" ) return 0;;
