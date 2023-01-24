@@ -57,10 +57,6 @@ sed -i -E ':a;N;$!ba;s/configure\n//g' /bin/artix-live
 echo "usermod -aG tty,ftp,games,network,scanner,users,video,audio,wheel,libvirt $USER1" >> /bin/artix-live
 #echo "chown $USER1:$USER_GROUP -R /home/$USER1/" >> /bin/artix-live
 
-
-
-rc-update del agetty.tty2 default
-rc-update del agetty.tty3 default
 rc-update del agetty.tty4 default
 rc-update del agetty.tty5 default
 rc-update del agetty.tty6 default
