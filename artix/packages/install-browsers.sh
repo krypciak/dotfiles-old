@@ -7,4 +7,6 @@ function install_browsers() {
     # Let firefox extensions init
     doas -u $USER1 timeout 10s librewolf --headless &
     doas -u $USER1 timeout 10s firefox --class invidious --profile $USER_HOME/.local/share/ice/firefox/invidious --headless &
+    read
+    bash
 }
