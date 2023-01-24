@@ -164,6 +164,11 @@ _G.packer_plugins = {
     path = "/home/krypek/.local/share/nvim/site/pack/packer/start/vim-black-macchiato",
     url = "https://github.com/smbl64/vim-black-macchiato"
   },
+  ["vim-markdown"] = {
+    loaded = true,
+    path = "/home/krypek/.local/share/nvim/site/pack/packer/start/vim-markdown",
+    url = "https://github.com/preservim/vim-markdown"
+  },
   ["vim-mcfunction"] = {
     loaded = true,
     path = "/home/krypek/.local/share/nvim/site/pack/packer/start/vim-mcfunction",
