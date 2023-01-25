@@ -9,8 +9,8 @@ function make_dwl() {
 
     if [ "$PORTABLE" == 1 ]; then
         # Disable keepassxc, tutanota, blueman applet, wlr-output and gammastep startup
-        sed -i 's/"\[ \\\\"$(pgrep keepassxc/\/\/"\[ \\\\"$(pgrep keepassxc/g' config.h
-        sed -i 's/"\[ \\\\"$(pgrep tutanota/\/\/"\[ \\\\"$(pgrep tutanota/g' config.h
+        sed -i 's/"\[ \\"$(pgrep keepassxc/\/\/"\[ \\"$(pgrep keepassxc/g' config.h
+        sed -i 's/"\[ \\"$(pgrep tutanota/\/\/"\[ \\"$(pgrep tutanota/g' config.h
         sed -i 's/"gammastep -r"/\/\/"gammastep -r"/g' config.h
         sed -i 's/"blueman-applet"/\/\/"blueman-applet"/g' config.h
         sed -i 's/"wlr-randr --output/\/\/"wlr-randr --output/g' config.h
