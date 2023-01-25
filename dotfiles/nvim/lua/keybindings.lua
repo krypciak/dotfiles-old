@@ -18,7 +18,15 @@ function os.capture(cmd)
     return output
 end
 
-local layout = os.capture("cat /tmp/keyboard_layout")
+
+local layout = 'qwerty'
+
+local layout_file = io.open('/tmp/keyboard_layout', 'r')
+if layout_file ~= nil then
+    layout = layout_file:read()
+    io.close(layout_file)
+end
+
 if string.find(layout, "dvorak") then
     cmd(to_dvorak)
 end
