@@ -1,4 +1,6 @@
+export launch_dbus=0
 source ~/.config/at_login.sh
+unset launch_dbus
 
 export XDG_RUNTIME_DIR=/tmp/xdg-runtime-$(id -u)
 mkdir -p $XDG_RUNTIME_DIR
