@@ -8,4 +8,3 @@ cd /
 git clone --recurse-submodules https://github.com/krypciak/dotfiles
 git submodule update --init --recursive
 sh /dotfiles/artix/iso-chroot.sh
-bash
