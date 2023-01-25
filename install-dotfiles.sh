@@ -20,6 +20,7 @@ SYMLINK_FROM_TO=(
     "cmus/notify.sh"        ".config"
     "topgrade.toml"         ".config"
     "neofetch"              ".config"
+    "tealdeer"              ".config"
     "chromium/Default/Extensions"                   ".config"
     "chromium/Default/Sync Extension Settings"      ".config"
     "chromium/Default/Managed Extension Settings"   ".config"
