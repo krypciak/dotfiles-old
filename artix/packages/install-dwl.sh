@@ -4,8 +4,16 @@ function install_dwl() {
 }
 
 function configure_dwl() {
+    make_dwl &
+    make_somebar &
+    make_someblocks &
+    make_dpms &
+    sh -c "sleep 15; chown $USER1:$USER_GROUP -R $USER_HOME/.config/dwl" &
+}
+
+function make_dwl() {
     cd $USER_HOME/.config/dwl/dwl-dotfiles/
-    git switch main1
+    doas -u $USER1 git switch main1
 
     if [ "$PORTABLE" == 1 ]; then
         # Disable keepassxc, tutanota, blueman applet, wlr-output and gammastep startup
@@ -22,22 +30,25 @@ function configure_dwl() {
     fi
 
     doas -u $USER1 make &
-    
+}
+
+function make_somebar() {
     cd $USER_HOME/.config/dwl/somebar/
     doas -u $USER1 git switch master
     doas -u $USER1 meson build
     cd build
     doas -u $USER1 ninja &
+}
 
+function make_someblocks() {
     cd $USER_HOME/.config/dwl/someblocks
     doas -u $USER1 git switch master
     doas -u $USER1 make &
+}
 
+function make_dpms() {
     cd $USER_HOME/.config/dwl/dpms-off
     doas -u $USER1 git switch master
     doas -u $USER1 cargo build --release
     rm -rf $USER_HOME/.config/dotfiles/dotfiles/dwl/dpms-off/target/release/{deps,build}
-
-    chown $USER1:$USER_GROUP -R $USER_HOME/.config/dwl
-
 }
