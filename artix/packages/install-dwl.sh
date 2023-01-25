@@ -5,7 +5,9 @@ function install_dwl() {
 
 function make_dwl() {
     cd $USER_HOME/.config/dwl/dwl-dotfiles/
-    doas -u $USER1 git switch main1
+    doas -u $USER1 git switch main
+    doas -u $USER1 git remote add upstream https://github.com/djpohly/dwl
+
 
     if [ "$PORTABLE" == 1 ]; then
         # Disable keepassxc, tutanota, blueman applet, wlr-output and gammastep startup
@@ -27,6 +29,7 @@ function make_dwl() {
 function make_somebar() {
     cd $USER_HOME/.config/dwl/somebar/
     doas -u $USER1 git switch master
+    doas -u $USER1 git remote add upstream https://git.sr.ht/~raphi/somebar
     doas -u $USER1 meson build
     cd build
     doas -u $USER1 ninja &
@@ -35,6 +38,7 @@ function make_somebar() {
 function make_someblocks() {
     cd $USER_HOME/.config/dwl/someblocks
     doas -u $USER1 git switch master
+    doas -u $USER1 git remote add upstream https://git.sr.ht/~raphi/someblocks
     doas -u $USER1 make &
 }
 
