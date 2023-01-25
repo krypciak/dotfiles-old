@@ -24,17 +24,17 @@ function configure_dwl() {
     doas -u $USER1 make &
     
     cd $USER_HOME/.config/dwl/somebar/
-    git switch master
+    doas -u $USER1 git switch master
     doas -u $USER1 meson build
     cd build
     doas -u $USER1 ninja &
 
     cd $USER_HOME/.config/dwl/someblocks
-    git switch master
+    doas -u $USER1 git switch master
     doas -u $USER1 make &
 
     cd $USER_HOME/.config/dwl/dpms-off
-    git switch master
+    doas -u $USER1 git switch master
     doas -u $USER1 cargo build --release
     rm -rf $USER_HOME/.config/dotfiles/dotfiles/dwl/dpms-off/target/release/{deps,build}
 
