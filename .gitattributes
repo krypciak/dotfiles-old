@@ -3,6 +3,11 @@
 dotfiles/chromium/** linguist-vendored
 dotfiles/awesome/lain/** linguist-vendored
 dotfiles/BetterDiscord/** linguist-vendored
+dotfiles/BetterDiscord/plugins/* linguist-vendored
+dotfiles/ice/firefox/** linguist-vendored
+dotfiles/.mozilla/icecat/** linguist-vendored
+dotfiles/chromium/** linguist-vendored
+
 *.9 linguist-vendored
 *.10177 linguist-vendored
 dotfiles/gtk-3.0/** linguist-vendored
