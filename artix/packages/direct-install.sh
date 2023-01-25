@@ -48,7 +48,10 @@ CPU='amd'
 USER1="krypek"
 USER_HOME="/home/$USER1"
 FAKE_USER_HOME="$USER_HOME/home"
-export ESCAPED_USER_HOME=$(printf '%s\n' "$USER_HOME" | sed -e 's/[\/&]/\\&/g')
+ESCAPED_USER_HOME=$(printf '%s\n' "$USER_HOME" | sed -e 's/[\/&]/\\&/g')
+
+PORTABLE=0
+ISO=0
 
 
 LGREEN='\033[1;32m'
