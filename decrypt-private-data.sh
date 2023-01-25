@@ -43,13 +43,6 @@ if [[ $? == 1 ]]; then
 	exit 1
 fi
 
-# Backup $PRIV_DIR if it exists
-if [ -d $PRIV_DIR ]; then
-	if [ -d $PRIV_DIR.old ]; then
-		rm -rf $PRIV_DIR.old
-	fi
-	mv $PRIV_DIR $PRIV_DIR.old
-fi
 # Decrypt
 n=0
 until [ "$n" -ge 5 ]; do
@@ -59,11 +52,23 @@ until [ "$n" -ge 5 ]; do
         pri "${RED}Auto decryption failed with password: '$PRIVATE_DOTFILES_PASSWORD'"
         PRIVATE_DOTFILES_PASSWORD=''
     fi
-    gpg --output /tmp/private.tar.gz --decrypt --pinentry-mode=loopback $ENCRYPTED_ARCHIVE && break
+    if [ "$DISPLAY" != "" ] || [ "$WAYLAND_DISPLAY" != "" ]; then
+        gpg --output /tmp/private.tar.gz --decrypt $ENCRYPTED_ARCHIVE && break
+    else
+        gpg --output /tmp/private.tar.gz --decrypt --pinentry-mode=loopback $ENCRYPTED_ARCHIVE && break
+    fi
     n=$((n+1)) 
     retry
     if [ $RETRY -eq 0 ]; then exit 0; fi
 done
+
+# Backup $PRIV_DIR if it exists
+if [ -d $PRIV_DIR ]; then
+	if [ -d $PRIV_DIR.old ]; then
+		rm -rf $PRIV_DIR.old
+	fi
+	mv $PRIV_DIR $PRIV_DIR.old
+fi
 
 cd $DOTFILES_DIR/dotfiles/
 tar -xf /tmp/private.tar.gz 
