@@ -25,13 +25,6 @@ export CONFIGD_DIR=$DOTFILES_DIR/config-files
 
 source $ARTIXD_DIR/configure-inchroot-3.sh
 
-# Disable keepassxc, tutanota, blueman applet, wlr-output and gammastep startup
-sed -i 's/"\[ \\\\"$(pgrep keepassxc/\/\/"\[ \\\\"$(pgrep keepassxc/g' $USER_HOME/.config/dwl/dwl-dotfiles/config.h
-sed -i 's/"\[ \\\\"$(pgrep tutanota/\/\/"\[ \\\\"$(pgrep tutanota/g' $USER_HOME/.config/dwl/dwl-dotfiles/config.h
-sed -i 's/"gammastep -r"/\/\/"gammastep -r"/g' $USER_HOME/.config/dwl/dwl-dotfiles/config.h
-sed -i 's/"blueman-applet"/\/\/"blueman-applet"/g' $USER_HOME/.config/dwl/dwl-dotfiles/config.h
-sed -i 's/"wlr-randr --output/\/\/"wlr-randr --output/g' $USER_HOME/.config/dwl/dwl-dotfiles/config.h
-
 
 pri "Copying configs"
 printf "$LBLUE"
