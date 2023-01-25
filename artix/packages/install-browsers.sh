@@ -1,6 +1,6 @@
 #!/bin/bash
 function install_browsers() {
-    echo 'dialect firefox librewolf ungoogled-chromium'
+    echo 'dialect firefox librewolf ungoogled-chromium libreoffice-fresh'
 }
 
 function configure_browsers() {
