@@ -16,6 +16,11 @@ function configure_dwl() {
         sed -i 's/"wlr-randr --output/\/\/"wlr-randr --output/g' config.h
     fi
 
+    if [ "$ISO" == 1 ]; then
+        # Run private archive decryption prompt at startup
+        sed -i 's/"amixer set Capture nocap",/"amixer set Capture nocap",\n\t"env USER_GROUP=\\\"1001\\\" sh $HOME\/.config\/dotfiles\/decrypt-private-data\.sh",/g' config.h
+    fi
+
     doas -u $USER1 make &
     
     cd $USER_HOME/.config/dwl/somebar/
