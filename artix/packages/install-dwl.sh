@@ -3,14 +3,6 @@ function install_dwl() {
     echo 'meson ninja xdg-desktop-portal-wlr'
 }
 
-function configure_dwl() {
-    make_dwl &
-    make_somebar &
-    make_someblocks &
-    make_dpms &
-    sh -c "sleep 15; chown $USER1:$USER_GROUP -R $USER_HOME/.config/dwl" &
-}
-
 function make_dwl() {
     cd $USER_HOME/.config/dwl/dwl-dotfiles/
     doas -u $USER1 git switch main1
@@ -52,3 +44,12 @@ function make_dpms() {
     doas -u $USER1 cargo build --release
     rm -rf $USER_HOME/.config/dotfiles/dotfiles/dwl/dpms-off/target/release/{deps,build}
 }
+
+function configure_dwl() {
+    make_dwl &
+    make_somebar &
+    make_someblocks &
+    make_dpms &
+    sh -c "sleep 15; chown $USER1:$USER_GROUP -R $USER_HOME/.config/dwl" &
+}
+
