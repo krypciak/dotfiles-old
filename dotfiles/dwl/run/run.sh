@@ -9,6 +9,8 @@ chmod 0700 -R $XDG_RUNTIME_DIR
 export MOZ_ENABLE_WAYLAND=1
 export GDK_BACKEND=wayland
 
+export WLR_NO_HARDWARE_CURSORS=1
+
 export XDG_CURRENT_DESKTOP='dwl'
 
 # simulate a do-while
