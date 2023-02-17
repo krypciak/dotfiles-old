@@ -60,23 +60,21 @@ function listen_rss() {
     export rss_feed="${instance}${feed_suffix}${channel_id}"
     export index="$4"
     
+    rsstail -z -l -N -n 1 -i 300 -P -u "$rss_feed" | while read url; do
+        check_space
 
-    while true; do
-        url="$(rsstail -z -l -N -n 1 -1 -P -u $rss_feed | tail --lines 1 | tail --bytes +2)"
+        if [[ "$url" == http* ]]; then 
+            _log "${CYAN}Recived RSS URL: ${YELLOW}${url}"
 
-        export filename=$(yt-dlp "$url" -o "$TITLE" $YT_DLP_ARGS --print filename)
-        if [ "$filename" == "" ]; then
-            export filename=$(yt-dlp "$url" -o "$TITLE" $YT_DLP_ARGS --no-download-archive --print filename)
-            _log "${GREEN_BG}File exists, skipping"
-            sleep 300
-        else
-            _log "${CYAN}Downloading URL: ${YELLOW}${url}${CYAN}"
-            yt-dlp $YT_DLP_ARGS  -o "$TITLE" -P "$VIDEOS_DIR" -P "temp:$TEMP_DIR" "$url"
-            _log "${GREEN_BG}Download done"
-
-            sleep 50
-            check_space
-            sleep 250
+            export filename=$(yt-dlp "$url" -o "$TITLE" $YT_DLP_ARGS --print filename)
+            if [ -f "$VIDEOS_DIR/$filename" ] ; then 
+                _log "${GREEN_BG}File exists, skipping"
+            else
+                _log "${CYAN}Downloading URL: ${YELLOW}${url}${CYAN}"
+                yt-dlp $YT_DLP_ARGS --download-archive downloaded.txt -o "$TITLE" -P "$VIDEOS_DIR" -P "temp:$TEMP_DIR" "$url"
+                _log "${GREEN_BG}Download done"
+                check_space
+            fi
         fi
     done
 }
@@ -86,7 +84,7 @@ for feed in ${CHANNEL_FEEDS[@]}; do
     listen_rss "${INSTANCES[$i]}" "/feed/channel/" "$feed" $i &
     sleep 64
     i=$((i+1))
-    if [[ ${#INSeANCES[@]} -eq $i ]]; then
+    if [[ ${#INSTANCES[@]} -eq $i ]]; then
         i=0
     fi
 done
