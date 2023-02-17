@@ -33,7 +33,7 @@ export ANI_CLI_HIST_DIR="$DIR"
 FREE_SPACE=$(echo "1048576 * 30" | bc)
 
 
-function _log() {
+function _log_invidious() {
     text="${CYAN}Instance: ${YELLOW}${instance}"  
     if [ "$filename" != '' ]; then
         text="$text ${CYAN}Filename: '${BLUE}${filename}${CYAN}'"
@@ -49,7 +49,7 @@ function check_space() {
         while [[ "$(df $VIDEOS_DIR --output=avail | tail +2)" -le "$FREE_SPACE" ]]; do
             # If no files left to delete, exit
             if [[ "$(ls $VIDEOS_DIR | wc -l)" -eq 0 ]]; then
-                _log "${RED}Less than ${BLUE}$FREE_SPACE${RED} KiB on ${BLUE}$VIDEOS_DIR${RED}, exiting"
+                _log_invidious "${RED}Less than ${BLUE}$FREE_SPACE${RED} KiB on ${BLUE}$VIDEOS_DIR${RED}, exiting"
                 sh $DIR/kill.sh
                 exit 1
             fi
@@ -71,15 +71,15 @@ function listen_rss() {
         check_space
 
         if [[ "$url" == http* ]]; then 
-            _log "${CYAN}Recived RSS URL: ${YELLOW}${url}"
+            _log_invidious "${CYAN}Recived RSS URL: ${YELLOW}${url}"
 
             export filename=$(yt-dlp "$url" -o "$TITLE" $YT_DLP_ARGS --print filename)
             if [ -f "$VIDEOS_DIR/$filename" ] ; then 
-                _log "${GREEN_BG}File exists, skipping"
+                _log_invidious "${GREEN_BG}File exists, skipping"
             else
-                _log "${CYAN}Downloading URL: ${YELLOW}${url}${CYAN}"
+                _log_invidious "${CYAN}Downloading URL: ${YELLOW}${url}${CYAN}"
                 yt-dlp $YT_DLP_ARGS --download-archive downloaded.txt -o "$TITLE" -P "$VIDEOS_DIR" -P "temp:$TEMP_DIR" "$url"
-                _log "${GREEN_BG}Download done"
+                _log_invidious "${GREEN_BG}Download done"
                 check_space
             fi
         fi
