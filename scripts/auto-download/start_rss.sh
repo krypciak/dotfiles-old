@@ -44,6 +44,7 @@ function check_space() {
             # If no files left to delete, exit
             if [[ "$(ls $VIDEOS_DIR | wc -l)" -eq 0 ]]; then
                 _log "${RED}Less than ${BLUE}$FREE_SPACE${RED} KiB on ${BLUE}$VIDEOS_DIR${RED}, exiting"
+                sh $DIR/kill.sh
                 exit 1
             fi
             # Remove the last video
