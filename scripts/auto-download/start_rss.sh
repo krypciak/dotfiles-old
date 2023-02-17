@@ -23,6 +23,12 @@ YT_DLP_ARGS='--download-archive downloaded.txt --sponsorblock-remove all --force
 
 TITLE='%(channel)s - %(title)s.%(ext)s'
 
+
+export ANI_CLI_DOWNLOAD_DIR="$DIR/anime"
+export ANI_CLI_QUALITY="best"
+export ANI_CLI_CACHE_DUR="$DIR/temp"
+export ANI_CLI_HIST_DIR="$DIR"
+
 # 30 GiB
 FREE_SPACE=$(echo "1048576 * 30" | bc)
 
@@ -80,6 +86,14 @@ function listen_rss() {
     done
 }
 
+function listen_anime() {
+    while true; do
+        ani-cli -d -r 1-100 "$1"
+        # 6 hours
+        sleep 21600
+    done
+}
+
 i=0
 for feed in ${CHANNEL_FEEDS[@]}; do
     listen_rss "${INSTANCES[$i]}" "/feed/channel/" "$feed" $i &
@@ -93,5 +107,10 @@ done
 for feed in ${ODYSEE_FEEDS[@]}; do
     listen_rss "https://odysee.com" "/$/rss/" "$feed" $i &
     sleep 64
+done
+
+for anime in ${ANIME[@]}; do
+    listen_anime "$anime"
+    sleep 360
 done
 
