@@ -2,7 +2,7 @@
  * @name ImageUtilities
  * @author DevilBro
  * @authorId 278543574059057154
- * @version 5.1.0
+ * @version 5.1.5
  * @description Adds several Utilities for Images/Videos (Gallery, Download, Reverse Search, Zoom, Copy, etc.)
  * @invite Jx3TjNS
  * @donate https://www.paypal.me/MircoWittrien
@@ -120,7 +120,7 @@ module.exports = (_ => {
 					},
 					children: [
 						this.props.loadedImage || BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.SpinnerComponents.Spinner, {
-							type: BDFDB.LibraryComponents.SpinnerComponents.Types.SPINNING_CIRCLE
+							type: BDFDB.LibraryComponents.SpinnerComponents.Types.WANDERING_CUBES
 						}),
 						BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.SvgIcon, {
 							className: BDFDB.disCNS._imageutilitiesswitchicon + BDFDB.disCN.svgicon,
@@ -138,6 +138,7 @@ module.exports = (_ => {
 			}
 			componentDidUpdate() {
 				if ((!this.props.attachment || !this.props.attachment.size) && !this.props.loaded) {
+					BDFDB.DOMUtils.addClass(BDFDB.DOMUtils.getParent(BDFDB.dotCN.imagemosaiconebyonegridsingle, BDFDB.ReactUtils.findDOMNode(this)), BDFDB.disCN._imageutilitiesimagedetailsadded);
 					this.props.loaded = true;
 					this.props.attachment = BDFDB.ReactUtils.findValue(BDFDB.ObjectUtils.get(this, `${BDFDB.ReactUtils.instanceKey}.return`), "attachment", {up: true});
 					BDFDB.ReactUtils.forceUpdate(this);
@@ -276,6 +277,14 @@ module.exports = (_ => {
 				};
 				
 				this.css = `
+					${BDFDB.dotCNS._imageutilitiesimagedetailsadded + BDFDB.dotCN.imagewrapper} {
+						border-radius: 8px; !important;
+						height: calc(100% - 1rem - 16px) !important;
+						max-height: unset !important;
+					}
+					${BDFDB.dotCNS._imageutilitiesimagedetailsadded + BDFDB.dotCN.imagealttextcontainer} {
+						bottom: calc(1rem + 16px) !important;
+					}
 					${BDFDB.dotCN._imageutilitiesimagedetails} {
 						display: inline-flex;
 						font-weight: 500;
@@ -360,6 +369,7 @@ module.exports = (_ => {
 					}
 					${BDFDB.dotCNS._imageutilitiessibling + BDFDB.dotCN.spinner} {
 						position: absolute;
+						width: 32px;
 					}
 					${BDFDB.dotCNS._imageutilitiesprevious + BDFDB.dotCN.spinner} {
 						right: 21px;
@@ -694,7 +704,7 @@ module.exports = (_ => {
 
 			onMessageContextMenu (e) {
 				if (!e.instance.props.message || !e.instance.props.channel || !e.instance.props.target) return;
-				if (e.instance.props.attachment) this.injectItem(e, [e.instance.props.attachment.url], null, true);
+				if (e.instance.props.attachment) this.injectItem(e, [{original: e.instance.props.attachment.url, file: e.instance.props.attachment.proxy_url}], null, true);
 				else {
 					const target = e.instance.props.target.tagName == "A" && BDFDB.DOMUtils.containsClass(e.instance.props.target, BDFDB.disCN.imageoriginallink) && e.instance.props.target.parentElement.querySelector("img, video") || e.instance.props.target;
 					if (target.tagName == "A" && e.instance.props.message.embeds && e.instance.props.message.embeds[0] && (e.instance.props.message.embeds[0].type == "image" || e.instance.props.message.embeds[0].type == "video" || e.instance.props.message.embeds[0].type == "gifv")) this.injectItem(e, [target.href], null, true);
@@ -911,6 +921,17 @@ module.exports = (_ => {
 						})
 					].filter(n => n)
 				});
+			}
+			
+			processModalCarousel (e) {
+				if (!this.settings.viewerSettings.galleryMode || !BDFDB.ReactUtils.findParent(e.returnvalue, {name: "ImageModal"})) return;
+				e.returnvalue.props.className = "";
+				e.returnvalue.props.children[0] = null;
+				e.returnvalue.props.children[2] = null;
+				if (e.returnvalue.props.children[1] && switchedImageProps) {
+					e.returnvalue.props.children[1].props = Object.assign(e.returnvalue.props.children[1].props, switchedImageProps);
+					switchedImageProps = null;
+				}
 			}
 			
 			processImageModal (e) {
@@ -1151,19 +1172,13 @@ module.exports = (_ => {
 				}
 			}
 			
-			processModalCarousel (e) {
-				if (!this.settings.viewerSettings.galleryMode || !BDFDB.ReactUtils.findParent(e.returnvalue, {name: "ImageModal"})) return;
-				e.returnvalue.props.className = "";
-				e.returnvalue.props.children[0] = null;
-				e.returnvalue.props.children[2] = null;
-			}
-			
 			processLazyImage (e) {
 				if (e.node) {
 					if (e.instance.props.resized) {
-						for (let selector of ["embedfull", "embedinlinemedia", "embedgridcontainer"]) {
+						for (let selector of ["embedfull", "embedinlinemedia", "embedgridcontainer", "imagemosaicattachmentscontainer", "imagemosaiconebyonegridsingle"]) {
 							let parent = BDFDB.DOMUtils.getParent(BDFDB.dotCN[selector], e.node);
 							if (parent) parent.style.setProperty("max-width", "unset", "important");
+							if (parent) parent.style.setProperty("max-height", "unset", "important");
 						}
 						for (let ele of [e.node.style.getPropertyValue("width") && e.node, ...e.node.querySelectorAll("[style*='width:']")].filter(n => n)) {
 							ele.style.setProperty("width", e.instance.props.width + "px");
@@ -1177,10 +1192,13 @@ module.exports = (_ => {
 							BDFDB.ReactUtils.forceUpdate(e.instance);
 						}
 					}
-					if (e.methodname == "componentWillUnmount" && BDFDB.DOMUtils.getParent(BDFDB.dotCN.imagemodal, e.node)) {
-						firstViewedImage = null;
-						viewedImage = null;
-						this.cleanupListeners("Gallery");
+					if (e.methodname == "componentWillUnmount" && BDFDB.DOMUtils.getParent(BDFDB.dotCNC.imagemodal + BDFDB.dotCN.modalcarouselmodal, e.node)) {
+						BDFDB.TimeUtils.clear(viewedImageTimeout);
+						viewedImageTimeout = BDFDB.TimeUtils.timeout(_ => {
+							firstViewedImage = null;
+							viewedImage = null;
+							this.cleanupListeners("Gallery");
+						}, 1000);
 					}
 					if (e.methodname == "componentDidMount" && BDFDB.DOMUtils.getParent(BDFDB.dotCNC.imagemodal + BDFDB.dotCN.modalcarouselmodal, e.node)) {
 						BDFDB.TimeUtils.clear(viewedImageTimeout);
@@ -1199,7 +1217,6 @@ module.exports = (_ => {
 							e.node.style.setProperty("cursor", "zoom-in");
 							e.node.addEventListener("mousedown", event => {
 								if (event.which != 1 || e.node.querySelector("video")) return;
-								BDFDB.ListenerUtils.stopEvent(event);
 								
 								let vanishObserver;
 								
@@ -1233,7 +1250,7 @@ module.exports = (_ => {
 								};
 								lens.update();
 								
-								for (let ele of [e.node, document.querySelector(BDFDB.dotCN.modalcarouselwrapper)]) if (ele) ele.style.setProperty("pointer-events", "none", "important");
+								for (let ele of [e.node, document.querySelector(BDFDB.dotCN.imagemodal)]) if (ele) ele.style.setProperty("pointer-events", "none", "important");
 								
 								let dragging = event2 => {
 									event = event2;
@@ -1241,7 +1258,7 @@ module.exports = (_ => {
 								};
 								let releasing = event2 => {
 									BDFDB.ListenerUtils.stopEvent(event2);
-									for (let ele of [e.node, document.querySelector(BDFDB.dotCN.modalcarouselwrapper)]) if (ele) ele.style.removeProperty("pointer-events");
+									for (let ele of [e.node, document.querySelector(BDFDB.dotCN.imagemodal)]) if (ele) ele.style.removeProperty("pointer-events");
 									this.cleanupListeners("Zoom");
 									document.removeEventListener("mousemove", dragging);
 									document.removeEventListener("mouseup", releasing);
@@ -1293,7 +1310,7 @@ module.exports = (_ => {
 				}
 				else {
 					let reactInstance = BDFDB.ObjectUtils.get(e, `instance.${BDFDB.ReactUtils.instanceKey}`);
-					if (this.settings.rescaleSettings.imageViewer != "NONE" && BDFDB.ReactUtils.findOwner(reactInstance, {name: "ImageModal", up: true})) {
+					if (this.settings.rescaleSettings.imageViewer != "NONE" && e.instance.props.className && e.instance.props.className.indexOf(BDFDB.disCN.imagemodalimage) > -1) {
 						let aRects = BDFDB.DOMUtils.getRects(document.querySelector(BDFDB.dotCN.appmount));
 						let ratio = Math.min((aRects.width * (this.settings.viewerSettings.galleryMode ? 0.8 : 1) - 20) / e.instance.props.width, (aRects.height - (this.settings.viewerSettings.details ? 280 : 100)) / e.instance.props.height);
 						ratio = this.settings.rescaleSettings.imageViewer == "ORIGINAL" && ratio > 1 ? 1 : ratio;
@@ -1308,7 +1325,7 @@ module.exports = (_ => {
 							e.instance.props.resized = true;
 						}
 					}
-					if (this.settings.rescaleSettings.messages != "NONE" && (!e.instance.props.className || e.instance.props.className.indexOf(BDFDB.disCN.embedthumbnail) == -1) && (!e.instance.props.containerClassName || e.instance.props.containerClassName.indexOf(BDFDB.disCN.embedthumbnail) == -1 && e.instance.props.containerClassName.indexOf(BDFDB.disCN.embedvideoimagecomponent) == -1) && BDFDB.ReactUtils.findOwner(reactInstance, {name: "LazyImageZoomable", up: true})) {
+					if (this.settings.rescaleSettings.messages != "NONE" && (!e.instance.props.className || e.instance.props.className.indexOf(BDFDB.disCN.embedthumbnail) == -1) && (!e.instance.props.containerClassName || e.instance.props.containerClassName.indexOf(BDFDB.disCN.embedthumbnail) == -1 && e.instance.props.containerClassName.indexOf(BDFDB.disCN.embedvideoimagecomponent) == -1) && BDFDB.ReactUtils.findOwner(reactInstance, {name: "LazyImageZoomable", up: true}) && (e.instance.props.mediaLayoutType != "MOSAIC" || (BDFDB.ReactUtils.findValue(reactInstance, "attachments", {up: true}) || []).length < 2)) {
 						let aRects = BDFDB.DOMUtils.getRects(document.querySelector(BDFDB.dotCN.appmount));
 						let mRects = BDFDB.DOMUtils.getRects(document.querySelector(BDFDB.dotCNC.messageaccessory + BDFDB.dotCN.messagecontents));
 						let mwRects = BDFDB.DOMUtils.getRects(document.querySelector(BDFDB.dotCN.messagewrapper));
@@ -1338,7 +1355,7 @@ module.exports = (_ => {
 
 			processLazyImageZoomable (e) {
 				if (!e.instance.props.original || e.instance.props.src.indexOf("https://media.discordapp.net/attachments") != 0) return;
-				if (this.settings.detailsSettings.tooltip) {
+				if (this.settings.detailsSettings.tooltip || this.settings.detailsSettings.footnote && e.instance.props.mediaLayoutType == "MOSAIC" && (BDFDB.ReactUtils.findValue(BDFDB.ObjectUtils.get(e, `instance.${BDFDB.ReactUtils.instanceKey}`), "attachments", {up: true}) || []).length > 1) {
 					const attachment = BDFDB.ReactUtils.findValue(e.instance, "attachment", {up: true});
 					if (attachment) {
 						const onMouseEnter = e.returnvalue.props.onMouseEnter;
@@ -1355,7 +1372,7 @@ module.exports = (_ => {
 						}, "Error in onMouseEnter of LazyImageZoomable!");
 					}
 				}
-				if (this.settings.detailsSettings.footnote && (e.instance.props.className || "").indexOf(BDFDB.disCN.embedmedia) == -1 && (e.instance.props.className || "").indexOf(BDFDB.disCN.embedthumbnail) == -1) {
+				if (this.settings.detailsSettings.footnote && (e.instance.props.className || "").indexOf(BDFDB.disCN.embedmedia) == -1 && (e.instance.props.className || "").indexOf(BDFDB.disCN.embedthumbnail) == -1 && (e.instance.props.mediaLayoutType != "MOSAIC" || (BDFDB.ReactUtils.findValue(BDFDB.ObjectUtils.get(e, `instance.${BDFDB.ReactUtils.instanceKey}`), "attachments", {up: true}) || []).length < 2)) {
 					e.returnvalue = BDFDB.ReactUtils.createElement("div", {
 						children: [
 							e.returnvalue,
@@ -1644,7 +1661,7 @@ module.exports = (_ => {
 			
 			filterForCopies (messages) {
 				let filtered = [];
-				for (let message of messages) if (!filtered.find(n => n.messageId == message.messageId)) filtered.push(message);
+				for (let message of messages) if (!filtered.find(n => n.messageId == message.messageId && n.id == message.id)) filtered.push(message);
 				return filtered;
 			}
 			
