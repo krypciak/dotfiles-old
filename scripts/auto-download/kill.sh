@@ -4,8 +4,10 @@ pkill rsstail
 pkill ffmpeg
 pkill atomicparsley
 /bin/ps aux | grep start_rss | grep -v grep | awk '{print $2}' | xargs kill
-pkill rsstail
-pkill yt-dlp
-pkill ffmpeg
-/bin/ps aux | grep start_rss | grep -v grep | awk '{print $2}' | xargs kill
+
+pkill -9 rsstail
+pkill -9 yt-dlp
+pkill -9 ffmpeg
+pkill -9 atomicparsley
+/bin/ps aux | grep start_rss | grep -v grep | awk '{print $2}' | xargs kill -9
 

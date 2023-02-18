@@ -19,7 +19,7 @@ mkdir -p $TEMP_DIR
 mkdir -p $VIDEOS_DIR
 
 
-YT_DLP_ARGS='--download-archive downloaded.txt --sponsorblock-remove all --force-keyframes-at-cuts --embed-thumbnail --add-metadata --embed-metadata --embed-chapters --embed-subs --sub-langs all,-live_chat --audio-quality 0 -R infinite --retry-sleep 900 -S quality,ext:mp4,filesize --no-post-overwrites --ignore-errors --newline --quiet --no-warnings --limit-rate 1M'
+YT_DLP_ARGS='--download-archive downloaded.txt --sponsorblock-remove all --embed-thumbnail --add-metadata --embed-metadata --embed-chapters --embed-subs --sub-langs all,-live_chat --audio-quality 0 -R infinite --retry-sleep 900 -S quality,ext:mp4,filesize --no-post-overwrites --ignore-errors --newline --no-warnings'
 
 TITLE='%(channel)s - %(title)s.%(ext)s'
 
@@ -42,6 +42,14 @@ function _log_invidious() {
     text="$text $1 ${NC}"
     text=$(echo "$text" | ts)
     echo -e "$text"
+}
+
+
+function wait_for_finish() {
+    while true; do
+        pgrep "ffmpeg" > /dev/null || pgrep "yt-dlp" > /dev/null || pgrep "ani-cli" > /dev/null || break
+        sleep 5
+    done
 }
 
 function check_space() {
@@ -71,6 +79,7 @@ function listen_rss() {
         check_space
 
         if [[ "$url" == http* ]]; then 
+            wait_for_finish
             _log_invidious "${CYAN}Recived RSS URL: ${YELLOW}${url}"
 
             export filename=$(yt-dlp "$url" -o "$TITLE" $YT_DLP_ARGS --print filename)
@@ -88,6 +97,7 @@ function listen_rss() {
 
 function listen_anime() {
     while true; do
+        wait_for_finish
         ani-cli -d -r 1-100 "$1"
         # 6 hours
         sleep 21600
@@ -97,20 +107,20 @@ function listen_anime() {
 i=0
 for feed in ${CHANNEL_FEEDS[@]}; do
     listen_rss "${INSTANCES[$i]}" "/feed/channel/" "$feed" $i &
-    sleep 64
     i=$((i+1))
     if [[ ${#INSTANCES[@]} -eq $i ]]; then
         i=0
     fi
+    sleep 10
 done
 
 for feed in ${ODYSEE_FEEDS[@]}; do
     listen_rss "https://odysee.com" "/$/rss/" "$feed" $i &
-    sleep 64
+    sleep 10
 done
 
-for anime in ${ANIME[@]}; do
-    listen_anime "$anime"
-    sleep 360
-done
+#for anime in ${ANIME[@]}; do
+#    listen_anime "$anime"
+#    sleep 10
+#done
 
