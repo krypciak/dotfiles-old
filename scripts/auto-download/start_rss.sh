@@ -98,7 +98,7 @@ function listen_anime() {
     export ANI_CLI_DOWNLOAD_DIR="$DIR/anime/$1"
     mkdir -p "$ANI_CLI_DOWNLOAD_DIR"
     while true; do
-        #wait_for_finish
+        wait_for_finish
         ani-cli -d -r 1-100 "$1"
         # 6 hours
         sleep 21600
