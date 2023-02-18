@@ -28,5 +28,7 @@ if status is-interactive
     alias ti='hyperfine'
     alias df='echo Use lfs.'
     alias ps='echo Use procs.'
+    
+    alias dust='dust --reverse'
 
 end
