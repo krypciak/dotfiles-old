@@ -96,9 +96,9 @@ function listen_rss() {
 
 function listen_anime() {
     export ANI_CLI_DOWNLOAD_DIR="$DIR/anime/$1"
-    mkdir -p $ANI_CLI_DOWNLOAD_DIR
+    mkdir -p "$ANI_CLI_DOWNLOAD_DIR"
     while true; do
-        wait_for_finish
+        #wait_for_finish
         ani-cli -d -r 1-100 "$1"
         # 6 hours
         sleep 21600
@@ -120,7 +120,8 @@ for feed in ${ODYSEE_FEEDS[@]}; do
     sleep 10
 done
 
-for anime in ${ANIME[@]}; do
+for ((i = 0; i < ${#ANIME[@]}; i++)); do
+    anime="${ANIME[$i]}"
     listen_anime "$anime"
     sleep 10
 done
