@@ -24,7 +24,6 @@ YT_DLP_ARGS='--download-archive downloaded.txt --sponsorblock-remove all --embed
 TITLE='%(channel)s - %(title)s.%(ext)s'
 
 
-export ANI_CLI_DOWNLOAD_DIR="$DIR/anime"
 export ANI_CLI_QUALITY="best"
 export ANI_CLI_CACHE_DUR="$DIR/temp"
 export ANI_CLI_HIST_DIR="$DIR"
@@ -96,6 +95,8 @@ function listen_rss() {
 }
 
 function listen_anime() {
+    export ANI_CLI_DOWNLOAD_DIR="$DIR/anime/$1"
+    mkdir -p $ANI_CLI_DOWNLOAD_DIR
     while true; do
         wait_for_finish
         ani-cli -d -r 1-100 "$1"
