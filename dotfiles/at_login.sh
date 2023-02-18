@@ -23,7 +23,7 @@ export PATH="/home/$USER1/.local/bin:$PATH"
 export EDITOR='nvim'
 export CM_LAUNCHER=rofi
 
-GIT_DISCOVERY_ACROSS_FILESYSTEM=1
+export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
 
 
 
