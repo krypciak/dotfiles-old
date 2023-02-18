@@ -19,7 +19,7 @@ mkdir -p $TEMP_DIR
 mkdir -p $VIDEOS_DIR
 
 
-YT_DLP_ARGS='--download-archive downloaded.txt --sponsorblock-remove all --embed-thumbnail --add-metadata --embed-metadata --embed-chapters --embed-subs --sub-langs all,-live_chat --audio-quality 0 -R infinite --retry-sleep 900 -S quality,ext:mp4,filesize --no-post-overwrites --ignore-errors --newline --no-warnings'
+YT_DLP_ARGS='--download-archive downloaded.txt --sponsorblock-remove all --embed-thumbnail --add-metadata --embed-metadata --embed-chapters --embed-subs --sub-langs all,-live_chat --audio-quality 0 -R infinite --retry-sleep 15 -S quality,ext:mp4,filesize --no-post-overwrites --ignore-errors --newline --no-warnings'
 
 TITLE='%(channel)s - %(title)s.%(ext)s'
 
