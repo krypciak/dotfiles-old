@@ -119,8 +119,8 @@ for feed in ${ODYSEE_FEEDS[@]}; do
     sleep 10
 done
 
-#for anime in ${ANIME[@]}; do
-#    listen_anime "$anime"
-#    sleep 10
-#done
+for anime in ${ANIME[@]}; do
+    listen_anime "$anime"
+    sleep 10
+done
 
