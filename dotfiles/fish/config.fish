@@ -31,4 +31,24 @@ if status is-interactive
     
     alias dust='dust --reverse'
 
+    function lsp
+        ls -d "$PWD/$argv" | head -c -1
+    end
+
+    if test -n "$WAYLAND_DISPLAY"
+        alias pwdc='pwd | head -c -1 | wl-copy'
+        alias pwdv='cd "$(wl-paste)"'
+
+        function lspc 
+            lsp "$argv" | wl-copy
+        end
+    else
+        alias pwdc='pwd | xsel -ib'
+        alias pwdv='cd "$(xsel -ob)"'
+        
+        function lspc 
+            lsp "$argv" | xsel -ib
+        end
+    end
+
 end
