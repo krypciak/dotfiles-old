@@ -6,102 +6,106 @@ FAKE_USER_HOME="$USER_HOME/home"
 DOTFILES_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 SYMLINK_FROM_TO=( 
-    "at_login.sh"           ".config"
-    "awesome"               ".config"
-    "nvim"                  ".config"
-    "alacritty"             ".config"
-    "ttyper"                ".config"
-    "redshift"              ".config"
-    "copyq"                 ".config"
-    "fish"                  ".config"
-    "xsessions"             ".config"
-    "cmus/autosave"         ".config"
-    "cmus/red_theme.theme"  ".config"
-    "cmus/notify.sh"        ".config"
-    "topgrade.toml"         ".config"
-    "neofetch"              ".config"
-    "tealdeer"              ".config"
-    "chromium/Default/Extensions"                   ".config"
-    "chromium/Default/Sync Extension Settings"      ".config"
-    "chromium/Default/Managed Extension Settings"   ".config"
-    "chromium/Default/Local Extension Settings"     ".config"
-    "BetterDiscord/plugins" ".config"
-    ".bashrc"               ""
-    ".xinitrc"               ""
-    "dwl"                   ".config"
-    "gammastep"             ".config"
-    "fuzzel"                ".config"
-    "swaylock"              ".config"
-    "Ferdium/config"        ".config"
+    ".config/at_login.sh"
+    ".config/awesome"
+    ".config/nvim"
+    ".config/alacritty"
+    ".config/ttyper"
+    ".config/redshift"
+    ".config/copyq"
+    ".config/fish"
+    ".config/xsessions"
+    ".config/cmus/autosave"
+    ".config/cmus/red_theme.theme"
+    ".config/cmus/notify.sh"
+    ".config/topgrade.toml"
+    ".config/neofetch"
+    ".config/tealdeer"
+    ".config/chromium/Default/Extensions"
+    ".config/chromium/Default/Sync Extension Settings"
+    ".config/chromium/Default/Managed Extension Settings"
+    ".config/chromium/Default/Local Extension Settings"
+    ".config/BetterDiscord/plugins"
+    ".config/dwl"
+    ".config/gammastep"
+    ".config/fuzzel"
+    ".config/swaylock"
+    ".config/Ferdium/config"
+    ".config/wallpapers"
+    ".config/rofi"
 
-    ".mozilla/icecat/profiles.ini" ""
-    ".mozilla/icecat/rgvol6f2.default/extension-preferences.json" ""
-    ".mozilla/icecat/rgvol6f2.default/extensions" ""
+    ".bashrc"
+    ".xinitrc"
 
-    ".librewolf/native-messaging-hosts" ""
-    ".librewolf/profiles.ini" ""
-    ".librewolf/profile0/extension-preferences.json" ""
-    ".librewolf/profile0/extensions" ""
+    ".mozilla/icecat/profiles.ini"
+    ".mozilla/icecat/rgvol6f2.default/extension-preferences.json"
+    ".mozilla/icecat/rgvol6f2.default/extensions"
 
-    "wallpapers"            ".config"
-    "rofi"                  ".config"
-    "ice/icons"             ".local/share"
-    "ice/firefox/invidious/extension-preferences.json" "%.local/share"
-    "ice/firefox/invidious/extensions" "%.local/share"
+    ".librewolf/native-messaging-hosts"
+    ".librewolf/profiles.ini"
+    ".librewolf/profile0/extension-preferences.json"
+    ".librewolf/profile0/extensions"
 
-    "tridactyl"             ".config"
+    ".local/share/ice/icons"
+    "%.local/share/ice/firefox/invidious/extension-preferences.json"
+    "%.local/share/ice/firefox/invidious/extensions"
+
+    ".config/tridactyl"
+
+    ".config/omf"
+    ".local/share/omf"
 )
 
 
 # If path starts with %, will not override
 COPY_FROM_TO=(
-    "chromium/Default/Preferences"  ".config"
-    "chromium/Default/Cookies"      "%.config"
-    "chromium/Local State"          ".config"
-    "chromium-flags.conf"           ".config"
-    "tutanota-desktop/conf.json"    ".config"
-    "discord/settings.json"         ".config"
-    "FreeTube/settings.db"          ".config"
-    "PrismLauncher/multimc.cfg"           ".local/share"
-    "gtk-2.0"               ".config"
-    "gtk-3.0"               ".config"
-    "gtk-4.0"               ".config"
-    "qt5ct"                 ".config"
-    "kdeglobals"            ".config"
-    "keepassxc"             ".config"
-    "applications/tutanota-desktop.desktop" ".local/share"
-    "applications/arch-update.desktop"  ".local/share"
-    "applications/invidious.desktop"  ".local/share"
+    ".config/chromium/Default/Preferences"
+    "%.config/chromium/Default/Cookies"
+    ".config/chromium/Local State"
+    ".config/chromium-flags.conf"
+    ".config/tutanota-desktop/conf.json"
+    ".config/discord/settings.json"
+    ".config/FreeTube/settings.db"
+    ".local/share/PrismLauncher/multimc.cfg"
+    ".config/gtk-2.0"
+    ".config/gtk-3.0"
+    ".config/gtk-4.0"
+    ".config/qt5ct"
+    ".config/kdeglobals"
+    ".config/keepassxc"
+    ".local/share/applications/tutanota-desktop.desktop"
+    ".local/share/applications/arch-update.desktop"
+    ".local/share/applications/invidious.desktop"
 
 
-    ".mozilla/icecat/rgvol6f2.default/prefs.js" "%"
-    ".mozilla/icecat/rgvol6f2.default/search.json.mozlz4" "%"
-    ".mozilla/icecat/rgvol6f2.default/storage" "%"
-    ".mozilla/icecat/rgvol6f2.default/storage.sqlite" "%"
-    ".mozilla/icecat/rgvol6f2.default/cookies.sqlite" "%"
-    ".mozilla/icecat/rgvol6f2.default/extension-settings.json" "%"
-    ".mozilla/icecat/rgvol6f2.default/extensions.json" "%"
-    ".mozilla/icecat/rgvol6f2.default/sessionCheckpoints.json" "%"
+    "%.mozilla/icecat/rgvol6f2.default/prefs.js"
+    "%.mozilla/icecat/rgvol6f2.default/search.json.mozlz4"
+    "%.mozilla/icecat/rgvol6f2.default/storage"
+    "%.mozilla/icecat/rgvol6f2.default/storage.sqlite"
+    "%.mozilla/icecat/rgvol6f2.default/cookies.sqlite"
+    "%.mozilla/icecat/rgvol6f2.default/extension-settings.json"
+    "%.mozilla/icecat/rgvol6f2.default/extensions.json"
+    "%.mozilla/icecat/rgvol6f2.default/sessionCheckpoints.json"
 
-    ".librewolf/profile0/prefs.js" "%"
-    ".librewolf/profile0/search.json.mozlz4" "%"
-    ".librewolf/profile0/storage" "%"
-    ".librewolf/profile0/storage.sqlite" "%"
-    ".librewolf/profile0/cookies.sqlite" "%"
-    ".librewolf/profile0/extension-settings.json" "%"
-    ".librewolf/profile0/extensions.json" "%"
-    ".librewolf/profile0/sessionCheckpoints.json" "%"
+    "%.librewolf/profile0/prefs.js"
+    "%.librewolf/profile0/search.json.mozlz4"
+    "%.librewolf/profile0/storage"
+    "%.librewolf/profile0/storage.sqlite"
+    "%.librewolf/profile0/cookies.sqlite"
+    "%.librewolf/profile0/extension-settings.json"
+    "%.librewolf/profile0/extensions.json"
+    "%.librewolf/profile0/sessionCheckpoints.json"
 
-    "ice/firefox/invidious/prefs.js" "%.local/share"
-    "ice/firefox/invidious/search.json.mozlz4" "%.local/share"
-    "ice/firefox/invidious/storage" "%.local/share"
-    "ice/firefox/invidious/storage.sqlite" "%.local/share"
-    "ice/firefox/invidious/cookies.sqlite" "%.local/share"
-    "ice/firefox/invidious/extension-settings.json" "%.local/share"
-    "ice/firefox/invidious/extensions.json" "%.local/share"
-    "ice/firefox/invidious/sessionCheckpoints.json" "%.local/share"
-    "ice/firefox/invidious/user.js" "%.local/share"
-    "ice/firefox/invidious/chrome" "%.local/share"
+    "%.local/share/ice/firefox/invidious/prefs.js"
+    "%.local/share/ice/firefox/invidious/search.json.mozlz4"
+    "%.local/share/ice/firefox/invidious/storage"
+    "%.local/share/ice/firefox/invidious/storage.sqlite"
+    "%.local/share/ice/firefox/invidious/cookies.sqlite"
+    "%.local/share/ice/firefox/invidious/extension-settings.json"
+    "%.local/share/ice/firefox/invidious/extensions.json"
+    "%.local/share/ice/firefox/invidious/sessionCheckpoints.json"
+    "%.local/share/ice/firefox/invidious/user.js"
+    "%.local/share/ice/firefox/invidious/chrome"
 )
 
 LINK_HOME_DIRS=(
@@ -128,12 +132,12 @@ function confirm() {
 	echo -en "$LBLUE |||$GREEN Do you want to override ${LGREEN}$1 $2 $3 $LBLUE(Y/n)? >> $NC"
 	if [ ! -z $YOLO ] && [ $YOLO -eq 1 ]; then
 		echo "y"
-		rm -r "$1"
+		rm -rf "$1"
 		return
 	fi
 	read choice
 	case "$choice" in 
-	y|Y|"" ) rm -r "$1";;
+	y|Y|"" ) rm -rf "$1";;
 	n|N ) return;;
 	* ) confirm $1 $2 $3; return;;
 	esac
@@ -150,49 +154,40 @@ for dir in "${LINK_HOME_DIRS[@]}"; do
 	ln -sfT $FAKE_USER_HOME/$dir $DEST
 done
 
+for ((i = 0; i < ${#SYMLINK_FROM_TO[@]}; i++)); do
+    path="${SYMLINK_FROM_TO[$i]}"
+	override=1
+	if [[ "$path" = %* ]]; then override=0; path="${path:1}"; fi
+	from="$DOTFILES_DIR/dotfiles/$path"
+	dest="$USER_HOME/$path"
 
-for (( i=0; i<${#SYMLINK_FROM_TO[@]}; i+=2 )); do
-    FROM=${SYMLINK_FROM_TO[i]}
-    DEST1=${SYMLINK_FROM_TO[$(expr $i + 1)]}
+	if [ $override -eq 1 ] || [ ! -e "$dest" ]; then
+        	if [ -h "$dest" ]; then unlink "$dest"; fi
+        	if [ -e "$dest" ]; then confirm "$dest"; fi
 
-    OVERRIDE=1
-    if [[ $DEST1 = %* ]]; then OVERRIDE=0; DEST1="${DEST1:1}"; fi
-    
-    DEST="$USER_HOME/$DEST1/$FROM"
-
-    FROM="$DOTFILES_DIR/dotfiles/$FROM"
-
-	if [ $OVERRIDE -eq 1 ] || [ ! -e "$DEST" ]; then
-        if [ -h "$DEST" ]; then unlink "$DEST"; fi
-        if [ -e "$DEST" ]; then confirm "$DEST"; fi
-
-        mkdir -p "$(dirname $DEST | head --lines 1)"
-        ln -sfT "$FROM" "$DEST"
-	    chown -R $USER1:$USER1 "$DEST"
-    fi
+	        mkdir -p "$(dirname $dest| head --lines 1)"
+	        ln -sfT "$from" "$dest"
+		    chown -R $USER1:$USER1 "$dest"
+    	fi
 done
 
-for (( i=0; i<${#COPY_FROM_TO[@]}; i+=2 )); do
-    FROM=${COPY_FROM_TO[i]}
-    DEST1=${COPY_FROM_TO[$(expr $i + 1)]}
+for ((i = 0; i < ${#COPY_FROM_TO[@]}; i++)); do
+    path="${COPY_FROM_TO[$i]}"
+	override=1
+	if [[ "$path" = %* ]]; then override=0; path="${path:1}"; fi
+	from="$DOTFILES_DIR/dotfiles/$path"
+	dest="$USER_HOME/$path"
 
-    OVERRIDE=1
-    if [[ $DEST1 = %* ]]; then OVERRIDE=0; DEST1="${DEST1:1}"; fi
+	if [ $override -eq 1 ] || [ ! -e "$dest" ]; then
+        	if [ -h "$dest" ]; then unlink "$dest"; fi
+        	if [ -e "$dest" ]; then confirm "$dest"; fi
 
-    DEST="$USER_HOME/$DEST1/$FROM"
-
-    FROM="$DOTFILES_DIR/dotfiles/$FROM"
-
-    #printf "$FROM -> $DEST\n$OVERRIDE\n"
-	if [ $OVERRIDE -eq 1 ] || [ ! -e "$DEST" ]; then
-        if [ -h "$DEST" ]; then unlink "$DEST"; fi
-        if [ -e "$DEST" ]; then confirm "$DEST"; fi
-
-        mkdir -p "$(dirname $DEST | head --lines 1)"
-		cp -rf "$FROM" "$DEST"
-	    chown -R $USER1:$USER1 "$DEST"
-    fi
+	        mkdir -p "$(dirname $dest| head --lines 1)"
+	        cp -rf "$from" "$dest"
+		chown -R $USER1:$USER1 "$dest"
+    	fi
 done
+
 
 
 ESCAPED_USER_HOME=$(printf '%s\n' "$USER_HOME" | sed -e 's/[\/&]/\\&/g')
@@ -217,3 +212,6 @@ chmod +x $USER_HOME/.config/dotfiles/scripts/*.sh
 
 # Update nvim plugins
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync' > /dev/null 2>&1 &
+# Update omf
+omf update > /dev/null 2>&1 &
+
