@@ -39,6 +39,7 @@ require('packer').startup(function()
   use 'tridactyl/vim-tridactyl'
 
   use 'preservim/vim-markdown'
+  use 'dag/vim-fish'
 end)
 
 
