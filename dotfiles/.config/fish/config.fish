@@ -55,5 +55,7 @@ if status is-interactive
         end
     end
 
-    alias iforgothowtosyncfork='printf "# Don\'t worry.\n# Sync your fork\ngit fetch upstream\ngit checkout yamainbrammch\ngit merge upstream\n"'
+    alias iforgothowtosyncfork='printf "# Sync your fork\ngit fetch upstream\ngit checkout yamainbrammch\ngit merge upstream\n"'
+    alias gitignorenowork='printf "#Remember to commit everything you\'ve changed before you do this!\ngit rm -rf --cached .\ngit add .\n"'
+
 end
