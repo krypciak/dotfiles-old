@@ -1,4 +1,5 @@
-export DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+export SCRIPTS_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+export MAIN_DIR="$SCRIPTS_DIR/.."
 
 RED='\e[91m'
 GREEN='\e[32m'
@@ -10,23 +11,23 @@ GREEN_BG='\e[30;42m'
 NC='\e[0m'
 
 
-TEMP_DIR="$DIR/temp"
-VIDEOS_DIR="$DIR/videos"
+TEMP_DIR="$MAIN_DIR/temp"
+VIDEOS_DIR="$MAIN_DIR/downloaded/videos"
 
-source $DIR/subs.sh
+source "$SCRIPTS_DIR/subs.sh"
 
-mkdir -p $TEMP_DIR
-mkdir -p $VIDEOS_DIR
+mkdir -p "$TEMP_DIR"
+mkdir -p "$VIDEOS_DIR"
 
 
-YT_DLP_ARGS='--download-archive downloaded.txt --sponsorblock-remove all --embed-thumbnail --add-metadata --embed-metadata --embed-chapters --embed-subs --sub-langs all,-live_chat --audio-quality 0 -R infinite --retry-sleep 15 -S quality,ext:mp4,filesize --no-post-overwrites --ignore-errors --newline --no-warnings'
+YT_DLP_ARGS='--download-archive downloaded.txt --sponsorblock-remove all --embed-thumbnail --add-metadata --embed-metadata --embed-chapters --embed-subs --sub-langs all,-live_chat --audio-quality 0 -R infinite --retry-sleep 15 -S quality,ext:mp4,filesize --no-post-overwrites --ignore-errors --newline --no-warnings --no-playlist'
 
 TITLE='%(channel)s - %(title)s.%(ext)s'
 
 
 export ANI_CLI_QUALITY="best"
-export ANI_CLI_CACHE_DUR="$DIR/temp"
-export ANI_CLI_HIST_DIR="$DIR"
+export ANI_CLI_CACHE_DUR="$TEMP_DIR"
+export ANI_CLI_HIST_DIR="$MAIN_DIR"
 
 # 30 GiB
 FREE_SPACE=$(echo "1048576 * 30" | bc)
@@ -57,7 +58,7 @@ function check_space() {
             # If no files left to delete, exit
             if [[ "$(ls $VIDEOS_DIR | wc -l)" -eq 0 ]]; then
                 _log_invidious "${RED}Less than ${BLUE}$FREE_SPACE${RED} KiB on ${BLUE}$VIDEOS_DIR${RED}, exiting"
-                sh $DIR/kill.sh
+                sh "$SCRIPTS_DIR/kill.sh"
                 exit 1
             fi
             # Remove the last video
@@ -74,7 +75,7 @@ function listen_rss() {
     export rss_feed="${instance}${feed_suffix}${channel_id}"
     export index="$4"
     
-    rsstail -z -l -N -n 0 -i 300 -P -u "$rss_feed" | while read url; do
+    rsstail -z -l -N -n 1 -i 300 -P -u "$rss_feed" | while read url; do
         check_space
 
         if [[ "$url" == http* ]]; then 
@@ -86,7 +87,7 @@ function listen_rss() {
                 _log_invidious "${GREEN_BG}File exists, skipping"
             else
                 _log_invidious "${CYAN}Downloading URL: ${YELLOW}${url}${CYAN}"
-                yt-dlp $YT_DLP_ARGS --download-archive downloaded.txt -o "$TITLE" -P "$VIDEOS_DIR" -P "temp:$TEMP_DIR" "$url"
+                #yt-dlp $YT_DLP_ARGS --download-archive downloaded.txt -o "$TITLE" -P "$VIDEOS_DIR" -P "temp:$TEMP_DIR" "$url"
                 _log_invidious "${GREEN_BG}Download done"
                 check_space
             fi
@@ -95,7 +96,7 @@ function listen_rss() {
 }
 
 function listen_anime() {
-    export ANI_CLI_DOWNLOAD_DIR="$DIR/anime/$1"
+    export ANI_CLI_DOWNLOAD_DIR="$MAIN_DIR/downloaded/anime/$1"
     mkdir -p "$ANI_CLI_DOWNLOAD_DIR"
     while true; do
         wait_for_finish
