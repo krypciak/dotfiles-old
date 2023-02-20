@@ -20,7 +20,7 @@ mkdir -p "$TEMP_DIR"
 mkdir -p "$VIDEOS_DIR"
 
 
-YT_DLP_ARGS='--download-archive downloaded.txt --sponsorblock-remove all --embed-thumbnail --add-metadata --embed-metadata --embed-chapters --embed-subs --sub-langs all,-live_chat --audio-quality 0 -R infinite --retry-sleep 15 -S quality,ext:mp4,filesize --no-post-overwrites --ignore-errors --newline --no-warnings --no-playlist'
+YT_DLP_ARGS='--sponsorblock-remove all --embed-thumbnail --add-metadata --embed-metadata --embed-chapters --embed-subs --sub-langs all,-live_chat --audio-quality 0 -R infinite --retry-sleep 15 -S quality,ext:mp4,filesize --no-post-overwrites --ignore-errors --newline --no-warnings --no-playlist --convert-thumbnails png'
 
 TITLE='%(channel)s - %(title)s.%(ext)s'
 
@@ -80,14 +80,24 @@ function listen_rss() {
 
         if [[ "$url" == http* ]]; then 
             wait_for_finish
-            _log_invidious "${CYAN}Recived RSS URL: ${YELLOW}${url}"
 
-            export filename=$(yt-dlp "$url" -o "$TITLE" $YT_DLP_ARGS --print filename)
+            metadata="$(yt-dlp "$url" -o "$TITLE" $YT_DLP_ARGS --print filename,upload_date)"
+
+            export filename="$(echo "$metadata" | sed '1q;d')"
+
+            export date="$(echo "$metadata" | sed '2q;d')"
+            date_ago="$(date -d @$(echo $(date +%s) - 86400*2 | bc) -u +%Y%m%d)"
+
             if [ -f "$VIDEOS_DIR/$filename" ] ; then 
                 _log_invidious "${GREEN_BG}File exists, skipping"
+            elif [ "$date" -lt "$date_ago" ]; then
+                _log_invidious "${GREEN_BG}Video is too old, skipping"
             else
                 _log_invidious "${CYAN}Downloading URL: ${YELLOW}${url}${CYAN}"
-                #yt-dlp $YT_DLP_ARGS --download-archive downloaded.txt -o "$TITLE" -P "$VIDEOS_DIR" -P "temp:$TEMP_DIR" "$url"
+                yt-dlp $YT_DLP_ARGS --download-archive "$MAIN_DIR/downloaded.txt" -o "$TITLE" -P "$VIDEOS_DIR" -P "temp:$TEMP_DIR" "$url"
+
+                touch -d "$date" "$VIDEOS_DIR/$filename"
+                
                 _log_invidious "${GREEN_BG}Download done"
                 check_space
             fi
@@ -115,6 +125,7 @@ for feed in ${CHANNEL_FEEDS[@]}; do
     fi
     sleep 10
 done
+exit
 
 for feed in ${ODYSEE_FEEDS[@]}; do
     listen_rss "https://odysee.com" "/$/rss/" "$feed" $i &
