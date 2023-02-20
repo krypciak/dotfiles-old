@@ -12,7 +12,7 @@ chown -R root:root /root/.config/fish
 cp -r $DOTFILES_DIR/dotfiles/.bashrc /root/
 chown -R root:root /root/.bashrc
 
-cp -r $DOTFILES_DIR/dotfiles/.config/at_login.sh /root/
+cp -r $DOTFILES_DIR/dotfiles/.config/at_login.sh /root/.config/
 chown -R root:root /root/.config/at_login.sh
 
 # Update nvim plugins
