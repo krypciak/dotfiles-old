@@ -5,7 +5,7 @@ FAKE_USER_HOME="$USER_HOME/home"
 
 DOTFILES_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-SYMLINK_FROM_TO=( 
+SYMLINK_FROM_TO=(
     ".config/at_login.sh"
     ".config/awesome"
     ".config/nvim"
@@ -37,18 +37,10 @@ SYMLINK_FROM_TO=(
     ".bashrc"
     ".xinitrc"
 
-    ".mozilla/icecat/profiles.ini"
-    ".mozilla/icecat/rgvol6f2.default/extension-preferences.json"
-    ".mozilla/icecat/rgvol6f2.default/extensions"
-
     ".librewolf/native-messaging-hosts"
     ".librewolf/profiles.ini"
     ".librewolf/profile0/extension-preferences.json"
     ".librewolf/profile0/extensions"
-
-    ".local/share/ice/icons"
-    "%.local/share/ice/firefox/invidious/extension-preferences.json"
-    "%.local/share/ice/firefox/invidious/extensions"
 
     ".config/tridactyl"
 
@@ -77,16 +69,6 @@ COPY_FROM_TO=(
     ".local/share/applications/arch-update.desktop"
     ".local/share/applications/invidious.desktop"
 
-
-    "%.mozilla/icecat/rgvol6f2.default/prefs.js"
-    "%.mozilla/icecat/rgvol6f2.default/search.json.mozlz4"
-    "%.mozilla/icecat/rgvol6f2.default/storage"
-    "%.mozilla/icecat/rgvol6f2.default/storage.sqlite"
-    "%.mozilla/icecat/rgvol6f2.default/cookies.sqlite"
-    "%.mozilla/icecat/rgvol6f2.default/extension-settings.json"
-    "%.mozilla/icecat/rgvol6f2.default/extensions.json"
-    "%.mozilla/icecat/rgvol6f2.default/sessionCheckpoints.json"
-
     "%.librewolf/profile0/prefs.js"
     "%.librewolf/profile0/search.json.mozlz4"
     "%.librewolf/profile0/storage"
@@ -95,17 +77,6 @@ COPY_FROM_TO=(
     "%.librewolf/profile0/extension-settings.json"
     "%.librewolf/profile0/extensions.json"
     "%.librewolf/profile0/sessionCheckpoints.json"
-
-    "%.local/share/ice/firefox/invidious/prefs.js"
-    "%.local/share/ice/firefox/invidious/search.json.mozlz4"
-    "%.local/share/ice/firefox/invidious/storage"
-    "%.local/share/ice/firefox/invidious/storage.sqlite"
-    "%.local/share/ice/firefox/invidious/cookies.sqlite"
-    "%.local/share/ice/firefox/invidious/extension-settings.json"
-    "%.local/share/ice/firefox/invidious/extensions.json"
-    "%.local/share/ice/firefox/invidious/sessionCheckpoints.json"
-    "%.local/share/ice/firefox/invidious/user.js"
-    "%.local/share/ice/firefox/invidious/chrome"
 )
 
 LINK_HOME_DIRS=(
