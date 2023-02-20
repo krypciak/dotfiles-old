@@ -107,7 +107,7 @@ function listen_rss() {
 function listen_anime() {
     while true; do
         wait_for_finish
-        animdl download -r 1-100 -q 1080/720/480 -d "$ANIME_DIR" --index $2 "$1"
+        animdl download -r 1-100 -q "best" -d "$ANIME_DIR" --index "$2" "$1"
         # 6 hours
         sleep 21600
     done
@@ -129,8 +129,8 @@ for feed in ${ODYSEE_FEEDS[@]}; do
 done
 
 for (( i=0; i<${#ANIME[@]}; i+=2 )); do
-    anime=${ANIME[i]}
-    index=${ANIME[$(expr $i + 1)]}
+    anime="${ANIME[i]}"
+    index="${ANIME[$(expr $i + 1)]}"
 
     listen_anime "$anime" "$index"
     sleep 10

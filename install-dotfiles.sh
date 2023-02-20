@@ -18,6 +18,7 @@ SYMLINK_FROM_TO=(
     ".config/neofetch"
     ".config/topgrade.toml"
     ".config/ttyper"
+    ".config/animdl"
     # gui apps
     ".config/alacritty"
     ".config/wallpapers"
