@@ -51,4 +51,5 @@ if status is-interactive
         end
     end
 
+    alias iforgothowtosyncfork='printf "# Don\'t worry.\n# Sync your fork\ngit fetch upstream\ngit checkout master\ngit merge upstream/master\n"'
 end
