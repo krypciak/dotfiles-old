@@ -12,6 +12,9 @@ chown -R root:root /root/.config/fish
 cp -r $DOTFILES_DIR/dotfiles/.bashrc /root/
 chown -R root:root /root/.bashrc
 
+cp -r $DOTFILES_DIR/dotfiles/.config/at_login.sh /root/
+chown -R root:root /root/.config/at_login.sh
+
 # Update nvim plugins
 echo Updating neovim plugins...
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync' > /dev/null 2>&1 &
