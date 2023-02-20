@@ -6,69 +6,74 @@ FAKE_USER_HOME="$USER_HOME/home"
 DOTFILES_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 SYMLINK_FROM_TO=(
+    # Simple symlink ln -sf
+    # basic terminal stuff
     ".config/at_login.sh"
-    ".config/awesome"
     ".config/nvim"
-    ".config/alacritty"
-    ".config/ttyper"
-    ".config/redshift"
-    ".config/copyq"
     ".config/fish"
+    ".config/tealdeer"
+    ".bashrc"
     ".config/xsessions"
+    ".config/omf"
+    ".local/share/omf"
+    # specific terminal apps
+    ".config/neofetch"
+    ".config/topgrade.toml"
+    ".config/ttyper"
+    # gui apps
+    ".config/alacritty"
+    ".config/wallpapers"
     ".config/cmus/autosave"
     ".config/cmus/red_theme.theme"
     ".config/cmus/notify.sh"
-    ".config/topgrade.toml"
-    ".config/neofetch"
-    ".config/tealdeer"
-    ".config/chromium/Default/Extensions"
-    ".config/chromium/Default/Sync Extension Settings"
-    ".config/chromium/Default/Managed Extension Settings"
-    ".config/chromium/Default/Local Extension Settings"
-    ".config/BetterDiscord/plugins"
+    # X11 apps
+    ".xinitrc"
+    ".config/awesome"
+    ".config/redshift"
+    ".config/copyq"
+    ".config/rofi"
+    # wayland
     ".config/dwl"
     ".config/gammastep"
     ".config/fuzzel"
     ".config/swaylock"
-    ".config/Ferdium/config"
-    ".config/wallpapers"
-    ".config/rofi"
-
-    ".bashrc"
-    ".xinitrc"
-
+    # Ungoogled chromium
+    ".config/chromium/Default/Extensions"
+    ".config/chromium/Default/Sync Extension Settings"
+    ".config/chromium/Default/Managed Extension Settings"
+    ".config/chromium/Default/Local Extension Settings"
+    # Discord
+    ".config/BetterDiscord/plugins"
+    # Librewolf
     ".librewolf/native-messaging-hosts"
     ".librewolf/profiles.ini"
     ".librewolf/profile0/extension-preferences.json"
     ".librewolf/profile0/extensions"
-
     ".config/tridactyl"
-
-    ".config/omf"
-    ".local/share/omf"
 )
 
-
-# If path starts with %, will not override
-COPY_FROM_TO=(
-    ".config/chromium/Default/Preferences"
-    "%.config/chromium/Default/Cookies"
-    ".config/chromium/Local State"
-    ".config/chromium-flags.conf"
-    ".config/tutanota-desktop/conf.json"
-    ".config/discord/settings.json"
-    ".config/FreeTube/settings.db"
-    ".local/share/PrismLauncher/multimc.cfg"
+COPY_FROM_TO=( 
+    # If path starts with %, will not override
+    # Theming
     ".config/gtk-2.0"
     ".config/gtk-3.0"
     ".config/gtk-4.0"
     ".config/qt5ct"
     ".config/kdeglobals"
+    # Tutanota desktop (mail client)
+    ".config/tutanota-desktop/conf.json"
+    # Discord
+    ".config/discord/settings.json"
+    # FreeTube (youtube client)
+    ".config/FreeTube/settings.db"
+    # PrismLauncher (minecraft launcher)
+    ".local/share/PrismLauncher/multimc.cfg"
+    # Keepassxc (password manager)
     ".config/keepassxc"
+    # .desktop files
     ".local/share/applications/tutanota-desktop.desktop"
     ".local/share/applications/arch-update.desktop"
-    ".local/share/applications/invidious.desktop"
-
+    # Librewolf
     "%.librewolf/profile0/prefs.js"
     "%.librewolf/profile0/search.json.mozlz4"
     "%.librewolf/profile0/storage"
@@ -77,6 +82,11 @@ COPY_FROM_TO=(
     "%.librewolf/profile0/extension-settings.json"
     "%.librewolf/profile0/extensions.json"
     "%.librewolf/profile0/sessionCheckpoints.json"
+    # Ungoogled chromium
+    ".config/chromium/Default/Preferences"
+    "%.config/chromium/Default/Cookies"
+    ".config/chromium/Local State"
+    ".config/chromium-flags.conf"
 )
 
 LINK_HOME_DIRS=(

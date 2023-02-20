@@ -1,3 +1,5 @@
+echo "This script does nothing. Just a list of old configurations"
+
 SYMLINK_FROM_TO=(
     #".local/share/ice/icons"
     #"%.local/share/ice/firefox/invidious/extension-preferences.json"
@@ -6,6 +8,8 @@ SYMLINK_FROM_TO=(
     #".mozilla/icecat/profiles.ini"
     #".mozilla/icecat/rgvol6f2.default/extension-preferences.json"
     #".mozilla/icecat/rgvol6f2.default/extensions"
+    
+    #".config/Ferdium/config"
 )
 
 COPY_FROM_TO=(
@@ -29,4 +33,5 @@ COPY_FROM_TO=(
     #"%.mozilla/icecat/rgvol6f2.default/extensions.json"
     #"%.mozilla/icecat/rgvol6f2.default/sessionCheckpoints.json"
 
+    #".local/share/applications/invidious.desktop"
 )
