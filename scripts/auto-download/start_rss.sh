@@ -74,7 +74,7 @@ function listen_rss() {
     export rss_feed="${instance}${feed_suffix}${channel_id}"
     export index="$4"
     
-    rsstail -z -l -N -n 1 -i 300 -P -u "$rss_feed" | while read url; do
+    rsstail -z -l -N -n 0 -i 300 -P -u "$rss_feed" | while read url; do
         check_space
 
         if [[ "$url" == http* ]]; then 
