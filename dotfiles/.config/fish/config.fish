@@ -57,5 +57,6 @@ if status is-interactive
 
     alias iforgothowtosyncfork='printf "# Sync your fork\ngit fetch upstream\ngit checkout yamainbrammch\ngit merge upstream\n"'
     alias gitignorenowork='printf "#Remember to commit everything you\'ve changed before you do this!\ngit rm -rf --cached .\ngit add .\n"'
+    alias iuploadedmycreditcardnumbertogitwhatnow='printf "git filter-repo --invert-paths --path <path to the file or directory>"\n'
 
 end
