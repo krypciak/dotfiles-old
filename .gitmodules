@@ -10,9 +10,6 @@
 [submodule "dotfiles/dwl/someblocks"]
 	path = dotfiles/dwl/someblocks
 	url = https://github.com/krypciak/someblocks
-[submodule "dotfiles/.local/share/dotfiles/.local/share/omf"]
+[submodule "dotfiles/.local/share/omf"]
 	path = dotfiles/.local/share/dotfiles/.local/share/omf
-	url = https://github.com/oh-my-fish/oh-my-fish
-[submodule "/home/krypek/.config/dotfiles/dotfiles/.local/share/omf"]
-	path = /home/krypek/.config/dotfiles/dotfiles/.local/share/omf
 	url = https://github.com/oh-my-fish/oh-my-fish
