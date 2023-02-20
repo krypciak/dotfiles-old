@@ -14,9 +14,9 @@ export XCURSOR_PATH=/usr/share/icons:${XDG_DATA_HOME}/icons
 # ~/.wine
 export WINEPREFIX="$XDG_DATA_HOME/wine"
 
-if [ "$launch_dbus" != 0 ]; then
-    export $(dbus-launch)
-fi
+#if [ "$launch_dbus" != 0 ]; then
+#    export $(dbus-launch)
+#fi
 export QT_QPA_PLATFORMTHEME=qt5ct
 
 export USER1=$USER
@@ -26,7 +26,4 @@ export EDITOR='nvim'
 export CM_LAUNCHER=rofi
 
 export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
-
-
-
 
