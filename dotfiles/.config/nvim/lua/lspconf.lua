@@ -1,5 +1,5 @@
 require'lspconfig'.pyright.setup{}
-require'lspconfig'.sumneko_lua.setup {}
+require'lspconfig'.lua_ls.setup {}
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
