@@ -14,8 +14,6 @@ SYMLINK_FROM_TO=(
     ".config/tealdeer"
     ".bashrc"
     ".config/xsessions"
-    ".config/omf"
-    ".local/share/omf"
     # specific terminal apps
     ".config/neofetch"
     ".config/topgrade.toml"

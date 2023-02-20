@@ -10,6 +10,9 @@ SYMLINK_FROM_TO=(
     #".mozilla/icecat/rgvol6f2.default/extensions"
     
     #".config/Ferdium/config"
+    
+    #".config/omf"
+    #".local/share/omf"
 )
 
 COPY_FROM_TO=(
