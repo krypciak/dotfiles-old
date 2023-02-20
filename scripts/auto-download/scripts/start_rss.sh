@@ -25,9 +25,8 @@ YT_DLP_ARGS='--sponsorblock-remove all --embed-thumbnail --add-metadata --embed-
 TITLE='%(channel)s - %(title)s.%(ext)s'
 
 
-export ANI_CLI_QUALITY="best"
-export ANI_CLI_CACHE_DUR="$TEMP_DIR"
-export ANI_CLI_HIST_DIR="$MAIN_DIR"
+ANIME_DIR="$MAIN_DIR/downloaded/anime"
+mkdir -p "$ANIME_DIR"
 
 # 30 GiB
 FREE_SPACE=$(echo "1048576 * 30" | bc)
@@ -106,11 +105,9 @@ function listen_rss() {
 }
 
 function listen_anime() {
-    export ANI_CLI_DOWNLOAD_DIR="$MAIN_DIR/downloaded/anime/$1"
-    mkdir -p "$ANI_CLI_DOWNLOAD_DIR"
     while true; do
         wait_for_finish
-        ani-cli -d -r 1-100 "$1"
+        animdl download -r 1-100 -q 1080/720/480 -d "$ANIME_DIR" --index $2 "$1"
         # 6 hours
         sleep 21600
     done
@@ -125,16 +122,17 @@ for feed in ${CHANNEL_FEEDS[@]}; do
     fi
     sleep 10
 done
-exit
 
 for feed in ${ODYSEE_FEEDS[@]}; do
     listen_rss "https://odysee.com" "/$/rss/" "$feed" $i &
     sleep 10
 done
 
-for ((i = 0; i < ${#ANIME[@]}; i++)); do
-    anime="${ANIME[$i]}"
-    listen_anime "$anime"
+for (( i=0; i<${#ANIME[@]}; i+=2 )); do
+    anime=${ANIME[i]}
+    index=${ANIME[$(expr $i + 1)]}
+
+    listen_anime "$anime" "$index"
     sleep 10
 done
 
