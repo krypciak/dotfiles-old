@@ -1,15 +1,15 @@
-[submodule "dotfiles/dwl/dpms-off"]
-	path = dotfiles/dwl/dpms-off
+[submodule "dotfiles/.config/dwl/dpms-off"]
+	path = dotfiles/.config/dwl/dpms-off
 	url = https://github.com/lilydjwg/dpms-off
-[submodule "dotfiles/dwl/dwl-dotfiles"]
-	path = dotfiles/dwl/dwl-dotfiles
+[submodule "dotfiles/.config/dwl/dwl-dotfiles"]
+	path = dotfiles/.config/dwl/dwl-dotfiles
 	url = https://github.com/krypciak/dwl-dotfiles
-[submodule "dotfiles/dwl/somebar"]
-	path = dotfiles/dwl/somebar
+[submodule "dotfiles/.config/dwl/somebar"]
+	path = dotfiles/.config/dwl/somebar
 	url = https://github.com/krypciak/somebar
-[submodule "dotfiles/dwl/someblocks"]
-	path = dotfiles/dwl/someblocks
+[submodule "dotfiles/.config/dwl/someblocks"]
+	path = dotfiles/.config/dwl/someblocks
 	url = https://github.com/krypciak/someblocks
 [submodule "dotfiles/.local/share/omf"]
-	path = dotfiles/.local/share/dotfiles/.local/share/omf
+	path = dotfiles/.local/share/omf
 	url = https://github.com/oh-my-fish/oh-my-fish
