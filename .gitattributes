@@ -1,16 +1,15 @@
 # Auto detect text files and perform LF normalization
 * text=auto
-dotfiles/chromium/** linguist-vendored
-dotfiles/awesome/lain/** linguist-vendored
-dotfiles/BetterDiscord/** linguist-vendored
-dotfiles/BetterDiscord/plugins/* linguist-vendored
-dotfiles/ice/firefox/** linguist-vendored
-dotfiles/.mozilla/icecat/** linguist-vendored
-dotfiles/chromium/** linguist-vendored
+dotfiles/.config/chromium/** linguist-vendored
+dotfiles/.config/awesome/lain/** linguist-vendored
+dotfiles/.config/BetterDiscord/** linguist-vendored
+dotfiles/.config/BetterDiscord/plugins/* linguist-vendored
+dotfiles/unused/.local/share/ice/** linguist-vendored
+dotfiles/unused/.mozilla/icecat/** linguist-vendored
 
 *.9 linguist-vendored
 *.10177 linguist-vendored
-dotfiles/gtk-3.0/** linguist-vendored
-dotfiles/gtk-4.0/** linguist-vendored
+dotfiles/.config/gtk-3.0/** linguist-vendored
+dotfiles/.config/gtk-4.0/** linguist-vendored
 
 
