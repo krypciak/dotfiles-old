@@ -46,7 +46,7 @@ function _log_invidious() {
 
 function wait_for_finish() {
     while true; do
-        pgrep pgrep "yt-dlp" > /dev/null || pgrep "animdl" > /dev/null || break
+        pgrep "yt-dlp" > /dev/null || pgrep "animdl" > /dev/null || break
         sleep 20
     done
 }
