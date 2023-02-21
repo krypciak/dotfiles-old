@@ -46,8 +46,8 @@ function _log_invidious() {
 
 function wait_for_finish() {
     while true; do
-        pgrep "ffmpeg" > /dev/null || pgrep "yt-dlp" > /dev/null || pgrep "animdl" > /dev/null || break
-        sleep 60
+        pgrep pgrep "yt-dlp" > /dev/null || pgrep "animdl" > /dev/null || break
+        sleep 20
     done
 }
 
@@ -132,7 +132,7 @@ for (( i=0; i<${#ANIME[@]}; i+=2 )); do
     anime="${ANIME[i]}"
     index="${ANIME[$(expr $i + 1)]}"
 
-    listen_anime "$anime" "$index"
+    listen_anime "$anime" "$index" &
     sleep 10
 done
 
