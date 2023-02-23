@@ -94,8 +94,10 @@ function listen_rss() {
             else
                 _log_invidious "${CYAN}Downloading URL: ${YELLOW}${url}${CYAN}"
                 yt-dlp $YT_DLP_ARGS --download-archive "$MAIN_DIR/downloaded.txt" -o "$TITLE" -P "$VIDEOS_DIR" -P "temp:$TEMP_DIR" "$url"
+                
+                # Change the file date to the day that the video was realeased plus the current hour, minute and second
+                touch -d @"$(echo "$(date -d "$date" +%s) + $(date +%s) % 86400" | bc )" "$VIDEOS_DIR/$filename"
 
-                touch -d "$date" "$VIDEOS_DIR/$filename"
                 
                 _log_invidious "${GREEN_BG}Download done"
                 check_space
