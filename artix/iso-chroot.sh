@@ -68,7 +68,7 @@ umount $USER_HOME/.cargo
 rm /after-chroot.sh -f
 
 
-wait < <(jobs -p)
+sleep 10
 
 neofetch
 
