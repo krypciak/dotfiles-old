@@ -124,12 +124,12 @@ for feed in ${CHANNEL_FEEDS[@]}; do
     if [[ ${#INSTANCES[@]} -eq $i ]]; then
         i=0
     fi
-    sleep 10
+    #sleep 10
 done
 
 for feed in ${ODYSEE_FEEDS[@]}; do
     listen_rss "https://odysee.com" "/$/rss/" "$feed" $i &
-    sleep 10
+    #sleep 10
 done
 
 for (( i=0; i<${#ANIME[@]}; i+=2 )); do
@@ -137,6 +137,6 @@ for (( i=0; i<${#ANIME[@]}; i+=2 )); do
     index="${ANIME[$(expr $i + 1)]}"
 
     listen_anime "$anime" "$index" &
-    sleep 10
+    #sleep 10
 done
 
