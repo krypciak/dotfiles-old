@@ -12,7 +12,8 @@ NC='\e[0m'
 
 
 TEMP_DIR="$MAIN_DIR/temp"
-VIDEOS_DIR="$MAIN_DIR/downloaded/videos"
+DOWNLOAD_DIR="$MAIN_DIR/downloaded/"
+VIDEOS_DIR="$DOWNLOAD_DIR/videos"
 
 source "$SCRIPTS_DIR/subs.sh"
 
@@ -26,7 +27,7 @@ YT_DLP_ARGS='--sponsorblock-remove all --force-keyframes-at-cuts --embed-thumbna
 TITLE='%(channel)s - %(title)s.%(ext)s'
 
 
-ANIME_DIR="$MAIN_DIR/downloaded/anime"
+ANIME_DIR="$DOWNLOAD_DIR/anime"
 mkdir -p "$ANIME_DIR"
 
 # 30 GiB
