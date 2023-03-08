@@ -54,9 +54,22 @@ if status is-interactive
             lsp "$argv" | xsel -ib
         end
     end
-
+    
     alias iforgothowtosyncfork='printf "# Sync your fork\ngit fetch upstream\ngit checkout yamainbrammch\ngit merge upstream\n"'
     alias gitignorenowork='printf "#Remember to commit everything you\'ve changed before you do this!\ngit rm -rf --cached .\ngit add .\n"'
     alias iuploadedmycreditcardnumbertogitwhatnow='printf "git filter-repo --invert-paths --path <path to the file or directory>"\n'
     alias mountqcow2='printf "# Mount\ndoas modprobe nbd max_part=8\ndoas qemu-nbd --connect=/dev/nbd0 IMAGE.qcow2\ndoas mount /dev/nbd0 MNT\n\n# Umount\ndoas umount MNT\ndoas qemu-ndp --disconnect /dev/nbd0"'
+
+
+    function last_history_item
+        echo $history[1]
+    end
+    abbr -a !! --position anywhere --function last_history_item
+
+    globabbr 'dps' 'doas pacman -Syu'
+    globabbr 'sudo' 'doas'
+    globabbr 'sl' 'ls'
+    globabbr 'rmm' 'rmtrash'
+    globabbr 'cd..' 'cd ..'
+    globabbr 'cd,,' 'cd ..'
 end
