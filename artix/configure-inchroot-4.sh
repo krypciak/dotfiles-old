@@ -54,3 +54,4 @@ rm -r /dotfiles
 echo "0" > $USER_HOME/.cache/update
 chown -R $USER1:$USER_GROUP $USER_HOME/.cache/update
 
+rc-update del agetty.tty1 default
