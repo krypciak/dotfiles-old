@@ -7,7 +7,8 @@ function add_tag(properties)
     properties.c_index = tag_order_counter
     tag_order_counter = tag_order_counter + 1
 
-    local name = properties.name
+    local name = properties.c_name
+    properties.name = ' ' .. name .. ' '
     all_tags[name] = properties
 
     table.insert(tag_order, name)
@@ -68,7 +69,7 @@ function get_tag(root_tag, action)
         -- Sort tags when tag list changes; function is at tags.lua
         sort_tags()
     end
-    
+
     -- If/ redirect if set
     local redirect = root_tag.c_redirect
     if redirect ~= nil then
@@ -120,7 +121,6 @@ function sort_tags()
         end
     end
 end
-
 local function get_view_tag_key(mod_keys, key, root_tag, desc)
     return awful.key(mod_keys, key, function()
 	    delete_unused_tags()
@@ -157,15 +157,15 @@ for _, name in ipairs(tag_order) do
     local tag = all_tags[name]
     local key = tag.c_key
 
-    if tag.c_defactivated then awful.tag.add(tag.name, tag) end
-    
+    if tag.c_defactivated then awful.tag.add(name, tag) end
+
     globalkeys = gears.table.join(globalkeys,
-	get_view_tag_key({altkey}, key, tag, "view tag " .. tag.name),
-	get_viewtoggle_tag_key({altkey, ctrlkey}, key, tag, "toggle tag " .. tag.name),
-	get_moveclient_key({altkey, shiftkey}, key, tag, 
-		"move focused client to tag " .. tag.name),
-    get_toggleclient_key({altkey, ctrlkey, shiftkey}, key, tag,
-        "toggle focused client on tag " .. tag.name))
+	    get_view_tag_key({altkey}, key, tag, "view tag " .. tag.name),
+	    get_viewtoggle_tag_key({altkey, ctrlkey}, key, tag, "toggle tag " .. tag.name),
+	    get_moveclient_key({altkey, shiftkey}, key, tag, 
+	    	"move focused client to tag " .. tag.name),
+        get_toggleclient_key({altkey, ctrlkey, shiftkey}, key, tag,
+            "toggle focused client on tag " .. tag.name))
 end
 
 function sort_clients()
@@ -174,7 +174,7 @@ function sort_clients()
     for _, tag in pairs(all_tags) do
         if tag.c_apps ~= nil then
             local clients = get_running_clients(get_all_clients(), tag.c_apps["class"], tag.c_apps["name"])
-            if #clients ~= 0 then 
+            if #clients ~= 0 then
                 local tag1 = get_tag(tag, false)
                 for _, client in ipairs(clients) do
                     client:move_to_tag(tag1)

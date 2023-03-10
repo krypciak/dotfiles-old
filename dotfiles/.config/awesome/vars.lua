@@ -21,9 +21,9 @@ default_layout_index = 2
 awful.layout.layouts = {
     awful.layout.suit.floating,
     awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
+    --awful.layout.suit.tile.left,
+    --awful.layout.suit.tile.bottom,
+    --awful.layout.suit.tile.top,
     --awful.layout.suit.fair,
     --awful.layout.suit.fair.horizontal,
     --lain.layout.cascade,
@@ -37,7 +37,8 @@ normal_tag_count = 3
 
 no_border_when_1client = true
 
-default_useless_gap = 6
+default_useless_gap = 0
+default_border_size = 0
 
 --screens = {"DisplayPort-0"}
 

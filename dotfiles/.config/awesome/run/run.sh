@@ -1,3 +1,3 @@
 source ~/.config/at_login.sh
 
-exec startx
+exec dbus-run-session startx

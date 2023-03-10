@@ -97,7 +97,7 @@ for _, tag in pairs(all_tags) do
         awful.rules.rules[#awful.rules.rules + 1] = {
             rule_any = tag.c_apps,
             callback = function(c)
-                c:move_to_tag(get_tag(all_tags[tag.name]))
+                c:move_to_tag(get_tag(all_tags[tag.c_name]))
         end,
         properties = { tag = tag.name },
 }

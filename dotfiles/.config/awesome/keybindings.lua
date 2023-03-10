@@ -22,7 +22,8 @@ local function screenshot(command, prefix, open_editor)
 
     local exec = 
         "awesome-client 'noti(\\\"Screenshot saved (" .. prefix .. ")\\\", \\\"" .. file .. "\\\")'"
-        .. ' && copyq write image/png - < ' .. file .. ' && copyq select 0'
+        .. ' &&  xclip -selection clipboard -t image/jpg -i ' .. file
+
 
     if open_editor then
         exec = exec .. ' && ' .. screenshot_editor .. ' ' .. file 
@@ -102,7 +103,9 @@ local globalkeys_awesome = awful.util.table.join(
 		{description = "show help", group = "awesome"}),
 	awful.key({superkey, shiftkey, ctrlkey}, "q", function()
         awful.spawn("pkill redshift")
-        os.execute("kill $(pidof bash /usr/bin/clipmenud)")
+        os.execute("for pid in $(ps -ef | awk '/clipmenud/ {print $2}'); do kill $pid; done")
+        os.execute("for pid in $(ps -ef | awk '/clipmenud/ {print $2}'); do kill $pid; done")
+        os.execute("for pid in $(ps -ef | awk '/clipmenud/ {print $2}'); do kill $pid; done")
         awesome.quit()
         end, {description = "quit awesome", group = "awesome"}),
 	-- Restart awesome 
