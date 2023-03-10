@@ -63,3 +63,12 @@ autocmd BufReadPost *
      \ endif
 ]]
 
+
+cmd [[
+set cursorline
+hi cursorline cterm=none term=none
+autocmd WinEnter * setlocal cursorline
+autocmd WinLeave * setlocal nocursorline
+highlight CursorLine ctermbg=235
+]]
+
