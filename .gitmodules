@@ -12,7 +12,7 @@
 
 [submodule "dotfiles/.config/dwl/somebar"]
 	path = dotfiles/.config/dwl/somebar
-    url = https://github.com/krypciak/somebar
+	url = https://github.com/krypciak/somebar
 
 [submodule "dotfiles/.config/dwl/someblocks"]
 	path = dotfiles/.config/dwl/someblocks
