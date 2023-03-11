@@ -46,6 +46,7 @@ PACKAGE_GROUPS=(
     'bluetooth'
     'virt'
     'android'
+    'plasma'
 )
 
 INSTALL_CRON=0

@@ -21,9 +21,10 @@ awful.rules.rules = {
     {
 	    rule_any = {
             class = {
+                "krunner",
 		        "leagueclient.exe", "leagueclientux.exe",
-                "league of legends.exe"
-            } 
+                "league of legends.exe",
+            }
         },
 	    properties = { ontop = true } 
     },
@@ -52,6 +53,7 @@ awful.rules.rules = {
     {
         rule_any = {
             class = {
+                "krunner",
 		        "leagueclient.exe", "leagueclientux.exe",
 		        "riotclientux.exe"
 	        },
