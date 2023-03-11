@@ -8,11 +8,11 @@ editor       = "nvim"
 music_player = "alacritty --class cmus --title cmus -e cmus"
 music_player_class = "cmus"
 
-altkey       = "Mod1"
-superkey     = "Mod4"
-ctrlkey	     = "Control"
-shiftkey     = "Shift"
-capskey      = "Mod3"
+alt          = "Mod1"
+super        = "Mod4"
+ctrl 	     = "Control"
+shift        = "Shift"
+caps         = "Mod3"
 
 lock_wallpaper = userdir .. '/.config/wallpapers/oneshot/main.png'
 

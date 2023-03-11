@@ -1,6 +1,3 @@
--- Spawn music_player in tag music
---run_if_not_running_pgrep({ music_player_class }, function() awful.spawn(music_player, { tag = tag.name }) end )
-
 -- Start redshift if not running
 run_if_not_running_pgrep({"redshift"}, function() awful.spawn("redshift -r") end)
 
@@ -26,12 +23,14 @@ xmodmap("add mod3 = Super_R")
 awful.spawn("pulseaudio --start")
 
 -- Clipbooard manager
---awful.spawn("copyq")
 awful.spawn("clipmenud")
 
--- Bluetooth
-awful.spawn("bluetoothctl connect DC:2C:26:30:B8:9B")
+-- Mute mic at startup
+awful.spawn("amixer set Capture nocap")
 
+
+-- Bluetooth
+--awful.spawn("bluetoothctl connect MacOrSomething")
 
 -- Launch after_init.lua after waiting a bit
 awful.spawn.easy_async_with_shell("sleep 0.1", 
@@ -42,3 +41,9 @@ awful.spawn.easy_async_with_shell("sleep 0.1",
 awful.spawn.easy_async_with_shell("sleep 5", 
     function(_,_,_,_) require("after_5sec") end
 )
+
+run_if_not_running_pgrep("keepassxc")
+
+run_if_not_running_pgrep({ "tutanota" }, function() awful.spawn("tutanota-desktop") end)
+
+run_if_not_running_pgrep("blueman-applet")

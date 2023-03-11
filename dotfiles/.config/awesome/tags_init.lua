@@ -45,7 +45,7 @@ add_tag({
     c_defactivated = false,
     c_apps = { class = { "discord" }},
     c_switchaction = function(tag)
-        run_if_not_running_pgrep("discord")
+        -- run_if_not_running_pgrep("discord")
     end,
     c_autogenrules = true,
 })

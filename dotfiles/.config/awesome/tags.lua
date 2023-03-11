@@ -160,11 +160,11 @@ for _, name in ipairs(tag_order) do
     if tag.c_defactivated then awful.tag.add(name, tag) end
 
     globalkeys = gears.table.join(globalkeys,
-	    get_view_tag_key({altkey}, key, tag, "view tag " .. tag.name),
-	    get_viewtoggle_tag_key({altkey, ctrlkey}, key, tag, "toggle tag " .. tag.name),
-	    get_moveclient_key({altkey, shiftkey}, key, tag, 
+	    get_view_tag_key({alt}, key, tag, "view tag " .. tag.name),
+	    get_viewtoggle_tag_key({alt, ctrl}, key, tag, "toggle tag " .. tag.name),
+	    get_moveclient_key({alt, shift}, key, tag, 
 	    	"move focused client to tag " .. tag.name),
-        get_toggleclient_key({altkey, ctrlkey, shiftkey}, key, tag,
+        get_toggleclient_key({alt, ctrl, shift}, key, tag,
             "toggle focused client on tag " .. tag.name))
 end
 

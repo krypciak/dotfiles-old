@@ -1,5 +1,7 @@
 -- Disable stupid tmux keybindings from showing up in help menu
 package.loaded["awful.hotkeys_popup.keys.tmux"] = {}
+-- Disable vim keybindings in help menu
+package.loaded["awful.hotkeys_popup.keys.vim"] = {}
 -- Add vim keys
 require("awful.hotkeys_popup.keys")
 
@@ -15,18 +17,18 @@ local function screenshot(command, prefix, open_editor)
     local file = dir .. prefix .. '_' .. os.date('%X') .. '.png'
     local cmd = 'scrot --file ' .. file ..
         ' --quality 100 --silent ' .. command
-   
+
     if command == "--select" then
         cmd = cmd .. ' -l mode=classic,style=solid,width=1,color="green"'
     end
 
-    local exec = 
+    local exec =
         "awesome-client 'noti(\\\"Screenshot saved (" .. prefix .. ")\\\", \\\"" .. file .. "\\\")'"
         .. ' &&  xclip -selection clipboard -t image/jpg -i ' .. file
 
 
     if open_editor then
-        exec = exec .. ' && ' .. screenshot_editor .. ' ' .. file 
+        exec = exec .. ' && ' .. screenshot_editor .. ' ' .. file
     end
     cmd = cmd .. ' --exec "' .. exec .. '"'
     awful.spawn(cmd)
@@ -34,26 +36,26 @@ end
 
 local function gen_screenshot_key(key, desc, command, prefix)
     return awful.util.table.join(
-	    awful.key({capskey}, key, 
+	    awful.key({caps}, key, 
             function() screenshot(command, prefix) end,
             {description = desc, group = "screen"}),
-	    awful.key({capskey, shiftkey}, key, 
+	    awful.key({caps, shift}, key, 
             function() screenshot(command, prefix, true) end,
             {description = desc .. ' (Open ' .. screenshot_editor .. ')', group = "screen"})
     )
 end
 
-local function gen_playerctl_key(key, action, desc)
+local function gen_playerctl_key(key, action)
     return awful.util.table.join(
         -- Primary control
-        awful.key({capskey}, key, function() 
+        awful.key({caps}, key, function()
             ext_action = action
             ext_playernumber = 1
             assert(loadfile(userdir .. '/.config/dotfiles/scripts/playerctl.lua', 't', _ENV))()
             end, { description = action .. " playerctl media", group = "multimedia" }),
-        
+
         -- Secondary control
-        awful.key({capskey, shiftkey}, key, function() 
+        awful.key({caps, shift}, key, function()
             ext_action = action
             ext_playernumber = 2
             assert(loadfile(userdir .. '/.config/dotfiles/scripts/playerctl.lua', 't', _ENV))()
@@ -62,7 +64,7 @@ local function gen_playerctl_key(key, action, desc)
 end
 
 local globalkeys_media = awful.util.table.join (
-    awful.key({capskey, ctrlkey}, "Tab", function()
+    awful.key({caps, ctrl}, "Tab", function()
          ext_action = "swap"
          ext_playernumber = -1
          assert(loadfile(userdir .. '/.config/dotfiles/scripts/playerctl.lua', 't', _ENV))()
@@ -75,33 +77,37 @@ local globalkeys_media = awful.util.table.join (
     gen_playerctl_key("s", "volume 0.02%-"),
 
 	-- Global volume controls
-	awful.key({capskey}, "e",
+	awful.key({caps}, "e",
 		function() awful.spawn("amixer set Master 5%+") end,
 		{description = "increse speaker volume", group = "multimedia"}),
-	awful.key({capskey}, "d",
+	awful.key({caps}, "d",
 		function() awful.spawn("amixer set Master 5%-") end,
 		{description = "decrese speaker volume", group = "multimedia"}),
 	-- Microphone volume controls
-	awful.key({capskey, shift}, "e",
+	awful.key({caps, shift}, "e",
 		function() awful.spawn("amixer set Capture 5%+") end,
 		{description = "increse microphone volume", group = "multimedia"}),
-	awful.key({capskey, shift}, "d",
+	awful.key({caps, shift}, "d",
 		function() awful.spawn("amixer set Capture 5%-") end,
 		{description = "decrese microphone volume", group = "multimedia"}),
 
-    awful.key({capskey, ctrlkey}, "e",
+    awful.key({caps, ctrl}, "e",
         function() awful.spawn("amixer set Capture cap") end,
 		{description = "unmute microphone", group = "multimedia"}),
-    awful.key({capskey, ctrlkey}, "d",
+    awful.key({caps, ctrl}, "d",
         function() awful.spawn("amixer set Capture nocap") end,
-		{description = "mute microphone", group = "multimedia"})
+		{description = "mute microphone", group = "multimedia"}),
+
+    awful.key({caps, ctrl}, "q",
+        function() awful.spawn("pacmd set-default-sink \"$(pactl list sinks short | awk '{print $1 \" <> \" substr($2,13) }' | tr '-' ' ' | tr '_' ' ' | fuzzel -d --log-level=none | awk '{print $1}')\"") end,
+        {description = "select audio output", group = "multimedia"})
 )
 
 local globalkeys_awesome = awful.util.table.join(
 	-- Show help
-	awful.key({superkey}, "s", hotkeys_popup.show_help,
+	awful.key({super}, "s", hotkeys_popup.show_help,
 		{description = "show help", group = "awesome"}),
-	awful.key({superkey, shiftkey, ctrlkey}, "q", function()
+	awful.key({super, shift, ctrl}, "q", function()
         awful.spawn("pkill redshift")
         os.execute("for pid in $(ps -ef | awk '/clipmenud/ {print $2}'); do kill $pid; done")
         os.execute("for pid in $(ps -ef | awk '/clipmenud/ {print $2}'); do kill $pid; done")
@@ -109,29 +115,29 @@ local globalkeys_awesome = awful.util.table.join(
         awesome.quit()
         end, {description = "quit awesome", group = "awesome"}),
 	-- Restart awesome 
-	awful.key({superkey, ctrlkey, shiftkey}, "m", function()
+	awful.key({super, ctrl, shift}, "m", function()
             os.execute("echo "..awful.screen.focused().selected_tag.name .. " > /tmp/awesomewm_last_tag")
             awesome.restart()
         end,
 		{description = "reload awesome", group = "awesome"}),
 
 	-- theme variable is in theme.lua
-	awful.key({capskey}, "y", 
+	awful.key({caps}, "y",
 		function() increse_useless_gap(1) end,
 		{description = "Increse useless gap", group = "awesome" }),
-	
-	awful.key({capskey}, "h",
+
+	awful.key({caps}, "h",
 		function() increse_useless_gap(-1) end,
 		{description = "Decrese useless gap", group = "awesome" }),
 
-    awful.key({capskey}, "t", function()
+    awful.key({caps}, "t", function()
         ext_group = 1
         ext_index = 0
         assert(loadfile(userdir .. '/.config/dotfiles/scripts/wallpaper.lua', 't', _ENV))()
         end,
         {description = "switch wallpaper group", group = "awesome"}),
-    
-    awful.key({capskey}, "g", function()
+
+    awful.key({caps}, "g", function()
         ext_group = 0
         ext_index = 1
         assert(loadfile(userdir .. '/.config/dotfiles/scripts/wallpaper.lua', 't', _ENV))()
@@ -140,21 +146,29 @@ local globalkeys_awesome = awful.util.table.join(
 )
 
 local globalkeys_screen = awful.util.table.join(
-	awful.key({superkey, ctrlkey}, "j",
+	awful.key({alt}, ",",
 		function() awful.screen.focus_relative(1) end,
 		{description = "focus the next screen", group = "screen"}),
 
-	awful.key({superkey, ctrlkey}, "k",
-		function() awful.screen.focus_relative(-1) end, 
-		{description = "focus the previous screen", group = "screen"}), 
-	
-	awful.key({capskey}, "v", 
+	awful.key({super}, ",",
+		function() awful.screen.focus_relative(1) end,
+		{description = "focus the next screen", group = "screen"}),
+
+	awful.key({alt}, ".",
+		function() awful.screen.focus_relative(-1) end,
+		{description = "focus the previous screen", group = "screen"}),
+
+	awful.key({super}, ".",
+		function() awful.screen.focus_relative(-1) end,
+		{description = "focus the previous screen", group = "screen"}),
+
+	awful.key({caps}, "v",
 		function() os.execute("sleep 1; xset dpms force off") end,
 		{description = "Toggle screen backlight", group = "screen" })
 )
 
 local globalkeys_launcher = awful.util.table.join(
-	awful.key({altkey}, "e", function()
+	awful.key({alt}, "e", function()
         -- keychords
 	    local globalkeys_grabber
 	    grabber = awful.keygrabber.run(function(_, key, event)
@@ -179,43 +193,43 @@ local globalkeys_launcher = awful.util.table.join(
 	    end)
 		end, {description = "Run appliaction keycord", group = "launcher"}),
 
-    awful.key({superkey, altkey}, "v", function() 
+    awful.key({super, alt}, "v", function() 
 	    noti("Terminated", "Terminated league of legends", 1)
 	    os.execute("pkill League") 
         os.execute("pkill Riot")    
         end, {description="R.I.P. league of legends", group="launcher"}),
 
-	awful.key({superkey, altkey}, "s", function()
+	awful.key({super, alt}, "s", function()
 		noti("Application Terminated", "Terminated steam", 1)
 		os.execute("killall -s TERM steam") end,
 		{description="Close steam", group="launcher"}),
 
-	awful.key({superkey, altkey}, "y", function()
+	awful.key({super, alt}, "y", function()
 		noti("Application Terminated", "Terminated lbry", 1)
 		os.execute("pkill -TERM lbry") end,
 		{description="Close lbry", group="launcher"}),
 
-	awful.key({superkey, altkey}, "z", function()
+	awful.key({super, alt}, "z", function()
 		noti("Application Terminated", "Terminated tutanota", 1)
 		os.execute("pkill -TERM tutanota") end,
 		{description="Close tutanota", group="launcher"}),
 
-	awful.key({superkey, altkey}, "u", function()
+	awful.key({super, alt}, "u", function()
 		noti("Application Terminated", "Terminated redshift", 1)
 		os.execute("pkill -TERM redshift") end,
 		{description="Close redshift", group="launcher"}),
 
-	awful.key({superkey, altkey}, "k", function()
+	awful.key({super, alt}, "k", function()
 		noti("Application Terminated", "Terminated keepassxc", 1)
 		os.execute("pkill -TERM keepassxc") end,
 		{description="Close keepassxc", group="launcher"}),
 	
-    awful.key({superkey, altkey}, "d", function()
+    awful.key({super, alt}, "d", function()
 		noti("Application Terminated", "Terminated discord", 1)
 		os.execute("pkill discord") end,
 		{description="Close discord", group="launcher"}),
 
-	awful.key({altkey}, "Return", 
+	awful.key({alt}, "Return", 
 		function() awful.spawn(terminal) end, 
 		{description = "open a terminal (" .. terminal .. ")", group = "launcher"}),
 
@@ -230,70 +244,70 @@ local globalkeys_launcher = awful.util.table.join(
 		function() awful.spawn("clipmenu") end,
 		{description = "run clipmenu", group = "launcher"}),
 
-	awful.key({capskey, ctrlkey}, "1",
+	awful.key({caps, ctrl}, "1",
 		function() awful.spawn("clipdel -d '.*'") end,
 		{description = "delete clipboard history", group = "launcher"})
 )
 
 local globalkeys_layout = awful.util.table.join(
-	awful.key({superkey}, "l", 
+	awful.key({super}, "l", 
 		function() awful.tag.incmwfact(0.05) end,
 		{description = "increase master width factor", group = "layout"}),
 
-	awful.key({superkey}, "h", function() awful.tag.incmwfact(-0.05) end, 
+	awful.key({super}, "h", function() awful.tag.incmwfact(-0.05) end, 
 		{description = "decrease master width factor", group = "layout"}), 
 
-	awful.key({superkey, shiftkey}, "h",
+	awful.key({super, shift}, "h",
 		function() awful.tag.incnmaster(1, nil, true) end, 
 		{description = "increase the number of master clients", group = "layout"}), 
 
-	awful.key({superkey, shiftkey}, "l",
+	awful.key({super, shift}, "l",
 		function() awful.tag.incnmaster(-1, nil, true) end, 
 		{description = "decrease the number of master clients", group = "layout"}), 
 		
-	awful.key({superkey, ctrlkey}, "h",
+	awful.key({super, ctrl}, "h",
 		function() awful.tag.incncol(1, nil, true) end, 
 		{description = "increase the number of columns", group = "layout"}), 
 	
-	awful.key({superkey, ctrlkey}, "l",
+	awful.key({super, ctrl}, "l",
 		function() awful.tag.incncol(-1, nil, true) end, 
 		{description = "decrease the number of columns", group = "layout"}), 
 
 	-- Switch layouts
-	awful.key({capskey}, "r",
+	awful.key({caps}, "r",
 		function() awful.layout.inc(1) end,
 		{description = "Next layout", group = "awesome" }),
 
-    awful.key({capskey}, "f",
+    awful.key({caps}, "f",
 		function() awful.layout.inc(-1) end,
 		{description = "Previous layout", group = "awesome" })
 
 )
 
 local globalkeys_system = awful.util.table.join(
-	awful.key({superkey, ctrlkey, shiftkey}, "p",
+	awful.key({super, ctrl, shift}, "p",
 		function() awful.spawn("loginctl poweroff") end,
 		{description = "poweroff", group = "system"}),
 
-	awful.key({superkey, ctrlkey, shiftkey}, "r",
+	awful.key({super, ctrl, shift}, "r",
 		function() awful.spawn("loginctl reboot") end,
 		{description = "reboot", group = "system"}),
 
-	awful.key({superkey, ctrlkey, shiftkey}, "l",
+	awful.key({super, ctrl, shift}, "l",
 		function() awful.spawn(lock_command) end,
 		{description = "lock", group = "system"}),
 
-	awful.key({superkey, ctrlkey, shiftkey}, "k", function() 
+	awful.key({super, ctrl, shift}, "k", function() 
         awful.spawn(lock_command)
         os.execute("sleep 1; xset dpms force off")
         end, {description = "turn off screen and lock", group = "system"}),
     
     -- suspend() in functions.lua
-	awful.key({superkey, ctrlkey, shiftkey}, "s", suspend,
+	awful.key({super, ctrl, shift}, "s", suspend,
 		{description = "sleep", group = "system"}),
 
     -- hibernate() in functions.lua
-	awful.key({superkey, ctrlkey, shiftkey}, "h", hibernate,
+	awful.key({super, ctrl, shift}, "h", hibernate,
 		{description = "hibernate", group = "system"}),
 
     gen_screenshot_key('z', 'Take screenshot of the entire screen', '', 'full'),
@@ -302,40 +316,40 @@ local globalkeys_system = awful.util.table.join(
 )
 
 local globalkeys_tag = awful.util.table.join(
-	awful.key({altkey}, "Left", awful.tag.viewprev,
+	awful.key({alt}, "Left", awful.tag.viewprev,
 		{description = "view previous", group = "tag"}),
-	awful.key({altkey}, "Right", awful.tag.viewnext,
+	awful.key({alt}, "Right", awful.tag.viewnext,
 		{description = "view next", group = "tag"}),
-	awful.key({altkey}, "Escape", awful.tag.history.restore,
+	awful.key({alt}, "Escape", awful.tag.history.restore,
 		{description = "go back", group = "tag"})
 )
 
 local globalkeys_clients = awful.util.table.join(
 	-- sort_clients function is in tags.lua
-	awful.key({superkey, altkey}, "t", 
+	awful.key({super, alt}, "t", 
         function() sort_clients() end, 
         {description="place clients where they belong", group = "client"} ),
 	
 	-- Change focus
-	awful.key({superkey}, "j",
+	awful.key({super}, "j",
 		function() awful.client.focus.byidx(1) end, 
 		{description = "focus next by index", group = "client"}), 
 
-	awful.key({superkey}, "k", 
+	awful.key({super}, "k", 
 		function() awful.client.focus.byidx(-1) end,
 		{description = "focus previous by index", group = "client"}),
 	-- Layout manipulation
-	awful.key({superkey, shiftkey}, "j", function() awful.client.swap.byidx(1) end,
+	awful.key({super, shift}, "j", function() awful.client.swap.byidx(1) end,
 	{description = "swap with next client by index", group = "client"}), 
 
-	awful.key({superkey, shiftkey}, "k",
+	awful.key({super, shift}, "k",
 		function() awful.client.swap.byidx(-1) end, 
 		{description = "swap with previous client by index", group = "client" }),
 		
-	awful.key({superkey}, "u", awful.client.urgent.jumpto,
+	awful.key({super}, "u", awful.client.urgent.jumpto,
 		{description = "jump to urgent client", group = "client"}),
 
-	awful.key({superkey}, "Tab", function() 
+	awful.key({super}, "Tab", function() 
 	awful.client.focus.history.previous()
 		if client.focus then client.focus:raise() end
 			end, 
@@ -355,44 +369,44 @@ globalkeys = awful.util.table.join(
 )
 -- Client keys
 clientkeys = awful.util.table.join(
-	awful.key({superkey}, "f", function(c)
+	awful.key({super}, "f", function(c)
 	c.fullscreen = not c.fullscreen
 	c:raise()
 	end, 
 		{description = "toggle fullscreen", group = "client"}),
 
-	awful.key({superkey, "Shift"}, "c",
+	awful.key({super, "Shift"}, "c",
 		function(c) c:kill() end, 
 		{description = "close", group = "client"}),
 
-	awful.key({superkey, "Control"}, "space", awful.client.floating.toggle,
+	awful.key({super, "Control"}, "space", awful.client.floating.toggle,
 		{description = "toggle floating", group = "client"}),
 										
-	awful.key({superkey, "Control"}, "Return",
+	awful.key({super, "Control"}, "Return",
 		function(c) c:swap(awful.client.getmaster()) end, 
         {description = "move to master", group = "client"}),
 		
-	awful.key({superkey}, "o", 
+	awful.key({super}, "o", 
 		function(c) c:move_to_screen() end, 
 		{description = "move to screen", group = "client"}),
 
-	awful.key({superkey}, "t", 
+	awful.key({super}, "t", 
 		function(c) c.ontop = not c.ontop end, 
 		{description = "toggle keep on top", group = "client"}),
 									 
-	awful.key({superkey}, "m", function(c) 
+	awful.key({super}, "m", function(c) 
 	c.maximized = not c.maximized
 	c:raise()
 	end, 
 		{description = "(un)maximize", group = "client"}),
 									 
-	awful.key({superkey, "Control"}, "m", function(c)
+	awful.key({super, "Control"}, "m", function(c)
 	c.maximized_vertical = not c.maximized_vertical
 	c:raise()
 	end, 
 		{description = "(un)maximize vertically", group = "client"}),
 										
-	awful.key({superkey, "Shift"}, "m", function(c)
+	awful.key({super, "Shift"}, "m", function(c)
 	c.maximized_horizontal = not c.maximized_horizontal
 	c:raise() 
 	end, 
