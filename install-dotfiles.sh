@@ -49,6 +49,12 @@ SYMLINK_FROM_TO=(
     ".librewolf/profile0/extension-preferences.json"
     ".librewolf/profile0/extensions"
     ".config/tridactyl"
+    # Plasma
+    ".config/gtkrc"
+    ".config/gtkrc-2.0"
+    ".config/krunnerrc"
+    ".config/plasmarc"
+    ".config/plasmashellrc"
 )
 
 COPY_FROM_TO=( 
