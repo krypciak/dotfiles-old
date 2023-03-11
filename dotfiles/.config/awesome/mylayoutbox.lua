@@ -31,8 +31,7 @@ local function update(w, screen)
     screen = get_screen(screen)
     local name = layout.getname(layout.get(screen))
     name = name_replace_map[name]
-    w._layoutbox_tooltip:set_text(name or "[no name]")
-    
+
     local img = surface.load_silently(beautiful["layout_" .. name], false)
     w.imagebox.image = img
     w.textbox.text   = img and "" or name

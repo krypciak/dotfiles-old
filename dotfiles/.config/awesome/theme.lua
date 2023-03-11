@@ -14,7 +14,7 @@ theme.font_bold                                 = "Sans Bold 11"
 theme.fg_normal                                 = "#bbbbbb"
 theme.fg_focus                                  = "#cccccc"
 theme.fg_urgent                                 = "#cccccc"
-theme.bg_normal                                 = "#222222"
+theme.bg_normal                                 = "#000000"
 theme.bg_focus                                  = "#005577"
 theme.bg_urgent                                 = "#005577"
 
@@ -31,6 +31,7 @@ theme.border_normal                             = "#000000"
 theme.border_focus                              = "#ff0000"
 theme.border_marked                             = "#ff0000"
 
+theme.tasklist_bg_normal                        = "#000000"
 theme.tasklist_bg_focus                         = "#222222"
 
 theme.taglist_fg_urgent                         = theme.bg_urgent
@@ -45,7 +46,6 @@ theme.tasklist_plain_task_name                  = false
 theme.tasklist_disable_icon                     = true
 theme.useless_gap                               = dpi(default_useless_gap)
 
-
 local function create_widget(icon, seconds, cmd)
     local widget = awful.widget.watch(cmd, seconds,
         function(widget, stdout)
@@ -56,48 +56,52 @@ local function create_widget(icon, seconds, cmd)
 end
 
 
--- Separators
-local spr     = wibox.widget.textbox(' ')
 
-local blocks = {
-    layout = wibox.layout.fixed.horizontal,
-    --wibox.widget.systray(),
-    create_widget("", 2,  'sh -c "$HOME/.config/dotfiles/scripts/bar/mem.sh"'),
-    create_widget("", 2,  'sh -c "$HOME/.config/dotfiles/scripts/bar/cpu.sh"'),
-    create_widget("", 1,  'sh -c "$HOME/.config/dotfiles/scripts/bar/cputemp.sh"'),
-    create_widget("", 15, 'sh -c "$HOME/.config/dotfiles/scripts/bar/screentemp_redshift.sh"'),
-    create_widget("", 1,  'sh -c "$HOME/.config/dotfiles/scripts/bar/network-traffic.sh download"'),
-    create_widget("", 1,  'sh -c "$HOME/.config/dotfiles/scripts/bar/network-traffic.sh upload"'),
-    create_widget("﬌", 60, 'sh -c "cat $HOME/.cache/update"'),
-    create_widget(" ", 60, 'sh -c "$HOME/.config/dotfiles/scripts/bar/uptime.sh"'),
-    create_widget(" ", 1, "cat /tmp/keyboard_layout"),
-    create_widget("",   1, 'sh -c "$HOME/.config/dotfiles/scripts/bar/date.sh"'),
-    spr,
-    spr,
-    spr,
-}
+local function change_colors_if1c(s)
+    if #s.tiled_clients == 0 then
+        for _, w in pairs(s.widgets) do
+            w.bg = "#000000"
+        end
+    else
+        for _, w in pairs(s.widgets) do
+            w.bg = "#222222"
+        end
+    end
+end
 
-mylayoutbox = require("mylayoutbox")
+client.connect_signal("tagged", function(c) change_colors_if1c(c.screen) end)
+client.connect_signal("untagged", function(c) change_colors_if1c(c.screen) end)
+tag.connect_signal("property::selected", function(t) change_colors_if1c(t.screen) end)
+
+local mylayoutbox = require("mylayoutbox")
+
 
 function theme.at_screen_connect(s)
-    -- Quake application
-    s.quake = lain.util.quake({ app = awful.util.terminal })
-
-    ext_group = 0
-    ext_index = 0
-    ext_noti = false
-    assert(loadfile(userdir .. '/.config/dotfiles/scripts/wallpaper.lua', 't', _ENV))()
-
-    s.mylayoutbox = mylayoutbox.new(s)
-
-    -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist {
-        screen = s,
-        filter = awful.widget.taglist.filter.all,
+    s.widgets = {
+        spr = wibox.widget.textbox(' '),
+        mem = create_widget("", 2,  'sh -c "$HOME/.config/dotfiles/scripts/bar/mem.sh"'),
+        cpu = create_widget("", 2,  'sh -c "$HOME/.config/dotfiles/scripts/bar/cpu.sh"'),
+        cputemp = create_widget("", 1,  'sh -c "$HOME/.config/dotfiles/scripts/bar/cputemp.sh"'),
+        screentemp = create_widget("", 15, 'sh -c "$HOME/.config/dotfiles/scripts/bar/screentemp_redshift.sh"'),
+        download = create_widget("", 1,  'sh -c "$HOME/.config/dotfiles/scripts/bar/network-traffic.sh download"'),
+        upload = create_widget("", 1,  'sh -c "$HOME/.config/dotfiles/scripts/bar/network-traffic.sh upload"'),
+        updates = create_widget("﬌", 60, 'sh -c "cat $HOME/.cache/update"'),
+        uptime = create_widget(" ", 60, 'sh -c "$HOME/.config/dotfiles/scripts/bar/uptime.sh"'),
+        klayout = create_widget(" ", 1, "cat /tmp/keyboard_layout"),
+        date = create_widget("",   1, 'sh -c "$HOME/.config/dotfiles/scripts/bar/date.sh"'),
+        layoutbox = mylayoutbox.new(s),
+        taglist = awful.widget.taglist {
+            screen = s,
+            filter = awful.widget.taglist.filter.all,
+        },
+        tasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.focused, nil),
     }
+    for n, w in pairs(s.widgets) do
+        s.widgets[n] = wibox.container.background(w, theme.bg_normal)
+    end
 
-    -- Create a tasklist widget
-    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.focused, nil)
+    -- Set the wallpaper
+    assert(loadfile(userdir .. '/.config/dotfiles/scripts/wallpaper.lua', 't', _ENV))()
 
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s, height = theme.menu_height, bg = theme.bg_normal, fg = theme.fg_normal })
@@ -108,13 +112,26 @@ function theme.at_screen_connect(s)
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
             --spr,
-            s.mytaglist,
-            spr, spr, spr,
-            s.mylayoutbox,
-            spr, spr, spr,
+            s.widgets.taglist,
+            s.widgets.spr, s.widgets.spr, s.widgets.spr,
+            s.widgets.layoutbox,
+            s.widgets.spr, s.widgets.spr, s.widgets.spr,
         },
-        s.mytasklist, -- Middle widget
-        blocks,
+        s.widgets.tasklist, -- Middle widget
+        {
+            layout = wibox.layout.fixed.horizontal,
+            s.widgets.mem,
+            s.widgets.cpu,
+            s.widgets.cputemp,
+            s.widgets.screentemp,
+            s.widgets.download,
+            s.widgets.upload,
+            s.widgets.updates,
+            s.widgets.uptime,
+            s.widgets.klayout,
+            s.widgets.date,
+            s.widgets.spr, s.widgets.spr, s.widgets.spr,
+        }
     }
 end
 

@@ -52,3 +52,6 @@ lock_command = 'alock -b image:file=' .. lock_wallpaper .. ' -i none'
 
 awful.util.terminal = terminal
 
+ext_group = 0
+ext_index = 0
+ext_noti = false
