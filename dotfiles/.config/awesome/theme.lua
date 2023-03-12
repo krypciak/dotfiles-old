@@ -58,6 +58,7 @@ end
 
 
 local function change_colors_if1c(s)
+    if not s then return end
     if #s.tiled_clients == 0 then
         for _, w in pairs(s.widgets) do
             w.bg = "#000000"
