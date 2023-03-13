@@ -89,9 +89,7 @@ function listen_rss() {
             export date="$(echo "$metadata" | sed '2q;d')"
             date_ago="$(date -d @$(echo $(date +%s) - 86400*2 | bc) -u +%Y%m%d)"
 
-            if [ -f "$VIDEOS_DIR/$filename" ] ; then 
-                _log_invidious "${GREEN_BG}File exists, skipping"
-            elif [ "$date" -lt "$date_ago" ]; then
+            if [ "$date" -lt "$date_ago" ]; then
                 _log_invidious "${GREEN_BG}Video is too old, skipping"
             else
                 _log_invidious "${CYAN}Downloading URL: ${YELLOW}${url}${CYAN}"
