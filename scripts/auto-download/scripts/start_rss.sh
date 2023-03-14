@@ -25,7 +25,7 @@ YT_DLP_ARGS='--sponsorblock-remove all --force-keyframes-at-cuts --embed-thumbna
 # --force-keyframes-at-cuts
 
 #TITLE='%(channel)s - %(title)s.%(ext)s'
-TITLE='%(title)s.%(ext)s - %(channel)s'
+TITLE='%(title)s - %(channel)s.%(ext)s'
 
 
 ANIME_DIR="$DOWNLOAD_DIR/anime"
