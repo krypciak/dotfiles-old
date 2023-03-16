@@ -1,6 +1,6 @@
 #!/bin/sh
 MODULE='eth0'
-TIME='1'
+TIME='4'
 MULTI='1'
 
 function format_KiB() {
@@ -12,15 +12,18 @@ function format_KiB() {
     fi
 }
 
-if [ "$1" == "download" ]; then
+if nc -z 8.8.8.8 53 -w 1; then
+    printf ''
     rx1=$(cat /sys/class/net/$MODULE/statistics/rx_bytes)
     sleep $TIME
     rx2=$(cat /sys/class/net/$MODULE/statistics/rx_bytes)
     format_KiB
-fi
-if [ "$1" == "upload" ]; then
+    
+    printf ' '
     rx1=$(cat /sys/class/net/$MODULE/statistics/tx_bytes)
     sleep $TIME
     rx2=$(cat /sys/class/net/$MODULE/statistics/tx_bytes)
     format_KiB
+else 
+    printf '󰈂'
 fi
