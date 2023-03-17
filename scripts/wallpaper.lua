@@ -6,7 +6,7 @@ local default_group = 1
 local default_index = 1
 
 local wallpapers = {
-    {  'oneshot/library.png', 'oneshot/main.png', 'oneshot/factory.png', 'oneshot/MemoryOfaDistantPlace.gif' },
+    {  'oneshot/library.png', 'oneshot/main.png', 'oneshot/factory.png', 'oneshot/MemoryOfaDistantPlace.gif', 'oneshot/TheLastPancake.png' },
     { 'autumn.png' },
     { '#000000', '#303030' }
 }
