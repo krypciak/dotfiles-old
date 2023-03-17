@@ -5,10 +5,10 @@ local wallpaper_selected_file = wallpaper_dir .. 'selected'
 local default_group = 1
 local default_index = 1
 
-local wallpapers = { 
-    {  'oneshot/library.png', 'oneshot/main.png', 'oneshot/factory.png', 'oneshot/asteroid.png' }, 
-    { 'autumn.png' }, 
-    { '#000000', '#303030' } 
+local wallpapers = {
+    {  'oneshot/library.png', 'oneshot/main.png', 'oneshot/factory.png', 'oneshot/MemoryOfaDistantPlace.gif' },
+    { 'autumn.png' },
+    { '#000000', '#303030' }
 }
 
 local in_group
