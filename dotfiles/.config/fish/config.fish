@@ -46,12 +46,21 @@ if status is-interactive
         function lspc 
             lsp "$argv" | wl-copy
         end
+        
+        function lsc
+            ls "$argv" | head -c -1 | wl-copy
+        end
+
     else
         alias pwdc='pwd | xsel -ib'
         alias pwdv='cd "$(xsel -ob)"'
         
         function lspc 
             lsp "$argv" | xsel -ib
+        end
+
+        function lsc
+            ls "$argv" | head -c -1 | xsel -ib
         end
     end
     
@@ -60,6 +69,7 @@ if status is-interactive
     alias iuploadedmycreditcardnumbertogitwhatnow='printf "git filter-repo --invert-paths --path <path to the file or directory>"\n'
     alias mountqcow2='printf "# Mount\ndoas modprobe nbd max_part=8\ndoas qemu-nbd --connect=/dev/nbd0 IMAGE.qcow2\ndoas mount /dev/nbd0 MNT\n\n# Umount\ndoas umount MNT\ndoas qemu-ndp --disconnect /dev/nbd0"'
 
+    alias awesomesuperbroken='xmodmap -e "clear mod4"; xmodmap -e "add mod4 = Super_L Super_L Super_L Hyper_L"'
 
     function last_history_item
         echo $history[1]
