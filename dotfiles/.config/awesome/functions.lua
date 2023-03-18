@@ -47,7 +47,7 @@ end
 
 function set_wallpaper(wallpaper, disable_noti)
         if not disable_noti then
-            noti("Wallpaper changed", tostring(wallpaper), 1)
+            noti("Wallpaper changed", tostring(wallpaper_dir .. wallpaper), 1)
         end
         if wallpaper:find('^#') then
             gears.wallpaper.set(wallpaper)

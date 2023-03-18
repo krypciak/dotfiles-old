@@ -101,7 +101,8 @@ function theme.at_screen_connect(s)
     end
 
     -- Set the wallpaper
-    assert(loadfile(userdir .. '/.config/dotfiles/scripts/wallpaper.lua', 't', _ENV))()
+    ext_init = 1
+    assert(loadfile(userdir .. '/.config/wallpapers/wallpaper.lua', 't', _ENV))()
 
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s, height = theme.menu_height, bg = theme.bg_normal, fg = theme.fg_normal })

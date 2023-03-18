@@ -131,18 +131,10 @@ local globalkeys_awesome = awful.util.table.join(
 		{description = "Decrese useless gap", group = "awesome" }),
 
     awful.key({caps}, "t", function()
-        ext_group = 1
-        ext_index = 0
-        assert(loadfile(userdir .. '/.config/dotfiles/scripts/wallpaper.lua', 't', _ENV))()
+        ext_init = 0
+        assert(loadfile(userdir .. '/.config/wallpapers/wallpaper.lua', 't', _ENV))()
         end,
-        {description = "switch wallpaper group", group = "awesome"}),
-
-    awful.key({caps}, "g", function()
-        ext_group = 0
-        ext_index = 1
-        assert(loadfile(userdir .. '/.config/dotfiles/scripts/wallpaper.lua', 't', _ENV))()
-        end,
-        {description = "switch wallpaper index", group = "awesome"})
+        {description = "switch wallpaper", group = "awesome"})
 )
 
 local globalkeys_screen = awful.util.table.join(
