@@ -13,9 +13,8 @@ local wallpapers = {
 
 local hour_wallpapers = true
 local hour_wallpapers_array = {
-    { hour_start = 6, hour_end = 19, wallpaper = 'oneshot/MemoryOfaDistantPlace.gif' },
-    { hour_start = 19, hour_end = 6, wallpaper = 'oneshot/main.png' },
-
+    { hour_start = 6, hour_end = 21, wallpaper = 'oneshot/MemoryOfaDistantPlace.gif' },
+    { hour_start = 21, hour_end = 6, wallpaper = 'oneshot/main.png' },
 }
 
 local wallpaper_name_map = {}
@@ -67,16 +66,20 @@ print('mode: ' .. mode)
 local group = tonumber(default_group)
 local index = tonumber(default_index)
 
-if mode == 'inc' then
-    local file = io.open(wallpaper_selected_file, "r")
+local file = io.open(wallpaper_selected_file, "r")
 
-    if file then
-        local tuple = wallpaper_name_map[file:read()]
-        file:close()
+local read_wallpaper
+if file then
+    read_wallpaper = file:read()
+    file:close()
+    if mode == 'inc' then
+        local tuple = wallpaper_name_map[read_wallpaper]
         group = tuple.group
         index = tuple.index
     end
+end
 
+if mode == 'inc' then
    group = group + in_group
    if group > #wallpapers then group = 1
    elseif 0 >= group      then group = #wallpapers end
@@ -109,7 +112,7 @@ local current_wallpaper
 if mode == 'gui' and not isx11 then
     current_wallpaper = os.capture("cd $HOME/.config/wallpapers; find . -type f -iname '*.png' -o -iname '*.gif' | awk '{print substr($1, 3)}' | fuzzel -d --log-level=none")
 elseif mode == 'gui' and isx11 then
-        current_wallpaper = os.capture("cd $HOME/.config/wallpapers; find . -type f -iname '*.png' -o -iname '*.gif' | awk '{print substr($1, 3)}' | rofi -dmenu | head -c -1")
+    current_wallpaper = os.capture("cd $HOME/.config/wallpapers; find . -type f -iname '*.png' -o -iname '*.gif' | awk '{print substr($1, 3)}' | rofi -dmenu | head -c -1")
 else
     current_wallpaper = wallpapers[group][index]
 end
@@ -131,6 +134,8 @@ if not isx11 then
     end
 end
 
-set_wallpaper(current_wallpaper, not ext_noti)
+if current_wallpaper ~= read_wallpaper then
+    set_wallpaper(current_wallpaper, not ext_noti)
+end
 
 
