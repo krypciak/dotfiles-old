@@ -48,6 +48,12 @@ if arg then
     elseif mode == 'x11-gui' then
         mode = 'gui'
         isx11 = true
+    elseif mode == 'x11-hour_check' then
+        mode = 'hour_check'
+        isx11 = true
+    elseif mode == 'wayland-hour_check' then
+        mode = 'hour_check'
+        isx11 = false
     end
 end
 if not mode then
@@ -110,15 +116,25 @@ end
 
 local current_wallpaper
 if mode == 'gui' and not isx11 then
-    current_wallpaper = os.capture("cd $HOME/.config/wallpapers; find . -type f -iname '*.png' -o -iname '*.gif' | awk '{print substr($1, 3)}' | fuzzel -d --log-level=none")
+   local cmd1 = ''
+   for k, _ in pairs(wallpaper_name_map) do
+       cmd1 = cmd1 .. k .. '\n'
+   end
+
+    current_wallpaper = os.capture("cd $HOME/.config/wallpapers; find . -type f -iname '*.png' -o -iname '*.gif' | awk '{print substr($1, 3)}' | xargs printf \'" .. cmd1 .. "\' | fuzzel -d --log-level=none | head -c -1")
 elseif mode == 'gui' and isx11 then
-    current_wallpaper = os.capture("cd $HOME/.config/wallpapers; find . -type f -iname '*.png' -o -iname '*.gif' | awk '{print substr($1, 3)}' | rofi -dmenu | head -c -1")
+   local cmd1 = ''
+   for k, _ in pairs(wallpaper_name_map) do
+       cmd1 = cmd1 .. k .. '\n'
+   end
+
+    current_wallpaper = os.capture("cd $HOME/.config/wallpapers; find . -type f -iname '*.png' -o -iname '*.gif' | awk '{print substr($1, 3)}' | xargs printf \'" .. cmd1 .. "\' | rofi -dmenu | head -c -1")
 else
     current_wallpaper = wallpapers[group][index]
 end
 print(current_wallpaper)
 
-local file = io.open(wallpaper_selected_file, "w")
+file = io.open(wallpaper_selected_file, "w")
 if file then
     file:write(current_wallpaper .. '\n')
     file:close()
@@ -132,10 +148,17 @@ if not isx11 then
             os.execute('swww img ' .. wallpaper_dir .. wallpaper)
         end
     end
+
+    local out = os.capture("swww query | awk '{print $8}' | tail -c +2 | head --lines 1 | head -c -2")
+    if out ~= '' then
+        read_wallpaper = os.capture("cd $HOME/.config/wallpapers; find . -type f -iname '" .. out .. "' | awk '{print substr($1, 3)}' | head --lines 1 | head -c -1")
+    end
 end
 
-if current_wallpaper ~= read_wallpaper then
+if current_wallpaper == read_wallpaper then
+    print("wallpaper the same, not changing")
+end
+
+if isx11 or current_wallpaper ~= read_wallpaper then
     set_wallpaper(current_wallpaper, not ext_noti)
 end
-
-
