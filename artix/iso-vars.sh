@@ -47,6 +47,7 @@ PACKAGE_GROUPS=(
     'virt'
     'android'
     'plasma'
+    'baltie'
 )
 
 INSTALL_CRON=0
