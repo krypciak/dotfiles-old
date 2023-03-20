@@ -44,6 +44,6 @@ awful.spawn.easy_async_with_shell("sleep 5",
 
 run_if_not_running_pgrep("keepassxc")
 
-run_if_not_running_pgrep({ "tutanota" }, function() awful.spawn("tutanota-desktop") end)
+run_if_not_running_pgrep({"tutanota"}, function() awful.spawn("tutanota-desktop") end)
 
 run_if_not_running_pgrep("blueman-applet")
