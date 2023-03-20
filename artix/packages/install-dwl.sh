@@ -16,6 +16,8 @@ function make_dwl() {
         sed -i 's/"gammastep -r"/\/\/"gammastep -r"/g' config.h
         sed -i 's/"blueman-applet"/\/\/"blueman-applet"/g' config.h
         sed -i 's/{ "HDMI-A-1"/\/\/{ "HDMI-A-1"/g' config.h
+        sed -i 's/{ "DP-2"/\/\/{ "DP-2"/g' config.h
+        sed -i 's/\"wlr-randr --output DP-2 --toggle/\/\/\"wlr-randr --output DP-2 --toggle/g' config.h
     fi
 
     if [ "$ISO" == "yes" ]; then
