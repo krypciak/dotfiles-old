@@ -10,6 +10,8 @@ local wallpapers = {
     { 'autumn.png' },
     { '#000000', '#303030' }
 }
+local custom_scaling_wallpapers = {}
+custom_scaling_wallpapers['oneshot/MemoryOfaDistantPlace.gif'] = 'Nearest'
 
 local hour_wallpapers = true
 local hour_wallpapers_array = {
@@ -145,7 +147,11 @@ if not isx11 then
         if wallpaper:find('^#') then
             os.execute('swww clear "' .. wallpaper .. '"')
         else
-            os.execute('swww img ' .. wallpaper_dir .. wallpaper)
+            local scaling_method = custom_scaling_wallpapers[wallpaper]
+            if scaling_method then
+                scaling_method = '--filter ' .. scaling_method .. ' '
+            end
+            os.execute('swww img --sync ' .. scaling_method .. wallpaper_dir .. wallpaper)
         end
     end
 
