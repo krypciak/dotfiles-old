@@ -15,8 +15,8 @@ function configure_baltie() {
     mkdir -p "$BASE_DIR"
     mv /tmp/baltie-extracted/app "$INSTALL_DIR"
     
-    cp "$CONFIGD_DIR/Baltie3.desktop" "$USER_HOME/.local/share/applications"
-    chown $USER:$USER_GROUP -R "$USER_HOME/.local/share/applications"
+    cp -v "$CONFIGD_DIR/Baltie3.desktop" "$USER_HOME/.local/share/applications"
+    chown $USER1:$USER_GROUP -Rv "$USER_HOME/.local/share/applications"
     chmod +x "$CONFIGD_DIR/Baltie3.desktop"
-    chown $USER:$USER_GROUP -R "$USER_HOME/.local/share/wine"
+    chown $USER1:$USER_GROUP -Rv "$USER_HOME/.local/share/wine"
 }
