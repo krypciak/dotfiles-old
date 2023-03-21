@@ -16,7 +16,15 @@ function configure_baltie() {
     mv /tmp/baltie-extracted/app "$INSTALL_DIR"
     
     cp -v "$CONFIGD_DIR/Baltie3.desktop" "$USER_HOME/.local/share/applications"
-    chown $USER1:$USER_GROUP -Rv "$USER_HOME/.local/share/applications"
+    chown $USER1:$USER_GROUP -R "$USER_HOME/.local/share/applications"
     chmod +x "$CONFIGD_DIR/Baltie3.desktop"
-    chown $USER1:$USER_GROUP -Rv "$USER_HOME/.local/share/wine"
+    chown $USER1:$USER_GROUP -R "$USER_HOME/.local/share/wine"
+
+    # Init wine prefix
+    doas -u $USER1 env WINEPREFIX="$USER_HOME/.local/share/wine" DISPLAY='' WAYLAND_DISPLAY='' timeout 5s /usr/bin/wine "C:\\\\Program Files (x86)\\\\SGP Systems\\\\SGP Baltie 3\\\\baltie.exe"
+    pkill wine
+    pkill '.exe'
+
+    pkill -9 wine
+    pkill -9 '.exe'
 }
