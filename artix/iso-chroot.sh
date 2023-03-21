@@ -19,7 +19,6 @@ cp -rf $ARTIXD_DIR/../ $DOTFILES_DIR/
 
 printf "#000000" > $DOTFILES_DIR/dotfiles/.config/wallpapers/selected
 
-
 export ARTIXD_DIR=$DOTFILES_DIR/artix
 export CONFIGD_DIR=$DOTFILES_DIR/config-files
 
@@ -41,20 +40,14 @@ echo "permit setenv { XAUTHORITY LANG LC_ALL } nopass $USER1\n" >> /etc/doas.con
 
 
 printf "\
-local swapdev \n\
 swapdev=\"\$(fdisk -l 2>/dev/null | grep swap | cut -d' ' -f1)\" \n\
-if [ -e \"\$(swapdev)\" ]; then \n\
+if [ -e \"\$swapdev\" ]; then \n\
     swapon \"\$(swapdev)\" \n\
 fi \n\
-usermod -ag tty,ftp,games,network,scanner,users,video,audio,wheel,libvirt $user1 \n\
+usermod -aG tty,ftp,games,network,scanner,users,video,audio,wheel,libvirt $USER1 \n\
+chown $USER1:$USER_GROUP /home/$USER1/.cache\n\
 " > /bin/artix-live
 
-sed -i -E ':a;N;$!ba;s/configure_user\n//g' /bin/artix-live
-sed -i -E ':a;N;$!ba;s/configure_language\n//g' /bin/artix-live
-sed -i -E ':a;N;$!ba;s/configure_displaymanager\n//g' /bin/artix-live
-sed -i -E ':a;N;$!ba;s/detect_desktop_env\n//g' /bin/artix-live
-sed -i -E ':a;N;$!ba;s/configure\n//g' /bin/artix-live
-echo "usermod -aG tty,ftp,games,network,scanner,users,video,audio,wheel,libvirt $USER1" >> /bin/artix-live
 #echo "chown $USER1:$USER_GROUP -R /home/$USER1/" >> /bin/artix-live
 
 rc-update del agetty.tty4 default
