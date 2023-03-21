@@ -1,5 +1,9 @@
 #!/bin/sh
 function install_baltie() {
+    echo ''
+}
+
+function configure_baltie() {
     export PACkAGES_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
     [ ! -f '/tmp/baltie.zip' ] && wget https://sgpsys.com/download/b3/b3_u_plk.zip -O /tmp/baltie.zip
@@ -15,6 +19,4 @@ function install_baltie() {
     
     cp "$CONFIGD_DIR/Baltie3.desktop" "$USER_HOME/.local/share/applications"
     chmod +x "$CONFIGD_DIR/Baltie3.desktop"
-
-    echo ''
 }
