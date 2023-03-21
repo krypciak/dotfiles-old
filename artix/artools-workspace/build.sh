@@ -3,7 +3,8 @@ if [ $(whoami) != "root" ]; then
     echo "This script requires root privilages"
     exit 1
 fi
-paru --noconfirm -Syu
+pacman --noconfirm -Syu
+modprobe loop
 
 ARTIX_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
@@ -69,9 +70,6 @@ buildiso $BUILDISO_ARGS -x
 # mount special dirs
 mount_spdirs
 cp /etc/resolv.conf $ROOTFS/etc/
-
-# disable pacman checking space
-#sed -i 's/CheckSpace/#CheckSpace/g' $ROOTFS/etc/pacman.conf
 
 # mount pacman and paru package cache
 mkdir -p $ROOTFS/var/lib/pacman/sync
