@@ -1,11 +1,9 @@
 #!/bin/sh
 function install_baltie() {
-    echo ''
+    echo 'innoextract'
 }
 
 function configure_baltie() {
-    export PACkAGES_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-
     [ ! -f '/tmp/baltie.zip' ] && wget https://sgpsys.com/download/b3/b3_u_plk.zip -O /tmp/baltie.zip
     [ ! -f '/tmp/setup.exe' ] && unzip /tmp/baltie.zip -d /tmp/
     
@@ -18,5 +16,7 @@ function configure_baltie() {
     mv /tmp/baltie-extracted/app "$INSTALL_DIR"
     
     cp "$CONFIGD_DIR/Baltie3.desktop" "$USER_HOME/.local/share/applications"
+    chown $USER:$USER_GROUP -R "$USER_HOME/.local/share/applications"
     chmod +x "$CONFIGD_DIR/Baltie3.desktop"
+    chown $USER:$USER_GROUP -R "$USER_HOME/.local/share/wine"
 }
