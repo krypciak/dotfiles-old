@@ -17,7 +17,7 @@ pri "Copying the repo to $DOTFILES_DIR"
 mkdir -p $DOTFILES_DIR/..
 cp -rf $ARTIXD_DIR/../ $DOTFILES_DIR/
 
-printf "3\n1\n" > $DOTFILES_DIR/dotfiles/wallpapers/selected
+printf "#000000" > $DOTFILES_DIR/dotfiles/.config/wallpapers/selected
 
 
 export ARTIXD_DIR=$DOTFILES_DIR/artix
