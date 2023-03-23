@@ -1,11 +1,9 @@
 #!/bin/sh
 function install_baltie() {
-    echo ''
+    echo 'innoextract'
 }
 
 function configure_baltie() {
-    export PACkAGES_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-
     [ ! -f '/tmp/baltie.zip' ] && wget https://sgpsys.com/download/b3/b3_u_plk.zip -O /tmp/baltie.zip
     [ ! -f '/tmp/setup.exe' ] && unzip /tmp/baltie.zip -d /tmp/
     
@@ -17,6 +15,16 @@ function configure_baltie() {
     mkdir -p "$BASE_DIR"
     mv /tmp/baltie-extracted/app "$INSTALL_DIR"
     
-    cp "$CONFIGD_DIR/Baltie3.desktop" "$USER_HOME/.local/share/applications"
+    cp -v "$CONFIGD_DIR/Baltie3.desktop" "$USER_HOME/.local/share/applications"
+    chown $USER1:$USER_GROUP -R "$USER_HOME/.local/share/applications"
     chmod +x "$CONFIGD_DIR/Baltie3.desktop"
+    chown $USER1:$USER_GROUP -R "$USER_HOME/.local/share/wine"
+
+    # Init wine prefix
+    doas -u $USER1 env WINEPREFIX="$USER_HOME/.local/share/wine" DISPLAY='' WAYLAND_DISPLAY='' timeout 5s /usr/bin/wine "C:\\\\Program Files (x86)\\\\SGP Systems\\\\SGP Baltie 3\\\\baltie.exe"
+    pkill wine
+    pkill '.exe'
+
+    pkill -9 wine
+    pkill -9 '.exe'
 }
