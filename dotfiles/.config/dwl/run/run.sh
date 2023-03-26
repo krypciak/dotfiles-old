@@ -13,6 +13,9 @@ export WLR_NO_HARDWARE_CURSORS=1
 
 export XDG_CURRENT_DESKTOP='dwl'
 
+dbus-update-activation-environment --all
+gnome-keyring-daemon --start --components=secrets
+
 # simulate a do-while
 do=true
 while $do ||  [ -f /tmp/restart_dwl ]; do
