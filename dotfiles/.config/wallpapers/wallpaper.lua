@@ -82,8 +82,10 @@ if file then
     file:close()
     if mode == 'inc' then
         local tuple = wallpaper_name_map[read_wallpaper]
-        group = tuple.group
-        index = tuple.index
+        if tuple then
+            group = tuple.group
+            index = tuple.index
+        end
     end
 end
 
