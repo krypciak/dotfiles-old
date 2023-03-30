@@ -27,3 +27,4 @@ export CM_LAUNCHER=rofi
 
 export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
 
+[ -f "/tmp/keyboard_layout" ] || echo 'qwerty' > /tmp/keyboard_layout
