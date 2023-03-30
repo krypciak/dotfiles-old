@@ -11,7 +11,7 @@ local wallpapers = {
     { '#000000', '#303030' }
 }
 local custom_scaling_wallpapers = {}
-custom_scaling_wallpapers['oneshot/MemoryOfaDistantPlace.gif'] = 'Nearest'
+custom_scaling_wallpapers['oneshot/MemoryOfaDistantPlace.gif'] = { swww='Nearest', mpv='nearest' }
 
 local hour_wallpapers = true
 local hour_wallpapers_array = {
@@ -151,7 +151,7 @@ if not isx11 then
         else
             local scaling_method = custom_scaling_wallpapers[wallpaper]
             if scaling_method then
-                scaling_method = '--filter ' .. scaling_method .. ' '
+                scaling_method = '--filter ' .. scaling_method.swww .. ' '
             end
             os.execute('swww img --sync ' .. scaling_method .. wallpaper_dir .. wallpaper)
         end
@@ -167,6 +167,18 @@ if current_wallpaper == read_wallpaper then
     print("wallpaper the same, not changing")
 end
 
-if isx11 or current_wallpaper ~= read_wallpaper then
+if isx11 then
+    os.execute('pkill mpv')
+    if string.match(current_wallpaper, "gif$") then
+        local scaling_method = custom_scaling_wallpapers[current_wallpaper]
+        if scaling_method then
+            scaling_method = '--scale=' .. scaling_method.mpv .. ' '
+        end
+        os.execute('mpv --wid=0 --loop-file=inf ' .. scaling_method .. wallpaper_dir .. current_wallpaper .. ' &')
+        set_wallpaper('#000000', true)
+    else
+        set_wallpaper(current_wallpaper, not ext_noti)
+    end
+elseif current_wallpaper ~= read_wallpaper then
     set_wallpaper(current_wallpaper, not ext_noti)
 end
