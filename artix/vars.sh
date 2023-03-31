@@ -84,7 +84,7 @@ PACKAGE_GROUPS=(
     'bluetooth'
     'virt'
     'android'
-    'plasma'
+    #'plasma'
     'baltie'
 )
 
