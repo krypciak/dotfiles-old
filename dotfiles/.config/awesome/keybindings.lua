@@ -225,12 +225,9 @@ local globalkeys_launcher = awful.util.table.join(
 		function() awful.spawn(terminal) end, 
 		{description = "open a terminal (" .. terminal .. ")", group = "launcher"}),
 
-	-- awful.key({alt}, "r",
-	-- 	function() awful.spawn("rofi -show drun") end,
-	-- 	{description = "run rofi", group = "launcher"}),
 	awful.key({alt}, "r",
-		function() awful.spawn("krunner") end,
-		{description = "run krunner", group = "launcher"}),
+		function() awful.spawn("rofi -show drun") end,
+		{description = "run rofi", group = "launcher"}),
 
 	awful.key({caps}, "1",
 		function() awful.spawn("clipmenu") end,
