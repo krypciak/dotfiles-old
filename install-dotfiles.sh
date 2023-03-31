@@ -36,6 +36,7 @@ SYMLINK_FROM_TO=(
     ".config/gammastep"
     ".config/fuzzel"
     ".config/swaylock"
+    ".config/fnott"
     # Ungoogled chromium
     ".config/chromium/Default/Extensions"
     ".config/chromium/Default/Sync Extension Settings"
