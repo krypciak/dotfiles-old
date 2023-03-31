@@ -125,7 +125,7 @@ if mode == 'gui' and not isx11 then
        cmd1 = cmd1 .. k .. '\n'
    end
 
-    current_wallpaper = os.capture("cd $HOME/.config/wallpapers; find . -type f -iname '*.png' -o -iname '*.gif' | awk '{print substr($1, 3)}' | xargs printf \'" .. cmd1 .. "\' | fuzzel -d --log-level=none | head -c -1")
+    current_wallpaper = os.capture("cd $HOME/.config/wallpapers; find . -type f -iname '*.png' -o -iname '*.gif' | awk '{print substr($1, 3)}' | xargs printf \'" .. cmd1 .. "\' | fuzzel -d --log-level=none --width 35 | head -c -1")
 elseif mode == 'gui' and isx11 then
    local cmd1 = ''
    for k, _ in pairs(wallpaper_name_map) do
