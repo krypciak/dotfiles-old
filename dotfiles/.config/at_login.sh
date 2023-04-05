@@ -14,17 +14,19 @@ export XCURSOR_PATH=/usr/share/icons:${XDG_DATA_HOME}/icons
 # ~/.wine
 export WINEPREFIX="$XDG_DATA_HOME/wine"
 
-#if [ "$launch_dbus" != 0 ]; then
-#    export $(dbus-launch)
-#fi
 export QT_QPA_PLATFORMTHEME=qt5ct
 
 export USER1=$USER
-export PATH="/home/$USER1/.local/bin:$PATH"
+export PATH="/home/$USER1/.local/bin:/home/$USER1/.cargo/bin$PATH"
 
 export EDITOR='nvim'
 export CM_LAUNCHER=rofi
 
 export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
+
+export XDG_RUNTIME_DIR=/tmp/xdg-runtime-$(id -u)
+mkdir -p $XDG_RUNTIME_DIR
+chmod 0700 -R $XDG_RUNTIME_DIR
+
 
 [ -f "/tmp/keyboard_layout" ] || echo 'qwerty' > /tmp/keyboard_layout
