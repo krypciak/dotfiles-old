@@ -24,7 +24,7 @@ SYMLINK_FROM_TO=(
     ".config/wallpapers"
     ".config/cmus/autosave"
     ".config/cmus/red_theme.theme"
-    ".config/cmus/notify.sh"
+    ".config/cmus/notify.cfg"
     # X11 apps
     ".xinitrc"
     ".config/awesome"
