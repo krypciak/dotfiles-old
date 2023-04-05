@@ -1,10 +1,5 @@
-export launch_dbus=0
 source ~/.config/at_login.sh
-unset launch_dbus
 
-export XDG_RUNTIME_DIR=/tmp/xdg-runtime-$(id -u)
-mkdir -p $XDG_RUNTIME_DIR
-chmod 0700 -R $XDG_RUNTIME_DIR
 
 export MOZ_ENABLE_WAYLAND=1
 export GDK_BACKEND=wayland
@@ -14,7 +9,7 @@ export WLR_NO_HARDWARE_CURSORS=1
 export XDG_CURRENT_DESKTOP='dwl'
 
 dbus-update-activation-environment --all
-gnome-keyring-daemon --start --components=secrets
+gnome-keyring-daemon --start --components=secrets &
 
 # simulate a do-while
 do=true
