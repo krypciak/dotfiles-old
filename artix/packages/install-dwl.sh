@@ -7,7 +7,7 @@ function make_dwl() {
     cd $USER_HOME/.config/dwl/dwl-dotfiles/
     doas -u $USER1 git switch main
     doas -u $USER1 git remote add upstream https://github.com/djpohly/dwl
-
+    doas -u $USER1 git reset --hard HEAD
 
     if [ "$PORTABLE" == 1 ]; then
         # Disable keepassxc, tutanota, blueman applet, wlr-output and gammastep startup
@@ -32,6 +32,7 @@ function make_somebar() {
     cd $USER_HOME/.config/dwl/somebar/
     doas -u $USER1 git switch master
     doas -u $USER1 git remote add upstream https://git.sr.ht/~raphi/somebar
+    doas -u $USER1 git reset --hard HEAD
     doas -u $USER1 meson build
     cd build
     doas -u $USER1 ninja
@@ -41,6 +42,7 @@ function make_someblocks() {
     cd $USER_HOME/.config/dwl/someblocks
     doas -u $USER1 git switch master
     doas -u $USER1 git remote add upstream https://git.sr.ht/~raphi/someblocks
+    doas -u $USER1 git reset --hard HEAD
     doas -u $USER1 make
 }
 
@@ -48,6 +50,7 @@ function make_dpms() {
     cd $USER_HOME/.config/dwl/dpms-off
     doas -u $USER1 git switch master
     doas -u $USER1 cargo build --release
+    doas -u $USER1 git reset --hard HEAD
     rm -rf $USER_HOME/.config/dotfiles/dotfiles/dwl/dpms-off/target/release/{deps,build}
 }
 

@@ -140,6 +140,8 @@ for dir in "${LINK_HOME_DIRS[@]}"; do
 	ln -sfT $FAKE_USER_HOME/$dir $DEST
 done
 
+git submodule update --init --recursive
+
 for ((i = 0; i < ${#SYMLINK_FROM_TO[@]}; i++)); do
     path="${SYMLINK_FROM_TO[$i]}"
 	override=1
@@ -173,7 +175,6 @@ for ((i = 0; i < ${#COPY_FROM_TO[@]}; i++)); do
 		chown -R $USER1:$USER1 "$dest"
     	fi
 done
-
 
 
 ESCAPED_USER_HOME=$(printf '%s\n' "$USER_HOME" | sed -e 's/[\/&]/\\&/g')
