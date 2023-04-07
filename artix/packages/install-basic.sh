@@ -20,5 +20,5 @@ function configure_basic() {
     ln -s $(which doas) /usr/bin/sudo
 
     # Generate tealdeer pages
-    tldr --update &
+    tldr --update
 }

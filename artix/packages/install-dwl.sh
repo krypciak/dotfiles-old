@@ -25,7 +25,7 @@ function make_dwl() {
         sed -i 's/"amixer set Capture nocap",/"amixer set Capture nocap",\n\t"env USER_GROUP=\\\"1001\\\" sh $HOME\/.config\/dotfiles\/decrypt-private-data\.sh",/g' config.h
     fi
 
-    doas -u $USER1 make &
+    doas -u $USER1 make
 }
 
 function make_somebar() {
@@ -34,14 +34,14 @@ function make_somebar() {
     doas -u $USER1 git remote add upstream https://git.sr.ht/~raphi/somebar
     doas -u $USER1 meson build
     cd build
-    doas -u $USER1 ninja &
+    doas -u $USER1 ninja
 }
 
 function make_someblocks() {
     cd $USER_HOME/.config/dwl/someblocks
     doas -u $USER1 git switch master
     doas -u $USER1 git remote add upstream https://git.sr.ht/~raphi/someblocks
-    doas -u $USER1 make &
+    doas -u $USER1 make
 }
 
 function make_dpms() {
@@ -52,10 +52,10 @@ function make_dpms() {
 }
 
 function configure_dwl() {
-    make_dwl &
-    make_somebar &
-    make_someblocks &
-    make_dpms &
-    sh -c "sleep 15; chown $USER1:$USER_GROUP -R $USER_HOME/.config/dwl" &
+    make_dwl
+    make_somebar
+    make_someblocks
+    make_dpms
+    chown $USER1:$USER_GROUP -R $USER_HOME/.config/dwl
 }
 

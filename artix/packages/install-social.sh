@@ -4,7 +4,7 @@ function install_social() {
 }
 
 function configure_discord() {
-    timeout 30s xvfb-run -a discord
+    timeout 30s xvfb-run -a discord > /dev/null
     betterdiscordctl install
 }
 

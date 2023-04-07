@@ -37,7 +37,7 @@ for group in "${PACKAGE_GROUPS[@]}"; do
     CONFIG_FUNC="configure_$group"
     if command -v "$CONFIG_FUNC" &> /dev/null; then
         pri "Configuring $group"
-        eval "$CONFIG_FUNC" &
+        eval "$CONFIG_FUNC"
     fi
 done
 
