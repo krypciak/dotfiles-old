@@ -7,7 +7,7 @@ function make_dwl() {
     cd $USER_HOME/.config/dwl/dwl-dotfiles/
     doas -u $USER1 git switch main
     doas -u $USER1 git remote add upstream https://github.com/djpohly/dwl
-
+    doas -u $USER1 git reset --hard HEAD
 
     if [ "$PORTABLE" == 1 ]; then
         # Disable keepassxc, tutanota, blueman applet, wlr-output and gammastep startup
@@ -18,6 +18,7 @@ function make_dwl() {
         sed -i 's/{ "HDMI-A-1"/\/\/{ "HDMI-A-1"/g' config.h
         sed -i 's/{ "DP-2"/\/\/{ "DP-2"/g' config.h
         sed -i 's/\"alacritty --class cmus/\/\/\"alacritty --class cmus/g' config.h
+        sed -i 's/\"wlr-randr --output DP-1 --off/\/\/\"wlr-randr --output DP-1 --off/g' config.h
     fi
 
     if [ "$ISO" == "yes" ]; then
@@ -25,37 +26,40 @@ function make_dwl() {
         sed -i 's/"amixer set Capture nocap",/"amixer set Capture nocap",\n\t"env USER_GROUP=\\\"1001\\\" sh $HOME\/.config\/dotfiles\/decrypt-private-data\.sh",/g' config.h
     fi
 
-    doas -u $USER1 make &
+    doas -u $USER1 make
 }
 
 function make_somebar() {
     cd $USER_HOME/.config/dwl/somebar/
     doas -u $USER1 git switch master
     doas -u $USER1 git remote add upstream https://git.sr.ht/~raphi/somebar
+    doas -u $USER1 git reset --hard HEAD
     doas -u $USER1 meson build
     cd build
-    doas -u $USER1 ninja &
+    doas -u $USER1 ninja
 }
 
 function make_someblocks() {
     cd $USER_HOME/.config/dwl/someblocks
     doas -u $USER1 git switch master
     doas -u $USER1 git remote add upstream https://git.sr.ht/~raphi/someblocks
-    doas -u $USER1 make &
+    doas -u $USER1 git reset --hard HEAD
+    doas -u $USER1 make
 }
 
 function make_dpms() {
     cd $USER_HOME/.config/dwl/dpms-off
     doas -u $USER1 git switch master
     doas -u $USER1 cargo build --release
+    doas -u $USER1 git reset --hard HEAD
     rm -rf $USER_HOME/.config/dotfiles/dotfiles/dwl/dpms-off/target/release/{deps,build}
 }
 
 function configure_dwl() {
-    make_dwl &
-    make_somebar &
-    make_someblocks &
-    make_dpms &
-    sh -c "sleep 15; chown $USER1:$USER_GROUP -R $USER_HOME/.config/dwl" &
+    make_dwl
+    make_somebar
+    make_someblocks
+    make_dpms
+    chown $USER1:$USER_GROUP -R $USER_HOME/.config/dwl
 }
 
