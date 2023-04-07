@@ -1,4 +1,5 @@
 function fish_right_prompt
+    return
     set -l cmd_status $status
     if test $cmd_status -ne 0
         echo -n (set_color red)"✘ $cmd_status"
