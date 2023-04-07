@@ -18,6 +18,7 @@ function make_dwl() {
         sed -i 's/{ "HDMI-A-1"/\/\/{ "HDMI-A-1"/g' config.h
         sed -i 's/{ "DP-2"/\/\/{ "DP-2"/g' config.h
         sed -i 's/\"alacritty --class cmus/\/\/\"alacritty --class cmus/g' config.h
+        sed -i 's/\"wlr-randr --output DP-1 --off/\/\/\"wlr-randr --output DP-1 --off/g' config.h
     fi
 
     if [ "$ISO" == "yes" ]; then
