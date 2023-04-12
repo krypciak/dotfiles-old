@@ -42,7 +42,7 @@ for group in "${PACKAGE_GROUPS[@]}"; do
 done
 
 
-mkdir -p /mnt/pen /mnt/hdd /mnt/ssd /mnt/share
+mkdir -p /mnt/pen /mnt/hdd /mnt/ssd /mnt/share /mnt/redpen /mnt/blackpen
 
 pri "Cleaning up"
 rm -f /usr/share/applications/icecat-safe.desktop
