@@ -23,6 +23,7 @@ export EDITOR='nvim'
 export CM_LAUNCHER=rofi
 
 export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
+export PARU_CONF="/home/$USER1/.config/paru/paru.conf"
 
 unset XDG_RUNTIME_DIR
 export XDG_RUNTIME_DIR=$(mktemp -d /tmp/$(id -u)-runtime-dir.XXX)
