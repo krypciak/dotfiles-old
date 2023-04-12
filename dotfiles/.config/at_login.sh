@@ -24,9 +24,7 @@ export CM_LAUNCHER=rofi
 
 export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
 
-export XDG_RUNTIME_DIR=/tmp/xdg-runtime-$(id -u)
-mkdir -p $XDG_RUNTIME_DIR
-chmod 0700 -R $XDG_RUNTIME_DIR
-
+unset XDG_RUNTIME_DIR
+export XDG_RUNTIME_DIR=$(mktemp -d /tmp/$(id -u)-runtime-dir.XXX)
 
 [ -f "/tmp/keyboard_layout" ] || echo 'qwerty' > /tmp/keyboard_layout
