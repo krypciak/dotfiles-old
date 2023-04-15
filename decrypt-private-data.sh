@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 DOTFILES_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 LGREEN='\033[1;32m'
@@ -7,12 +7,12 @@ LBLUE='\033[1;34m'
 RED='\033[0;31m'
 NC='\033[0m' 
 
-function pri() {
+pri() {
     echo -e "$GREEN ||| $LGREEN$1$NC"
 }
 
 RETRY=1
-function retry() {
+retry() {
     echo -en "$LBLUE |||$LGREEN Do you wanna retry? $LBLUE(Y/n)? >> $NC"
     read choice
     case "$choice" in 
@@ -50,7 +50,7 @@ until [ "$n" -ge 5 ]; do
         pri 'Trying auto-decryption...'
         ( echo $PRIVATE_DOTFILES_PASSWORD; ) | gpg --batch --yes --passphrase-fd 0 --no-symkey-cache --output /tmp/private.tar.gz --decrypt --pinentry-mode=loopback $ENCRYPTED_ARCHIVE && break
         pri "${RED}Auto decryption failed with password: '$PRIVATE_DOTFILES_PASSWORD'"
-        PRIVATE_DOTFILES_PASSWORD=''
+        export -n PRIVATE_DOTFILES_PASSWORD
     fi
     if [ "$DISPLAY" != "" ] || [ "$WAYLAND_DISPLAY" != "" ]; then
         gpg --output /tmp/private.tar.gz --decrypt $ENCRYPTED_ARCHIVE && break
