@@ -7,6 +7,7 @@ KERNEL='linux-zen'
 
 # User configuration
 USER1='krypek'
+USER_GROUP='krypek'
 USER_HOME="/home/$USER1"
 FAKE_USER_HOME="$USER_HOME/home"
 
