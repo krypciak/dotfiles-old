@@ -2,7 +2,7 @@
 
 info 'Set password for root'
 if [ "$ROOT_PASSWORD" != '' ]; then
-    success 'Automaticly filling password...'
+    info 'Automaticly filling password...'
     ( echo $ROOT_PASSWORD; echo $ROOT_PASSWORD; ) | passwd root &
 else
     n=0
@@ -17,7 +17,7 @@ chsh -s /bin/bash root > /dev/null 2>&1
 
 info "Set password for user $USER1"
 if [ "$USER_PASSWORD" != '' ]; then
-    success "Automaticly filling password..."
+    info "Automaticly filling password..."
     ( echo $USER_PASSWORD; echo $USER_PASSWORD; ) | passwd $USER1 &
 else
     n=0
