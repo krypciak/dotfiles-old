@@ -6,7 +6,6 @@ if [ ! -f $SCRIPTS_DIR/vars.conf.sh ]; then
     err "Config file vars.conf.sh doesn't exist."
     exit 3
 fi
-source "$SCRIPTS_DIR/vars.conf.sh"
 
 if [ "$(whoami)" != 'root' ]; then
     err "This script needs to be run as root."
@@ -38,6 +37,8 @@ else
     err 'Invalid second argument'
     exit 2
 fi
+
+source "$SCRIPTS_DIR/vars.conf.sh"
 
 if [ "$MODE" == 'live' ]; then
     source "$SCRIPTS_DIR/live/live.sh"
