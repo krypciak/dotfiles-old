@@ -21,8 +21,8 @@ mkdir -p "$TEMP_DIR"
 mkdir -p "$VIDEOS_DIR"
 
 
-YT_DLP_ARGS='--sponsorblock-remove all --embed-thumbnail --add-metadata --embed-metadata --embed-chapters --embed-subs --sub-langs all,-live_chat --audio-quality 0 -R infinite --retry-sleep 15 -S quality,ext:mp4,filesize --no-post-overwrites --ignore-errors --newline --no-warnings --no-playlist --convert-thumbnails png --quiet --limit-rate 2M'
-# --force-keyframes-at-cuts
+YT_DLP_ARGS='--embed-thumbnail --add-metadata --embed-metadata --embed-chapters --embed-subs --sub-langs all,-live_chat --audio-quality 0 -R infinite --retry-sleep 15 -S quality,ext:mp4,filesize --no-post-overwrites --ignore-errors --newline --no-warnings --no-playlist --convert-thumbnails png --quiet --limit-rate 2M'
+# --force-keyframes-at-cuts --sponsorblock-remove all
 
 #TITLE='%(channel)s - %(title)s.%(ext)s'
 TITLE='%(title)s - %(channel)s.%(ext)s'
@@ -67,6 +67,7 @@ function check_space() {
             last_file="$(LC_CTYPE=C ls -t $VIDEOS_DIR | tail -1)"
             rm -f "$last_file"
         done
+        pgrep "animdl" > /dev/null || animdl update > /dev/null 2>&1 &
 }
 
 
@@ -123,12 +124,12 @@ for feed in ${CHANNEL_FEEDS[@]}; do
     if [[ ${#INSTANCES[@]} -eq $i ]]; then
         i=0
     fi
-    #sleep 10
+    sleep 10
 done
 
 for feed in ${ODYSEE_FEEDS[@]}; do
     listen_rss "https://odysee.com" "/$/rss/" "$feed" $i &
-    #sleep 10
+    sleep 10
 done
 
 for (( i=0; i<${#ANIME[@]}; i+=2 )); do
@@ -136,6 +137,6 @@ for (( i=0; i<${#ANIME[@]}; i+=2 )); do
     index="${ANIME[$(expr $i + 1)]}"
 
     listen_anime "$anime" "$index" &
-    #sleep 10
+    sleep 10
 done
 
