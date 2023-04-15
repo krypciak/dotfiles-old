@@ -20,7 +20,7 @@ pacman-key --populate
 
 info 'Copying pacman configuration'
 cp $VARIANT_ROOT_DIR/etc/pacman.conf /etc/pacman.conf
-cp -r $VARIANT_ROOT_DIR/root/etc/pacman.d /etc/
+cp -r $VARIANT_ROOT_DIR/etc/pacman.d /etc/
 pacman -Sy 
 
 if [ "$TYPE" == 'iso' ]; then
