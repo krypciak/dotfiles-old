@@ -59,7 +59,16 @@ end
 
 local function change_colors_if1c(s)
     if not s then return end
-    if #s.tiled_clients == 0 then
+    local file = io.open(userdir .."/.config/wallpapers/selected", "r")
+    local read_wallpaper
+    if file then
+        read_wallpaper = file:read()
+        file:close()
+    end
+
+    noti("buk", "'" .. tostring(read_wallpaper) .. "'")
+    if #s.tiled_clients == 0 and
+        (read_wallpaper == '#000000' or read_wallpaper == 'oneshot/main.png') then
         for _, w in pairs(s.widgets) do
             w.bg = "#000000"
         end
