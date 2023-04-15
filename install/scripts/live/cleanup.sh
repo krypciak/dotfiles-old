@@ -8,7 +8,7 @@ rm -rf /dotfiles &
 echo 0 > $USER_HOME/.cache/update
 chown -R $USER1:$USER_GROUP $USER_HOME &
 
-cp -v $COMMON_ROOT_DIR/etc/doas.conf /etc/doas.conf
+cp $COMMON_ROOT_DIR/etc/doas.conf /etc/doas.conf
 chmod 0040 /etc/doas.conf
 
 wait $(jobs -p)

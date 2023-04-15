@@ -1,7 +1,7 @@
 #!/bin/bash
 
 _configure_limits() {
-    sed -i "s/USER1/${USER1}/g" /etc/security/limits.conf
+    sed -i "s/USER1/$USER1/g" /etc/security/limits.conf
 }
 
 artix_gaming_install() {

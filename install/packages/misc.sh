@@ -10,7 +10,7 @@ arch_misc_install() {
 
 
 artix_misc_configure() {
-    sed -i "s/USER_HOME/$ESCAPED_USER_HOME/g" /etc/artools/artools-base.conf
+    sed -i "s|USER_HOME|$USER_HOME|g" /etc/artools/artools-base.conf
 
     rc-update add cupsd default
 }
