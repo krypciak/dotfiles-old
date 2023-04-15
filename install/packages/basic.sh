@@ -8,7 +8,7 @@ _configure_tldr() {
 
 _configure_cronie() {
     cp $CONFIGD_DIR/cron_user /var/spool/cron/$USER1
-    chown $USER1:$USER1 /var/spool/cron/$USER1
+    chown $USER1:$USER_GROUP /var/spool/cron/$USER1
     
     cp $CONFIGD_DIR/cron_root /var/spool/cron/root
     sed -i "s/USER_HOME/$ESCAPED_USER_HOME/g" /var/spool/cron/root

@@ -1,7 +1,9 @@
 #~/bin/sh
 
+[ -z "$USER1" ] && export USER1="$USER"
 USER_HOME="/home/$USER1"
 FAKE_USER_HOME="$USER_HOME/home"
+[ -z "$USER_GROUP" ] && export USER_GROUP="$USER1"
 
 DOTFILES_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
@@ -156,7 +158,7 @@ for ((i = 0; i < ${#SYMLINK_FROM_TO[@]}; i++)); do
 
 	        mkdir -p "$(dirname $dest| head --lines 1)"
 	        ln -sfT "$from" "$dest"
-		    chown -R $USER1:$USER1 "$dest"
+		    chown -R $USER1:$USER_GROUP "$dest"
     	fi
 done
 
@@ -173,7 +175,7 @@ for ((i = 0; i < ${#COPY_FROM_TO[@]}; i++)); do
 
 	        mkdir -p "$(dirname $dest| head --lines 1)"
 	        cp -rf "$from" "$dest"
-		chown -R $USER1:$USER1 "$dest"
+		chown -R $USER1:$USER_GROUP "$dest"
     	fi
 done
 
