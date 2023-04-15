@@ -86,13 +86,15 @@ if [ "$ENCRYPT" == '1' ]; then
     CRYPT_PASSWORD=123
 
     CRYPT_NAME="$VARIANT"
-    CRYPT_DIR="/dev/mapper/$CRYPT_NAME"
+    CRYPT_FILE="/dev/mapper/$CRYPT_NAME"
     KEY_SIZE=256
     ITER_TIME=3000
     HASH='sha256'
     LUKSFORMAT_ARUGMNETS="--key-size $KEY_SIZE --hash $HASH --iter-time $ITER_TIME"
 else
-    L
+    LVM_PART="${DISK}2"
+    # None means all remaining space
+    LVM_SIZE=''
 fi
 
 # LVM

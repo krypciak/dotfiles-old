@@ -41,6 +41,9 @@ fi
 
 if [ "$MODE" == 'live' ]; then
     source "$SCRIPTS_DIR/live/live.sh"
+
+elif [ "$MODE" == 'normal' ]; then
+    source "$SCRIPTS_DIR/disk.sh"
 fi
 
 #sed -i 's/#Color/Color/g' /etc/pacman.conf
