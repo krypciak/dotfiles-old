@@ -14,6 +14,9 @@ for group in "${PACKAGE_GROUPS[@]}"; do
     fi
 done
 
+# hack to get doas-sudo-shim installed
+rm -f /usr/bin/sudo
+
 n=0
 until [ "$n" -ge 5 ]; do
     doas -u $USER1 paru $PARU_ARGUMENTS $PACMAN_ARGUMENTS -Syu $PACKAGE_LIST && break
