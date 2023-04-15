@@ -66,7 +66,6 @@ local function change_colors_if1c(s)
         file:close()
     end
 
-    noti("buk", "'" .. tostring(read_wallpaper) .. "'")
     if #s.tiled_clients == 0 and
         (read_wallpaper == '#000000' or read_wallpaper == 'oneshot/main.png') then
         for _, w in pairs(s.widgets) do
