@@ -7,8 +7,11 @@ confirm "Install packages?"
 PACKAGE_LIST=''
 for group in "${PACKAGE_GROUPS[@]}"; do
     source $PACKAGES_DIR/${group}.sh
-    info "Installing $group"
-    PACKAGE_LIST="$PACKAGE_LIST $(${VARIANT}_${group}_install) "
+    INSTALL_FUNC="${VARIANT}_${group}_install"
+    if command -v "$INSTALL_FUNC" &> /dev/null; then
+        info "Installing $group"
+        PACKAGE_LIST="$PACKAGE_LIST $($INSTALL_FUNC) "
+    fi
 done
 
 n=0
