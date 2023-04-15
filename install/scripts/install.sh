@@ -42,7 +42,7 @@ fi
 if [ "$MODE" == 'live' ]; then
     source "$SCRIPTS_DIR/live/live.sh"
 
-elif [ "$MODE" == 'normal' ]; then
+elif [ "$MODE" == 'disk' ]; then
     source "$SCRIPTS_DIR/disk.sh"
 fi
 
