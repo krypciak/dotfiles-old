@@ -7,7 +7,7 @@ ntpd
 hwclock --systohc
 
 info "Generating locale"
-cp "$COMMON_ROOT/etc/locale.gen" /etc/locale.gen
+cp "$COMMON_ROOT_DIR/etc/locale.gen" /etc/locale.gen
 locale-gen
 echo "LANG=\"$LANG\"" > /etc/locale.conf
 export LANG
