@@ -2,8 +2,9 @@
 
 _init_browsers() {
     # Let firefox extensions init
-    doas -u $USER1 timeout 10s librewolf --headless &
-    doas -u $USER1 timeout 10s firefox --class invidious --profile $USER_HOME/.local/share/ice/firefox/invidious --headless &
+    doas -u $USER1 timeout 10s librewolf --headless > /dev/null 2>&1 &
+    doas -u $USER1 timeout 10s firefox --headless > /dev/null 2>&1 &
+    #doas -u $USER1 timeout 10s firefox --class invidious --profile $USER_HOME/.local/share/ice/firefox/invidious --headless > /dev/null 2>&1 &
 }
 
 artix_browsers_install() {
