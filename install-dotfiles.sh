@@ -84,7 +84,7 @@ COPY_FROM_TO=(
     # Librewolf
     "%.librewolf/profile0/prefs.js"
     "%.librewolf/profile0/search.json.mozlz4"
-    "%.librewolf/profile0/storage"
+    #"%.librewolf/profile0/storage"
     "%.librewolf/profile0/storage.sqlite"
     "%.librewolf/profile0/cookies.sqlite"
     "%.librewolf/profile0/extension-settings.json"
@@ -185,7 +185,7 @@ sed -i "s/USER_HOME/$ESCAPED_USER_HOME/g" $USER_HOME/.local/share/PrismLauncher/
 ESCAPED_HOSTNAME=$(printf '%s\n' "$(hostname)" | sed -e 's/[\/&]/\\&/g')
 sed -i "s/HOSTNAME/$ESCAPED_HOSTNAME/g" $USER_HOME/.local/share/PrismLauncher/multimc.cfg
 
-sed -i "s/USER_HOME/$ESCAPED_USER_HOME/g" $USER_HOME/.local/share/applications/invidious.desktop
+#sed -i "s/USER_HOME/$ESCAPED_USER_HOME/g" $USER_HOME/.local/share/applications/invidious.desktop
 sed -i "s/USER_HOME/$ESCAPED_USER_HOME/g" $USER_HOME/.local/share/applications/arch-update.desktop
 
 cp $USER_HOME/.config/dotfiles/scripts/update-arch.sh-tofill $USER_HOME/.config/dotfiles/scripts/update-arch.sh
