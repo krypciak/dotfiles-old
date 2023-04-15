@@ -20,7 +20,7 @@ xmodmap("clear lock")
 xmodmap("keycode 66 = Super_R Super_R Super_R Super_R")
 xmodmap("add mod3 = Super_R")
 
-awful.spawn("pulseaudio --start")
+awful.spawn("start-pulseaudio-x11")
 
 -- Clipbooard manager
 awful.spawn("clipmenud")
