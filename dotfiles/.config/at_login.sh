@@ -27,9 +27,9 @@ export XCURSOR_PATH=/usr/share/icons:${XDG_DATA_HOME}/icons
 # ~/.wine
 export WINEPREFIX="$XDG_DATA_HOME/wine"
 
-export PARU_CONF="/home/$USER1/.config/paru/paru.conf"
-
 unset XDG_RUNTIME_DIR
 export XDG_RUNTIME_DIR=$(mktemp -d /tmp/$(id -u)-runtime-dir.XXX)
 
 [ -f "/tmp/keyboard_layout" ] || echo 'qwerty' > /tmp/keyboard_layout
+
+
