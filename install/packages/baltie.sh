@@ -26,11 +26,11 @@ _install_baltie() {
 }
 
 artix_baltie_install() {
-    'innoextract'
+    echo 'innoextract'
 }
 
 arch_baltie_install() {
-    'innoextract'
+    echo 'innoextract'
 }
 
 
