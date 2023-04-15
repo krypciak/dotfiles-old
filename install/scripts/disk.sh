@@ -95,7 +95,7 @@ fi
 confirm "Set up LVM on ${LVM_PART}?"
 
 info "Creating LVM group $LVM_GROUP_NAME"
-pvcreate $LVM_TARGET_FILE
+pvcreate --force $LVM_TARGET_FILE
 if [ $? -ne 0 ]; then err "LVM error."; exit; fi
 vgcreate $LVM_GROUP_NAME $LVM_TARGET_FILE
 if [ $? -ne 0 ]; then err "LVM error."; exit; fi
@@ -148,9 +148,11 @@ mkdir -p $BOOT_DIR
 mount $BOOT_PART $BOOT_DIR
 if [ $? -ne 0 ]; then err "mount error."; exit; fi
 
-info "Turning swap on"
-swapon $LVM_DIR/swap
-if [ $? -ne 0 ]; then err "swap error."; exit; fi
+if [ "$ENABLE_SWAP" == '1' ]; then
+    info "Turning swap on"
+    swapon $LVM_DIR/swap
+    if [ $? -ne 0 ]; then err "swap error."; exit; fi
+fi
 
 source $SCRIPTS_DIR/live/$VARIANT/strap-packages.sh
 
