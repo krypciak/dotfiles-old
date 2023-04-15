@@ -12,7 +12,7 @@ if ! command -v "paru"; then
     cd /tmp/paru
     doas -u $USER1 makepkg -si --noconfirm --needed
 fi
-cp "$COMMON_CONFIGS_DIR/paru.conf" /etc/paru.conf
+cp "$VARIANT_ROOT_DIR/etc/paru.conf" /etc/paru.conf
  
 info "Disabling mkinitcpio"
 mv /usr/share/libalpm/hooks/90-mkinitcpio-install.hook /90-mkinitcpio-install.hook 
