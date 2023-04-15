@@ -57,15 +57,15 @@ mkdir -p $INSTALL_DIR
 
 if [ "$ENCRYPT" == '1' ]; then
     confirm "Setup luks on ${CRYPT_PART}? $RED(DATA WARNING)"
-    if [ "$LVM_PASSWORD" != '' ]; then
+    if [ "$LUKS_PASSWORD" != '' ]; then
         info "${NC}Automaticly filling password..."
 
-        echo $LVM_PASSWORD | cryptsetup luksFormat $LUKSFORMAT_ARGUMENTS $CRYPT_PART
+        echo $LUKS_PASSWORD | cryptsetup luksFormat $LUKSFORMAT_ARGUMENTS $CRYPT_PART
         if [ $? -ne 0 ]; then err "LUKS error."; exit 1; fi
 
         info "Opening $CRYPT_PART as $CRYPT_NAME"
         info "${NC}Automaticly filling password..."
-        echo $LVM_PASSWORD | cryptsetup open $CRYPT_PART $CRYPT_NAME
+        echo $LUKS_PASSWORD | cryptsetup open $CRYPT_PART $CRYPT_NAME
         if [ $? -ne 0 ]; then err "LUKS error."; exit; fi
     else
         while true; do
