@@ -126,5 +126,6 @@ AUTO_REBOOT=0
 PAUSE_AFTER_DONE=1
 
 
+export YOLO
 export USER1
 export USER_GROUP
