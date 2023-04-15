@@ -15,8 +15,8 @@ _configure_discord1() {
 
 _configure_discord() {
     # Let discord download updates
-    export -f configure_discord
-    timeout 40s configure_discord &
+    export -f _configure_discord1
+    timeout 40s _configure_discord1 &
 }
 
 artix_social_configure() {
