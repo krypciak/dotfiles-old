@@ -10,6 +10,7 @@ source $SCRIPTS_DIR/live/temp-doas.sh
 source $VARIANT_SCRIPTS_DIR/install-packages.sh
 source $SCRIPTS_DIR/live/install-dotfiles.sh
 source $SCRIPTS_DIR/live/copy-configs.sh
+source $SCRIPTS_DIR/live/temp-doas.sh
 source $SCRIPTS_DIR/live/set-passwords.sh
 source $SCRIPTS_DIR/live/configure-packages.sh
 source $SCRIPTS_DIR/live/cleanup.sh
