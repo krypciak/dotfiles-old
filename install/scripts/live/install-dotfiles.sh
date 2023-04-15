@@ -5,7 +5,7 @@ chown -R $USER1:$USER_GROUP $USER_HOME
 if [ $INSTALL_DOTFILES -eq 1 ]; then
     info "Installing dotfiles for user $USER1"
     rm -rf $USER_HOME/.config
-    doas -u $USER1 source $DOTFILES_DIR/install-dotfiles.sh
+    doas -u $USER1 sh $DOTFILES_DIR/install-dotfiles.sh
 
     info "Installing dotfiles for root"
     source $DOTFILES_DIR/install-dotfiles-root.sh
