@@ -8,11 +8,11 @@ _setup_cmus_notifications() {
 }
 
 artix_audio_install() {
-    echo 'alsa-utils cmus-git playerctl pulseaudio pulseaudio-alsa'
+    echo 'alsa-utils cmus-git perl playerctl pulseaudio pulseaudio-alsa'
 }
 
 arch_audio_install() {
-    echo 'alsa-utils cmus-git playerctl pulseaudio pulseaudio-alsa'
+    echo 'alsa-utils cmus-git perl playerctl pulseaudio pulseaudio-alsa'
 }
 
 
