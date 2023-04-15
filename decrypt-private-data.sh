@@ -52,11 +52,7 @@ until [ "$n" -ge 5 ]; do
         pri "${RED}Auto decryption failed with password: '$PRIVATE_DOTFILES_PASSWORD'"
         export -n PRIVATE_DOTFILES_PASSWORD
     fi
-    if [ "$DISPLAY" != "" ] || [ "$WAYLAND_DISPLAY" != "" ]; then
-        gpg --output /tmp/private.tar.gz --decrypt $ENCRYPTED_ARCHIVE && break
-    else
-        gpg --output /tmp/private.tar.gz --decrypt --pinentry-mode=loopback $ENCRYPTED_ARCHIVE && break
-    fi
+    gpg --output /tmp/private.tar.gz --decrypt --pinentry-mode=loopback $ENCRYPTED_ARCHIVE && break
     n=$((n+1)) 
     retry
     if [ $RETRY -eq 0 ]; then exit 0; fi
