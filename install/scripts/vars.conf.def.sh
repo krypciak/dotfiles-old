@@ -83,7 +83,7 @@ if [ "$ENCRYPT" == '1' ]; then
     CRYPT_PART="${DISK}2"
     # None means all remaining space
     CRYPT_SIZE=''
-    CRYPT_PASSWORD=123
+    LUKS_PASSWORD=123
 
     CRYPT_NAME="$VARIANT"
     CRYPT_FILE="/dev/mapper/$CRYPT_NAME"
