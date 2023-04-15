@@ -111,7 +111,7 @@ LVM_DIR="/dev/$LVM_GROUP_NAME"
 BOOT_DIR_ALONE='/boot'
 BOOT_DIR=${INSTALL_DIR}${BOOT_DIR_ALONE}
 
-BOOT_FORMAT_COMMAND="mkfs.fat -n boot $BOOT_PART"
+BOOT_FORMAT_COMMAND="mkfs.fat -n Boot $BOOT_PART"
 BOOT_FSTAB_ARGS="$BOOT_DIR_ALONE    vfat       rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro	0 2"
 
 ROOT_FORMAT_COMMAND="mkfs.btrfs -f -L root $LVM_DIR/root"
