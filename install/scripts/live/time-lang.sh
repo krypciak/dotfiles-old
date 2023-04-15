@@ -3,8 +3,12 @@
 info "Setting time"
 ln -sf /usr/share/zoneinfo/$REGION/$CITY /etc/localtime
 echo "$REGION/$CITY" > /etc/timezone
-ntpd
-hwclock --systohc
+if command -v ntpd > /dev/null && ping -c 1 gnu.org > /dev/null 2>&1; then
+    ntpd
+    hwclock --systohc
+else
+    hwclock --hctosys
+fi
 
 info "Generating locale"
 cp "$COMMON_ROOT_DIR/etc/locale.gen" /etc/locale.gen
