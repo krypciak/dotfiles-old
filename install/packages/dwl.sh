@@ -53,10 +53,10 @@ _make_dpms() {
 }
 
 _configure_dwl() {
-    make_dwl
-    make_somebar
-    make_someblocks
-    make_dpms
+    _make_dwl
+    _make_somebar
+    _make_someblocks
+    _make_dpms
     chown $USER1:$USER_GROUP -R $USER_HOME/.config/dwl
 }
 
