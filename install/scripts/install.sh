@@ -4,6 +4,17 @@ set -a
 SCRIPTS_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 source "$SCRIPTS_DIR/common.sh"
 
+
+_help() {
+    echo 'Usage:'
+    echo 'sh install.sh MODE VARIANT TYPE NET'
+    echo 'MODE - disk, live'
+    echo 'VARIANT - artix, arch'
+    echo 'TYPE - normal, iso'
+    echo 'NET - online, offline'
+    exit 2
+}
+
 if [ ! -f $SCRIPTS_DIR/vars.conf.sh ]; then
     err "Config file vars.conf.sh doesn't exist."
     exit 3
@@ -16,8 +27,7 @@ fi
 
 MODE=$1
 if [ "$MODE" != 'live' ] && [ "$MODE" != 'disk' ]; then
-    err 'Invalid first argument.'
-    exit 2
+    err 'Invalid first argument.'; _help;
 fi
 
 VARIANT=$2
@@ -27,7 +37,7 @@ if [ "$VARIANT" == 'artix' ]; then
         VARIANT_NAME="Artix"
     elif [ "$TYPE" == 'iso' ]; then
         VARIANT_NAME="Artix ISO"
-    else err 'Invalid third argument.'; fi
+    else err 'Invalid third argument.'; _help; fi
 
 elif [ "$VARIANT" == 'arch' ]; then
     if [ "$TYPE" == 'normal' ]; then
@@ -36,8 +46,12 @@ elif [ "$VARIANT" == 'arch' ]; then
         VARIANT_NAME="Arch ISO"
     else err 'Invalid third argument.'; fi
 else
-    err 'Invalid second argument'
-    exit 2
+    err 'Invalid second argument'; _help
+fi
+
+NET=$4
+if [ "$NET" != 'offline' ] && [ "$NET" != 'online' ]; then
+    err 'Invalid forth argument.'; _help
 fi
 
 source "$SCRIPTS_DIR/vars.conf.sh"
