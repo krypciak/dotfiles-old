@@ -5,17 +5,20 @@ source $VARIANT_SCRIPTS_DIR/install-paru.sh
 
 confirm "Install packages?"
 PACKAGE_LIST=''
+GROUP_LIST=''
 for group in "${PACKAGE_GROUPS[@]}"; do
     source $PACKAGES_DIR/${group}.sh
     INSTALL_FUNC="${VARIANT}_${group}_install"
     if command -v "$INSTALL_FUNC" &> /dev/null; then
-        info "Installing $group"
+        GROUP_LIST='$group '
         PACKAGE_LIST="$PACKAGE_LIST $($INSTALL_FUNC) "
     fi
 done
 
 # hack to get doas-sudo-shim installed
 rm -f /usr/bin/sudo
+
+info "Installing groups: $GROUP_LIST"
 
 n=0
 until [ "$n" -ge 5 ]; do
