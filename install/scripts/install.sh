@@ -104,7 +104,7 @@ else
     echo 'Invalid variant.'; _help
 fi
 
-info "${GREEN}Mode: ${LBLUE}$MODE  ${GREEN}Variant: ${LBLUE}$VARIANT  ${GREEN}Type: ${LBLUE}$TYPE  ${LBLUE}$NET"
+info "${GREEN}Mode: ${LBLUE}$MODE  ${GREEN}Variant: ${LBLUE}$VARIANT  ${GREEN}Type: ${LBLUE}$TYPE  ${GREEN}Net: ${LBLUE}$NET"
 
 source "$SCRIPTS_DIR/vars.conf.sh"
 
