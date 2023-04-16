@@ -1,9 +1,11 @@
 #!/bin/bash
 
-pri "Enabling mkinitpckio"
+info "Enabling mkinitpckio"
 mv /90-mkinitcpio-install.hook /usr/share/libalpm/hooks/90-mkinitcpio-install.hook
 
+info "Removing pacman orphans"
 paru --noconfirm -Rs $(paru -Qqtd)
-paru --noconfirm -Scc > /dev/null 2>&1
+info "Cleaning pacman cache"
+paru --noconfirm -Sc > /dev/null 2>&1
 
 
