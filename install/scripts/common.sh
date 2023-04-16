@@ -40,5 +40,3 @@ confirm() {
     * ) confirm "$1" "ignore"; return 0;;
     esac
 }
-
-set +a

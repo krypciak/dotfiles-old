@@ -49,8 +49,6 @@ elif [ "$MODE" == 'disk' ]; then
     source "$SCRIPTS_DIR/disk.sh"
 fi
 
-set +a
-
 #sed -i 's/#Color/Color/g' /etc/pacman.conf
 #sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 5/g' /etc/pacman.conf
 
