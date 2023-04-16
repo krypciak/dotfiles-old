@@ -6,12 +6,11 @@ source "$SCRIPTS_DIR/common.sh"
 
 
 _help() {
-    echo 'Usage:'
-    echo 'sh install.sh MODE VARIANT TYPE NET'
-    echo 'MODE - disk, live'
-    echo 'VARIANT - artix, arch'
-    echo 'TYPE - normal, iso'
-    echo 'NET - online, offline'
+    echo '  Usage:'
+    echo '  --mode      disk, live'
+    echo '  --variant   artix, arch'
+    echo '  --iso       for iso installs'
+    echo '  --offline   for offline installs'
     exit 2
 }
 
@@ -25,37 +24,81 @@ if [ "$(whoami)" != 'root' ]; then
     exit 1
 fi
 
-MODE=$1
-if [ "$MODE" != 'live' ] && [ "$MODE" != 'disk' ]; then
-    err 'Invalid first argument.'; _help;
+SHORT=""
+LONG="live,disk,variant:,iso,offline"
+OPTS=$(getopt --alternative --name install --options "$SHORT" --longoptions "$LONG" -- "$@") 
+if [ $? != '0' ]; then
+    exit
 fi
 
-VARIANT=$2
-TYPE=$3
+MODE='null'
+VARIANT='null'
+TYPE='iso'
+NET='online'
+
+eval set -- "$OPTS"
+
+while [ : ]; do
+  case "$1" in
+    --live)
+        MODE='live'
+        shift 1
+        ;;
+    --disk)
+        MODE='disk'
+        shift 1
+        ;;
+    --variant)
+        VARIANT="$2"
+        shift 2
+        ;;
+    --iso)
+        TYPE='iso'
+        shift 1
+        ;;
+    --offline)
+        echo "offline"
+        shift 1
+        ;;
+    --)
+      shift;
+      break
+      ;;
+    *)
+      echo "Unexpected option: $1"
+      exit
+      ;;
+  esac
+done
+
+
+if [ "$MODE" != 'live' ] && [ "$MODE" != 'disk' ]; then
+    echo '--mode argument is required.'; _help
+fi
+
 if [ "$VARIANT" == 'artix' ]; then
     if [ "$TYPE" == 'normal' ]; then
         VARIANT_NAME="Artix"
     elif [ "$TYPE" == 'iso' ]; then
         VARIANT_NAME="Artix ISO"
-    else err 'Invalid third argument.'; _help; fi
+    fi
 
 elif [ "$VARIANT" == 'arch' ]; then
     if [ "$TYPE" == 'normal' ]; then
         VARIANT_NAME="Arch"
     elif [ "$TYPE" == 'iso' ]; then
         VARIANT_NAME="Arch ISO"
-    else err 'Invalid third argument.'; fi
+    fi
+elif [ "$VARIANT" == 'null' ]; then
+    echo '--variant is required.'; _help
 else
-    err 'Invalid second argument'; _help
-fi
-
-NET=$4
-if [ "$NET" != 'offline' ] && [ "$NET" != 'online' ]; then
-    err 'Invalid forth argument.'; _help
+    echo 'Invalid variant.'; _help
 fi
 
 source "$SCRIPTS_DIR/vars.conf.sh"
 
+echo "$MODE $VARIANT $TYPE $NET"
+exit
 if [ "$MODE" == 'live' ]; then
     source "$SCRIPTS_DIR/live/live.sh"
 
