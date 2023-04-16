@@ -13,7 +13,7 @@ if [ $INSTALL_DOTFILES -eq 1 ]; then
     if [ $INSTALL_PRIVATE_DOTFILES -eq 1 ]; then
         confirm "Install private dotfiles?"
         export GPG_AGENT_INFO=""
-        source $DOTFILES_DIR/decrypt-private-data.sh > $OUTPUT
+        source $DOTFILES_DIR/decrypt-private-data.sh > $OUTPUT 2>&1
     fi
 fi
 
