@@ -195,5 +195,6 @@ chmod +x $USER_HOME/.config/at_login.sh
 chmod +x $USER_HOME/.config/dotfiles/scripts/*.sh
 
 # Update nvim plugins
+echo Updating neovim plugins...
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync' > /dev/null 2>&1 &
 
