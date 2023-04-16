@@ -19,7 +19,7 @@ rm -f /usr/bin/sudo
 
 n=0
 until [ "$n" -ge 5 ]; do
-    doas -u $USER1 paru $PARU_ARGUMENTS $PACMAN_ARGUMENTS -S $PACKAGE_LIST && break
+    doas -u $USER1 paru $PARU_ARGUMENTS $PACMAN_ARGUMENTS -S $PACKAGE_LIST |& grep -v "skipping" && break
     n=$((n+1))
     err "Package installation failed. Attempt $n/5"
     sleep 3
