@@ -8,7 +8,7 @@ _configure_greetd() {
 }
 
 artix_bare_install() {
-    echo 'btrfs-progs clang dbus dbus-glib dbus-openrc dbus-python doas-sudo-shim dosfstools efibootmgr git greetd-artix-openrc greetd-tuigreet-bin grub mtools networkmanager-openrc opendoas openntpd-openrc perl python python-pip ttf-dejavu ttf-hack unrar unzip util-linux wget zip'
+    echo 'btrfs-progs clang dbus dbus-glib dbus-openrc dbus-python doas-sudo-shim dosfstools efibootmgr git greetd-artix-openrc greetd-tuigreet-bin grub mtools networkmanager-openrc opendoas openntpd-openrc pacman-contrib perl python python-pip ttf-dejavu ttf-hack unrar unzip util-linux wget zip'
 }
 
 arch_bare_install() {
