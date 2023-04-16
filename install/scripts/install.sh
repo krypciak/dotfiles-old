@@ -104,9 +104,10 @@ else
     echo 'Invalid variant.'; _help
 fi
 
+info "${GREEN}Mode: ${LBLUE}$MODE  ${GREEN}Variant: ${LBLUE}$VARIANT  ${GREEN}Type: ${LBLUE}$TYPE  ${LBLUE}$NET"
+
 source "$SCRIPTS_DIR/vars.conf.sh"
 
-info "$MODE $VARIANT $TYPE $NET"
 
 if [ "$MODE" == 'live' ]; then
     source "$SCRIPTS_DIR/live/live.sh"
