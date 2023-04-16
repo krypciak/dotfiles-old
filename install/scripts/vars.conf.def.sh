@@ -1,5 +1,6 @@
 #!/bin/sh
 
+set -a
 
 PORTABLE=0
 KERNEL='linux-zen'
@@ -127,7 +128,4 @@ YOLO=1
 AUTO_REBOOT=0
 PAUSE_AFTER_DONE=1
 
-
-export YOLO
-export USER1
-export USER_GROUP
+set +a

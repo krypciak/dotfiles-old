@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -a
+
 LGREEN='\033[1;32m'
 GREEN='\033[0;32m'
 LBLUE='\033[1;34m'
@@ -39,3 +41,4 @@ confirm() {
     esac
 }
 
+set +a
