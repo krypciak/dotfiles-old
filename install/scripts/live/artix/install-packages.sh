@@ -18,7 +18,7 @@ done
 # hack to get doas-sudo-shim installed
 rm -f /usr/bin/sudo
 
-info "Installing groups: $GROUP_LIST"
+info "Installing groups:${LBLUE}$GROUP_LIST"
 
 n=0
 until [ "$n" -ge 5 ]; do
