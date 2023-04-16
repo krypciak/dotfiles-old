@@ -19,13 +19,31 @@ export XDG_CONFIG_HOME="/home/$USER1/.config"
 export XDG_CACHE_HOME="/home/$USER1/.cache"
 
 # ~/.gtkrc-2.0
-export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
-
+export GTK2_RC_FILES=$XDG_CONFIG_HOME/gtk-2.0/gtkrc
 # ~/.icons
 export XCURSOR_PATH=/usr/share/icons:${XDG_DATA_HOME}/icons
-
 # ~/.wine
-export WINEPREFIX="$XDG_DATA_HOME/wine"
+export WINEPREFIX=$XDG_DATA_HOME/wine
+# ~/.android
+export ANDROID_HOME=$XDG_DATA_HOME/android
+# ~/.bash_history
+mkdir -p "${XDG_STATE_HOME}/bash"
+export HISTFILE="${XDG_STATE_HOME}"/bash/history
+# ~/.grupg
+export GNUPGHOME="$XDG_DATA_HOME"/gnupg
+# ~/.cargo
+export CARGO_HOME="$XDG_DATA_HOME"/cargo
+# ~/go
+export GOPATH="$XDG_DATA_HOME"/go
+# ~/.gradle
+export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
+# ~/.ICEauthority
+export ICEAUTHORITY="$XDG_CACHE_HOME"/ICEauthority
+# ~/.node_repl_history
+export NODE_REPL_HISTORY="$XDG_DATA_HOME"/node_repl_history
+# ~/.Xauthority
+export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
+
 
 unset XDG_RUNTIME_DIR
 export XDG_RUNTIME_DIR=$(mktemp -d /tmp/$(id -u)-runtime-dir.XXX)
