@@ -20,7 +20,7 @@ artix_bare_configure() {
     _configure_greetd
 
     rc-update add greetd default
-    rc-update del agetty.tty1 default
+    rc-update del agetty.tty1 default > /dev/null 2>&1
     rc-update add ntpd default
     rc-update add NetworkManager default
 }
