@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 _configure_greetd() {
     pri "Configuring greetd"
