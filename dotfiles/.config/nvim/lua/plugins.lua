@@ -60,8 +60,11 @@ require('packer').startup(function(use)
   end
 end)
 
+local nvimtree = require('nvim-tree')
+if nvimtree then
+    nvimtree.setup{}
+end
 
-require('nvim-tree').setup{}
 cmd('highlight NvimTreeFolderIcon guibg=blue')
 
 
