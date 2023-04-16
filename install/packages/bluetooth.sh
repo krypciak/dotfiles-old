@@ -1,11 +1,11 @@
 #!/bin/bash
 
 artix_bluetooth_install() {
-    echo 'blueman bluetooth-autoconnect bluez bluez-utils'
+    echo 'blueman bluetooth-autoconnect bluez bluez-utils mkinitcpio-bluetooth'
 }
 
 arch_bluetooth_install() {
-    echo 'blueman bluetooth-autoconnect bluez bluez-utils'
+    echo 'blueman bluetooth-autoconnect bluez bluez-utils mkinitcpio-bluetooth'
 }
 
 artix_bluetooth_configure() {
