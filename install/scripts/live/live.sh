@@ -1,6 +1,5 @@
 #!/bin/sh
 set -a
-set -e
 
 source "$SCRIPTS_DIR/common.sh"
 source "$SCRIPTS_DIR/vars.conf.sh"

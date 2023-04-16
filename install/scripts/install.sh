@@ -1,6 +1,5 @@
 #!/bin/bash
 set -a
-set -e
 
 SCRIPTS_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 source "$SCRIPTS_DIR/common.sh"
