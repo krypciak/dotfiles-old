@@ -17,7 +17,8 @@ if [ $INSTALL_DOTFILES -eq 1 ]; then
     fi
 fi
 
-fish --command "fish_update_completions" > /dev/null 2>&1 &
-doas -u $USER1 fish --command "fish_update_completions" > /dev/null 2>&1 &
+info 'Generating fish completions'
+fish --command "fish_update_completions" 
+doas -u $USER1 fish --command "fish_update_completions" 
 
 wait $(jobs -p)
