@@ -9,6 +9,7 @@ _install_baltie() {
     INSTALL_DIR="$BASE_DIR/SGP Baltie 3"
     
     mkdir -p "$BASE_DIR"
+    rm -rf "$INSTALL_DIR"
     mv /tmp/baltie-extracted/app "$INSTALL_DIR"
     
     cp "$COMMON_CONFIGS_DIR/Baltie3.desktop" "$USER_HOME/.local/share/applications"
