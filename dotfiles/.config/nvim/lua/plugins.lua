@@ -60,7 +60,13 @@ require('packer').startup(function(use)
   end
 end)
 
-local nvimtree = require('nvim-tree')
+function loadrequire(module)
+    local function requiref(module)
+        require(module)
+    end
+    return pcall(requiref,module)
+end
+local nvimtree = loadrequire('nvim-tree')
 if nvimtree then
     nvimtree.setup{}
 end
