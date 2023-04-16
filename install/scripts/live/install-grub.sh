@@ -7,10 +7,12 @@ if [ "$ENCRYPT" == '1' ]; then
     sed -i "s|CRYPT_NAME|$CRYPT_NAME|g" /etc/default/grub
 fi
 
-pri "Installing grub to $BOOT_DIR_ALONE"
+info "Installing grub to $BOOT_DIR_ALONE"
 grub-install --target=x86_64-efi --efi-directory=$BOOT_DIR_ALONE --bootloader-id=$BOOTLOADER_ID
 
-pri "Generating grub config"
+info "Generating grub config"
 grub-mkconfig -o /boot/grub/grub.cfg
 
+info "Generating initcpio"
+mkinitcpio -P
 
