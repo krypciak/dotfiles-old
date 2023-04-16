@@ -8,11 +8,11 @@ _init_browsers() {
 }
 
 artix_browsers_install() {
-    echo 'dialect firefox libreoffice-fresh librewolf ungoogled-chromium'
+    echo 'dialect firefox librewolf ungoogled-chromium'
 }
 
 arch_browsers_install() {
-    echo 'dialect firefox libreoffice-fresh librewolf ungoogled-chromium'
+    echo 'dialect firefox librewolf ungoogled-chromium'
 }
 
 

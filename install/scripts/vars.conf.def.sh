@@ -48,7 +48,8 @@ PACKAGE_GROUPS=(
     'gui'       # platform independent gui apps
     'audio'     # required for audio to work
     'media'     # ffmpeg, vlc, youtube-dl, yt-dlp
-    'browsers'  # dialect, firefox, libreoffice-fresh, librewolf, ungoogled-chromium
+    'browsers'  # dialect, firefox, librewolf, ungoogled-chromium
+    'office'    # libreoffice-fresh
     'X11'       # X11 server and utilities like screen locker
     'awesome'   # awesomewm
     'wayland'   # wayland base and utilities like screen locker
