@@ -1,8 +1,10 @@
 #!/bin/bash
 _setup_cmus_notifications() {
+    export PATH="$PATH:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
     cd /tmp
-    yes yes | cpan -T HTML::Entities
-    git clone https://github.com/dcx86r/cmus-notify
+    info "Installing HTML::Entities using cpan..."
+    yes yes | cpan -T HTML::Entities > /dev/null 2>&1
+    git clone https://github.com/dcx86r/cmus-notify > /dev/null 2>&1
     cd cmus-notify
     sh installer.sh install
 }
