@@ -60,15 +60,8 @@ require('packer').startup(function(use)
   end
 end)
 
-function loadrequire(module)
-    local function requiref(module)
-        require(module)
-    end
-    return pcall(requiref,module)
-end
-local nvimtree = loadrequire('nvim-tree')
-if nvimtree then
-    nvimtree.setup{}
+if loadrequire('nvim-tree') then
+    require('nvim-tree').setup{}
 end
 
 cmd('highlight NvimTreeFolderIcon guibg=blue')

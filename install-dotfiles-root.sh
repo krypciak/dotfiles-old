@@ -17,5 +17,5 @@ chown -R root:root /root/.config/at_login.sh
 
 # Update nvim plugins
 echo Updating neovim plugins...
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync' > /dev/null 2>&1
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerUpdate' > /dev/null 2>&1
 echo Done.

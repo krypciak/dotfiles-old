@@ -1,3 +1,5 @@
+if not loadrequire('lspconfig') then return end
+
 require'lspconfig'.pyright.setup{}
 require'lspconfig'.lua_ls.setup {}
 
