@@ -8,4 +8,5 @@ paru --noconfirm -Rs $(paru -Qqtd)
 info "Cleaning pacman cache"
 paru --noconfirm -Sc > /dev/null 2>&1
 
+rc-update del agetty.tty1 default
 
