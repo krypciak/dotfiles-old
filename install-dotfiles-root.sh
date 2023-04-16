@@ -1,5 +1,5 @@
 #!/bin/sh
-DOTFILES_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+DOTFILES_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd | xargs realpath )
 
 mkdir -p /root/.config/nvim
 cp -r $DOTFILES_DIR/dotfiles/.config/nvim /root/.config/

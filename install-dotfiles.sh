@@ -5,7 +5,7 @@ USER_HOME="/home/$USER1"
 FAKE_USER_HOME="$USER_HOME/home"
 [ -z "$USER_GROUP" ] && export USER_GROUP="$USER1"
 
-DOTFILES_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+DOTFILES_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd | xargs realpath )
 
 SYMLINK_FROM_TO=(
     # Simple symlink ln -sf
