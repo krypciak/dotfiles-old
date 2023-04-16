@@ -5,7 +5,7 @@ if [ -d /tmp/paru ]; then rm -rf /tmp/paru; fi
 
 # If paru is already installed, skip this step
 if ! command -v "paru"; then
-    pacman $PACMAN_ARGUMENTS -S git doas |& grep -v "skipping"
+    pacman $PACMAN_ARGUMENTS -S git doas
     git clone https://aur.archlinux.org/paru-bin.git /tmp/paru
     chown -R $USER1:$USER_GROUP /tmp/paru
     chmod -R +wrx /tmp/paru

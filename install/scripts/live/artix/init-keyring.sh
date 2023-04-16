@@ -14,7 +14,7 @@ PACKAGES_LIST='artix-archlinux-support '
 if [ $LIB32 -eq 1 ]; then
     PACKAGES_LIST="$PACKAGES_LIST lib32-artix-archlinux-support"
 fi
-pacman $PACMAN_ARGUMENTS -Syu $PACKAGES_LIST |& grep -v "skipping"
+pacman $PACMAN_ARGUMENTS -Syu $PACKAGES_LIST
 pacman-key --init
 pacman-key --populate
 
