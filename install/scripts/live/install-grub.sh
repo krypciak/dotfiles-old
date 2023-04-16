@@ -8,11 +8,11 @@ if [ "$ENCRYPT" == '1' ]; then
 fi
 
 info "Installing grub to $BOOT_DIR_ALONE"
-grub-install --target=x86_64-efi --efi-directory="$BOOT_DIR_ALONE" --bootloader-id="$BOOTLOADER_ID" > $OUTPUT
+grub-install --target=x86_64-efi --efi-directory="$BOOT_DIR_ALONE" --bootloader-id="$BOOTLOADER_ID" > $OUTPUT 2>&1
 
 info "Generating grub config"
-grub-mkconfig -o /boot/grub/grub.cfg > $OUTPUT
+grub-mkconfig -o /boot/grub/grub.cfg > $OUTPUT 2>&1
 
 info "Generating initcpio"
-mkinitcpio -P > $OUTPUT
+mkinitcpio -P > $OUTPUT 2>&1
 

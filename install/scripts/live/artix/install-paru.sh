@@ -4,7 +4,7 @@ info "Installing paru (AUR manager)"
 if [ -d /tmp/paru ]; then rm -rf /tmp/paru; fi
 
 # If paru is already installed, skip this step
-if ! command -v "paru"; then
+if ! command -v "paru" > /dev/null 2>&1; then
     pacman $PACMAN_ARGUMENTS -S git doas > $OUTPUT 2>&1
     git clone https://aur.archlinux.org/paru-bin.git /tmp/paru > $OUTPUT 2>&1
     chown -R $USER1:$USER_GROUP /tmp/paru
