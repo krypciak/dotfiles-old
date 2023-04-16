@@ -7,7 +7,7 @@ source "$SCRIPTS_DIR/common.sh"
 
 _help() {
     echo '  Usage:'
-    echo '  --mode      disk, live'
+    echo '  --disk or --live'
     echo '  --variant   artix, arch'
     echo '  --iso       for iso installs'
     echo '  --offline   for offline installs'
