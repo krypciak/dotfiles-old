@@ -30,12 +30,14 @@ arch_basic_install() {
 
 artix_bare_configure() {
     _configure_tldr
+    _configure_cronie
     rc-update add cronie default
 }
 
 
 arch_bare_configure() {
     _configure_tldr
+    _configure_cronie
     systemctl enable cronie
 
 }
