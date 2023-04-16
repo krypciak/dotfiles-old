@@ -97,8 +97,8 @@ fi
 
 source "$SCRIPTS_DIR/vars.conf.sh"
 
-echo "$MODE $VARIANT $TYPE $NET"
-exit
+info "$MODE $VARIANT $TYPE $NET"
+
 if [ "$MODE" == 'live' ]; then
     source "$SCRIPTS_DIR/live/live.sh"
 
