@@ -17,11 +17,11 @@ _configure_cronie() {
 
 artix_basic_install() {
     # ranger
-    echo 'atuin autojump bat bc bottom chatgpt-cli-bin chatgpt-cli-bin clang cronie-openrc dog dust fd fish fzf htop hyperfine imagemagick innoextract lfs lsd lua-language-server man-db man-pages moreutils neofetch net-tools nvim-packer-git p7zip procs pyright rmtrash rust-analyzer syntax-highlighting tealdeer tmux tokei trash-cli ttf-nerd-fonts-symbols-2048-em ttyper-git xorg-server-xvfb xorg-server-xvfb'
+    echo 'atuin autojump bat bc bottom chatgpt-cli-bin chatgpt-cli-bin clang cronie-openrc dog dust fd fish fzf htop hyperfine imagemagick innoextract lfs lsd lua-language-server man-db man-pages moreutils neofetch net-tools nvim-packer-git nvim-vim p7zip procs pyright rmtrash rust-analyzer syntax-highlighting tealdeer tmux tokei trash-cli ttf-nerd-fonts-symbols-2048-em ttyper-git xorg-server-xvfb xorg-server-xvfb'
 }
 
 arch_basic_install() {
-    echo 'atuin autojump bat bc bottom chatgpt-cli-bin chatgpt-cli-bin clang cronie dog dust fd fish fzf htop hyperfine imagemagick innoextract lfs lsd lua-language-server man-db man-pages moreutils neofetch net-tools nvim-packer-git p7zip procs pyright rmtrash rust-analyzer syntax-highlighting tealdeer tmux tokei trash-cli ttf-nerd-fonts-symbols-2048-em ttyper-git xorg-server-xvfb xorg-server-xvfb'
+    echo 'atuin autojump bat bc bottom chatgpt-cli-bin chatgpt-cli-bin clang cronie dog dust fd fish fzf htop hyperfine imagemagick innoextract lfs lsd lua-language-server man-db man-pages moreutils neofetch net-tools nvim-packer-git nvim-vim p7zip procs pyright rmtrash rust-analyzer syntax-highlighting tealdeer tmux tokei trash-cli ttf-nerd-fonts-symbols-2048-em ttyper-git xorg-server-xvfb xorg-server-xvfb'
 
 }
 
