@@ -1,5 +1,8 @@
 #!/bin/sh
 
+source "$SCRIPTS_DIR/common.sh"
+source "$SCRIPTS_DIR/vars.conf.sh"
+
 VARIANT_ROOT_DIR="$CONF_FILES_DIR/$VARIANT/root"
 VARIANT_CONFIGS_DIR="$CONF_FILES_DIR/$VARIANT/configs"
 VARIANT_SCRIPTS_DIR="$SCRIPTS_DIR/live/$VARIANT"
