@@ -8,7 +8,7 @@ LBLUE='\033[1;34m'
 RED='\033[0;31m'
 NC='\033[0m' 
 
-SCRIPTS_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+SCRIPTS_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd | xargs realpath )
 
 INSTALL_DIR="$(dirname $SCRIPTS_DIR)"
 PACKAGES_DIR="$INSTALL_DIR/packages"

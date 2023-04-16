@@ -1,7 +1,7 @@
 #!/bin/bash
 set -a
 
-SCRIPTS_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+SCRIPTS_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd | xargs realpath )
 source "$SCRIPTS_DIR/common.sh"
 
 
