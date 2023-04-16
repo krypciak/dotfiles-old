@@ -2,11 +2,11 @@
 
 info 'Copying common configs'
 printf "$LBLUE"
-cp -rv $COMMON_ROOT_DIR/* /
+cp -rv $COMMON_ROOT_DIR/* / > $OUTPUT
 printf "$NC"
 
 info "Copying $VARIANT configs"
 printf "$LBLUE"
-cp -rv $VARIANT_ROOT_DIR/* /
+cp -rv $VARIANT_ROOT_DIR/* / > $OUTPUT
 printf "$NC"
 

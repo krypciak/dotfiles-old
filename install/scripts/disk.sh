@@ -12,7 +12,7 @@ function unmount() {
     sync
 }
 
-fdisk -l $DISK
+fdisk -l $DISK > $OUTPUT
 confirm "Start partitioning the disk (${DISK})? $RED(DATA WARNING)"
 info "Unmouting"
 
@@ -50,7 +50,7 @@ echo 43 # to LV
 echo p # print the in-memory partition table
 echo w # write changes
 echo q # quit
-) | fdisk $DISK
+) | fdisk $DISK > $OUTPUT
 
 
 mkdir -p $INSTALL_DIR
@@ -60,12 +60,12 @@ if [ "$ENCRYPT" == '1' ]; then
     if [ "$LUKS_PASSWORD" != '' ]; then
         info "${NC}Automaticly filling password..."
 
-        echo $LUKS_PASSWORD | cryptsetup luksFormat $LUKSFORMAT_ARGUMENTS $CRYPT_PART
+        echo $LUKS_PASSWORD | cryptsetup luksFormat $LUKSFORMAT_ARGUMENTS $CRYPT_PART > $OUTPUT
         if [ $? -ne 0 ]; then err "LUKS error."; exit 1; fi
 
         info "Opening $CRYPT_PART as $CRYPT_NAME"
         info "${NC}Automaticly filling password..."
-        echo $LUKS_PASSWORD | cryptsetup open $CRYPT_PART $CRYPT_NAME
+        echo $LUKS_PASSWORD | cryptsetup open $CRYPT_PART $CRYPT_NAME > $OUTPUT
         if [ $? -ne 0 ]; then err "LUKS error."; exit; fi
     else
         while true; do
@@ -95,29 +95,29 @@ fi
 confirm "Set up LVM on ${LVM_PART}?"
 
 info "Creating LVM group $LVM_GROUP_NAME"
-pvcreate --force $LVM_TARGET_FILE
+pvcreate --force $LVM_TARGET_FILE > $OUTPUT
 if [ $? -ne 0 ]; then err "LVM error."; exit; fi
-vgcreate $LVM_GROUP_NAME $LVM_TARGET_FILE
+vgcreate $LVM_GROUP_NAME $LVM_TARGET_FILE > $OUTPUT
 if [ $? -ne 0 ]; then err "LVM error."; exit; fi
 
 info "Creating volumes"
 if [ "$ENABLE_SWAP" == '1' ]; then
     info "Creating SWAP"
-    lvcreate -C y -L $SWAP_SIZE $LVM_GROUP_NAME -n swap
+    lvcreate -C y -L $SWAP_SIZE $LVM_GROUP_NAME -n swap > $OUTPUT
     if [ $? -ne 0 ]; then err "LVM error."; exit; fi
 fi
 info "Creating ROOT of size $ROOT_SIZE"
-lvcreate -C y -L $ROOT_SIZE $LVM_GROUP_NAME -n root
+lvcreate -C y -L $ROOT_SIZE $LVM_GROUP_NAME -n root > $OUTPUT
 if [ $? -ne 0 ]; then err "LVM error."; exit; fi
 
 info "Creating HOME of size 100%FREE"
-lvcreate -C y -l 100%FREE $LVM_GROUP_NAME -n home
+lvcreate -C y -l 100%FREE $LVM_GROUP_NAME -n home > $OUTPUT
 if [ $? -ne 0 ]; then err "LVM error."; exit; fi
 
 info "Formatting volumes"
 if [ "$ENABLE_SWAP" == '1' ]; then
     info "SWAP"
-    mkswap -L swap $LVM_DIR/swap
+    mkswap -L swap $LVM_DIR/swap > $OUTPUT
     if [ $? -ne 0 ]; then err "mkswap error."; exit; fi
 fi
 
@@ -135,22 +135,22 @@ if [ $? -ne 0 ]; then err "format error."; exit; fi
 
 
 info "Mounting ${LBLUE}$LVM_DIR/root ${LGREEN}to ${LBLUE}$INSTALL_DIR/"
-mount $LVM_DIR/root $INSTALL_DIR/
+mount $LVM_DIR/root $INSTALL_DIR/ > $OUTPUT
 if [ $? -ne 0 ]; then err "mount error."; exit; fi
 
 info "Mounting ${LBLUE}$LVM_DIR/home${LGREEN} to ${LBLUE}$INSTALL_DIR/home/$USER1/"
 mkdir -p $INSTALL_DIR/home/$USER1
-mount $LVM_DIR/home $INSTALL_DIR/home/$USER1/
+mount $LVM_DIR/home $INSTALL_DIR/home/$USER1/ > $OUTPUT
 if [ $? -ne 0 ]; then err "mount error."; exit; fi
 
 info "Mounting ${LBLUE}${BOOT_PART}${LGREEN} to ${LBLUE}$BOOT_DIR"
 mkdir -p $BOOT_DIR
-mount $BOOT_PART $BOOT_DIR
+mount $BOOT_PART $BOOT_DIR > $OUTPUT
 if [ $? -ne 0 ]; then err "mount error."; exit; fi
 
 if [ "$ENABLE_SWAP" == '1' ]; then
     info "Turning swap on"
-    swapon $LVM_DIR/swap
+    swapon $LVM_DIR/swap > $OUTPUT
     if [ $? -ne 0 ]; then err "swap error."; exit; fi
 fi
 

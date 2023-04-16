@@ -22,7 +22,7 @@ source $VARIANT_SCRIPTS_DIR/cleanup.sh
 source $SCRIPTS_DIR/live/configure-fstab.sh
 source $SCRIPTS_DIR/live/install-grub.sh
 
-command -v 'neofetch' && neofetch
+command -v 'neofetch' > /dev/null 2>&1 && neofetch
 
 if [ $PAUSE_AFTER_DONE -eq 1 ]; then
     confirm "" "ignore"

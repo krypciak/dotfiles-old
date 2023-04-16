@@ -2,7 +2,7 @@
 
 info "Adding user $USER1"
 if ! id "$USER1" &>/dev/null; then
-    useradd -s /bin/bash -G tty,ftp,games,network,scanner,users,video,audio,wheel $USER1
+    useradd -s /bin/bash -G tty,ftp,games,network,scanner,users,video,audio,wheel $USER1 > $OUTPUT
     mkdir -p $USER_HOME
 fi
 

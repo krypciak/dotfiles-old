@@ -11,6 +11,7 @@ _help() {
     echo '  --variant   artix, arch'
     echo '  --iso       for iso installs'
     echo '  --offline   for offline installs'
+    echo '  --quiet     silence a lot of output'
     exit 2
 }
 
@@ -25,7 +26,7 @@ if [ "$(whoami)" != 'root' ]; then
 fi
 
 SHORT=""
-LONG="live,disk,variant:,iso,offline"
+LONG="live,disk,variant:,iso,offline,quiet"
 OPTS=$(getopt --alternative --name install --options "$SHORT" --longoptions "$LONG" -- "$@") 
 if [ $? != '0' ]; then
     exit
@@ -35,6 +36,9 @@ MODE='null'
 VARIANT='null'
 TYPE='iso'
 NET='online'
+QUIET=0
+
+OUTPUT='/dev/stdout'
 
 eval set -- "$OPTS"
 
@@ -57,7 +61,12 @@ while [ : ]; do
         shift 1
         ;;
     --offline)
-        echo "offline"
+        NET='offline'
+        shift 1
+        ;;
+    --quiet)
+        QUIET=1
+        OUTPUT='/dev/null'
         shift 1
         ;;
     --)
