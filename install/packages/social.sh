@@ -9,14 +9,14 @@ arch_social_install() {
 }
 
 _configure_discord1() {
-    timeout 30s xvfb-run -a discord > /dev/null
+    timeout 15s xvfb-run -a discord > /dev/null 2>&1
     betterdiscordctl install
 }
 
 _configure_discord() {
     # Let discord download updates
     export -f _configure_discord1
-    timeout 40s _configure_discord1 &
+    timeout 40s sh -c _configure_discord1 &
 }
 
 artix_social_configure() {
