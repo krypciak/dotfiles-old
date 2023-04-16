@@ -14,14 +14,14 @@ PACKAGES_LIST='artix-archlinux-support '
 if [ $LIB32 -eq 1 ]; then
     PACKAGES_LIST="$PACKAGES_LIST lib32-artix-archlinux-support"
 fi
-pacman $PACMAN_ARGUMENTS -Syu $PACKAGES_LIST > $OUTPUT
-pacman-key --init > $OUTPUT
-pacman-key --populate > $OUTPUT
+pacman $PACMAN_ARGUMENTS -Syu $PACKAGES_LIST > $OUTPUT 2>&1
+pacman-key --init > $OUTPUT 2>&1
+pacman-key --populate > $OUTPUT 2>&1
 
 info 'Copying pacman configuration'
 cp $VARIANT_ROOT_DIR/etc/pacman.conf /etc/pacman.conf
 cp -r $VARIANT_ROOT_DIR/etc/pacman.d /etc/
-pacman -Sy > $OUTPUT
+pacman -Sy > $OUTPUT 2>&1
 
 if [ "$TYPE" == 'iso' ]; then
     sed -i 's/CheckSpace/#CheckSpace/g' /etc/pacman.conf
