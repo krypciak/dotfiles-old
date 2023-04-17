@@ -83,6 +83,4 @@ if status is-interactive
     globabbr 'rmm' 'rmtrash'
     globabbr 'cd..' 'cd ..'
     globabbr 'cd,,' 'cd ..'
-
-    cd ~/home
 end
