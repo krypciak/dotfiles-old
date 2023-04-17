@@ -41,9 +41,6 @@ export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
 export ICEAUTHORITY="$XDG_CACHE_HOME"/ICEauthority
 # ~/.node_repl_history
 export NODE_REPL_HISTORY="$XDG_DATA_HOME"/node_repl_history
-# ~/.Xauthority
-export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
-
 
 unset XDG_RUNTIME_DIR
 export XDG_RUNTIME_DIR=$(mktemp -d /tmp/$(id -u)-runtime-dir.XXX)
