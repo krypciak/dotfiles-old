@@ -34,6 +34,8 @@ scripts/auto-download/log.txt
 scripts/auto-download/scripts/subs.sh
 
 install/scripts/vars.conf.sh
-install/packages/offline/artix/*
+install/packages/offline/artix/aur
+install/packages/offline/artix/official
+
 
 
