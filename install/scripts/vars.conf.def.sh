@@ -42,6 +42,7 @@ fi
 
 
 PACKAGE_GROUPS=(
+    'base'      # packages installing pre-chroot
     'bare'      # bare minimum to get into bash shell
     'drivers'   # cpu ucode and gpu drivers
     'basic'     # make the shell usable and preety
