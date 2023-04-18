@@ -8,7 +8,6 @@ _DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd | xargs 
 OFFLINE_DIR=$(dirname $_DIR)
 PACKAGES_DIR=$(dirname $OFFLINE_DIR)
 
-export -f _clean_cache
 doas sh -c "\
     echo 'Updaing system'; \
     pacman --noconfirm -Syu; \
@@ -56,6 +55,7 @@ rm /tmp/allaur
 
 
 echo 'Copying official packages...'
+rm -rf $_DIR/official
 mkdir -p $_DIR/official
 GREP_OFFICIAL_COPY="$(echo $PACMAN | tr ' ' '\n' | awk '{print "-e ^" $1 "-"}' | xargs)"
 cd /var/cache/pacman/pkg
@@ -63,6 +63,7 @@ ls *.pkg.tar.zst -1 | grep -E -e $GREP_OFFICIAL_COPY | awk '{print "/var/cache/p
 echo -e 'Done.\n'
 
 echo 'Copying AUR packages...'
+rm -rf $_DIR/aur
 mkdir -p $_DIR/aur
 GREP_AUR_COPY="$(echo $AUR | tr ' ' '\n' | awk '{print "-e " $1 }' | xargs)"
 ls /home/$USER1/.cache/paru/clone/ -1 | grep -E -e $GREP_AUR_COPY | awk "{printf(\"/home/$USER1/.cache/paru/clone/%s/\", \$1); system(\"pacman -Qi \$AUR | grep -E 'Version|Name|Architecture' | awk '{print \$3}' | grep -A 2 \" \$1 \" | xargs | tr ' ' '-' | head -c -1\"); printf(\".pkg.tar.zst\n\")}" | xargs -I _ cp _ $_DIR/aur/
