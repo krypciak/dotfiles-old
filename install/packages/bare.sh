@@ -8,7 +8,6 @@ _configure_greetd() {
 }
 
 artix_bare_install() {
-    echo "$KERNEL $KERNEL-headers artix-keyring artix-mirrorlist autoconf automake base bison elogind-openrc fakeroot flex gcc groff iptables-nft libtool m4 make openntpd-openrc openrc pacman patch pkgconf texinfo util-linux which "
     echo 'btrfs-progs clang dbus dbus-glib dbus-openrc dbus-python doas-sudo-shim dosfstools efibootmgr git greetd-artix-openrc greetd-tuigreet-bin grub mtools networkmanager-openrc opendoas openntpd-openrc pacman-contrib perl python python-pip ttf-dejavu ttf-hack unrar unzip util-linux wget zip'
 }
 
