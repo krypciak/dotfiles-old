@@ -51,4 +51,4 @@ for group in "${PACKAGE_GROUPS[@]}"; do
 done
 
 
-echo $PACKAGE_LIST
+echo $PACKAGE_LIST | tr ' ' '\n' | sort --unique | xargs
