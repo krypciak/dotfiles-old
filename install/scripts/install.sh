@@ -7,7 +7,7 @@ source "$SCRIPTS_DIR/common.sh"
 
 _help() {
     echo '  Usage:'
-    echo '  --disk or --live'
+    echo '  --disk or --live or --dir DIRECTORY'
     echo '  --variant   artix, arch'
     echo '  --iso       for iso installs'
     echo '  --offline   for offline installs'
@@ -26,7 +26,7 @@ if [ "$(whoami)" != 'root' ]; then
 fi
 
 SHORT=""
-LONG="live,disk,variant:,iso,offline,quiet"
+LONG="live,disk,dir:,variant:,iso,offline,quiet"
 OPTS=$(getopt --alternative --name install --options "$SHORT" --longoptions "$LONG" -- "$@") 
 if [ $? != '0' ]; then
     exit
@@ -51,6 +51,11 @@ while [ : ]; do
     --disk)
         MODE='disk'
         shift 1
+        ;;
+    --dir)
+        MODE='dir'
+        INSTALL_DIR="$2"
+        shift 2
         ;;
     --variant)
         VARIANT="$2"
@@ -81,7 +86,7 @@ while [ : ]; do
 done
 
 
-if [ "$MODE" != 'live' ] && [ "$MODE" != 'disk' ]; then
+if [ "$MODE" != 'live' ] && [ "$MODE" != 'disk' ] && [ "$MODE" != 'dir' ]; then
     echo '--mode argument is required.'; _help
 fi
 
@@ -110,10 +115,13 @@ source "$SCRIPTS_DIR/vars.conf.sh"
 
 
 if [ "$MODE" == 'live' ]; then
-    source "$SCRIPTS_DIR/live/live.sh"
+    source $SCRIPTS_DIR/live/live.sh
 
 elif [ "$MODE" == 'disk' ]; then
-    source "$SCRIPTS_DIR/disk.sh"
+    source $SCRIPTS_DIR/disk.sh
+
+elif [ "$MODE" == 'dir' ]; then
+    source $SCRIPTS_DIR/chroot.sh
 fi
 
 #sed -i 's/#Color/Color/g' /etc/pacman.conf
