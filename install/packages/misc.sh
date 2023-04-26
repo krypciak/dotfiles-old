@@ -1,11 +1,11 @@
 #!/bin/bash
 
 artix_misc_install() {
-    echo 'artools cups-openrc iso-profiles'
+    echo 'artix-rebuild-order artools-base artools-iso artools-pkg cups-openrc iso-profiles'
 }
 
 arch_misc_install() {
-    echo 'artools cups iso-profiles'
+    echo 'cups iso-profiles'
 }
 
 

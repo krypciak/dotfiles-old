@@ -1,2 +1,2 @@
 #!/bin/bash
-rm -r aurpackages.txt deplist.txt packages
+rm -r packages pacman.txt

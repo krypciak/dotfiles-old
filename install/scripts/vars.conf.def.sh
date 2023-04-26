@@ -27,7 +27,7 @@ LANG='en_US.UTF-8'
 
 # Packages
 LIB32=1
-PACMAN_ARGUMENTS='--noconfirm --needed'
+PACMAN_ARGUMENTS='--color=always --noconfirm --needed'
 PARU_ARGUMENTS='--noremovemake --skipreview --noupgrademenu'
 
 # If ALL_DRIVERS is set to 1, GPU and CPU options are ignored

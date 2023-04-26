@@ -34,7 +34,7 @@ fi
 
 MODE='null'
 VARIANT='null'
-TYPE='iso'
+TYPE='normal'
 NET='online'
 QUIET=0
 
@@ -123,13 +123,5 @@ elif [ "$MODE" == 'disk' ]; then
 elif [ "$MODE" == 'dir' ]; then
     source $SCRIPTS_DIR/chroot.sh
 fi
-
-#sed -i 's/#Color/Color/g' /etc/pacman.conf
-#sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 5/g' /etc/pacman.conf
-
-#chmod 0040 /etc/doas.conf
-#
-#pri "Enabling mkinitpckio"
-#mv /90-mkinitcpio-install.hook /usr/share/libalpm/hooks/90-mkinitcpio-install.hook
 
 

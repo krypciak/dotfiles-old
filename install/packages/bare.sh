@@ -1,7 +1,6 @@
 #!/bin/bash
 
 _configure_greetd() {
-    pri "Configuring greetd"
     sed -i "s|USER_HOME|$USER_HOME|g" /etc/greetd/config.toml
     sed -i "s/USER1/$USER1/g" /etc/greetd/config.toml
     chown greeter:greeter /etc/greetd/config.toml
@@ -19,10 +18,12 @@ arch_bare_install() {
 artix_bare_configure() {
     _configure_greetd
 
-    rc-update add greetd default
+    rc-update add greetd default > /dev/null 2>&1
+    set +e
     rc-update del agetty.tty1 default > /dev/null 2>&1
-    rc-update add ntpd default
-    rc-update add NetworkManager default
+    set -e
+    rc-update add ntpd default > /dev/null 2>&1
+    rc-update add NetworkManager default > /dev/null 2>&1
 }
 
 arch_bare_configure() {

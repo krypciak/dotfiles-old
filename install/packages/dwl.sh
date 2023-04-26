@@ -1,6 +1,7 @@
 #!/bin/bash
 
 _make_dwl() {
+    info 'Compiling dwl'
     cd $USER_HOME/.config/dwl/dwl-dotfiles/
     doas -u $USER1 git switch main
     doas -u $USER1 git remote add upstream https://github.com/djpohly/dwl
@@ -27,6 +28,8 @@ _make_dwl() {
 }
 
 _make_somebar() {
+    info 'Compiling somebar'
+
     cd $USER_HOME/.config/dwl/somebar/
     doas -u $USER1 git switch master
     doas -u $USER1 git remote add upstream https://git.sr.ht/~raphi/somebar
@@ -37,6 +40,8 @@ _make_somebar() {
 }
 
 _make_someblocks() {
+    info 'Compiling someblocks'
+
     cd $USER_HOME/.config/dwl/someblocks
     doas -u $USER1 git switch master
     doas -u $USER1 git remote add upstream https://git.sr.ht/~raphi/someblocks
@@ -45,6 +50,8 @@ _make_someblocks() {
 }
 
 _make_dpms() {
+    info 'Compiling dpms'
+
     cd $USER_HOME/.config/dwl/dpms-off
     doas -u $USER1 git switch master
     doas -u $USER1 cargo build --release
@@ -53,10 +60,12 @@ _make_dpms() {
 }
 
 _configure_dwl() {
+    set +e
     _make_dwl
     _make_somebar
     _make_someblocks
-    _make_dpms
+    #_make_dpms
+    set -e
     chown $USER1:$USER_GROUP -R $USER_HOME/.config/dwl
 }
 

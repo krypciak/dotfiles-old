@@ -1,5 +1,6 @@
 #!/bin/bash
 _setup_cmus_notifications() {
+    set +e
     export PATH="$PATH:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
     cd /tmp
     info "Installing HTML::Entities using cpan..."
@@ -7,6 +8,7 @@ _setup_cmus_notifications() {
     git clone https://github.com/dcx86r/cmus-notify > /dev/null 2>&1
     cd cmus-notify
     sh installer.sh install
+    set -e
 }
 
 artix_audio_install() {

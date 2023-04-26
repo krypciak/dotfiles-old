@@ -19,8 +19,13 @@ source $SCRIPTS_DIR/live/set-passwords.sh
 source $SCRIPTS_DIR/live/configure-packages.sh
 source $SCRIPTS_DIR/live/cleanup.sh
 source $VARIANT_SCRIPTS_DIR/cleanup.sh
-source $SCRIPTS_DIR/live/configure-fstab.sh
-source $SCRIPTS_DIR/live/install-grub.sh
+
+if [ "$TYPE" = 'normal' ]; then
+    source $SCRIPTS_DIR/live/configure-fstab.sh
+    source $SCRIPTS_DIR/live/install-grub.sh
+else
+    source "$VARIANT_SCRIPTS_DIR/iso.sh"
+fi
 
 command -v 'neofetch' > /dev/null 2>&1 && neofetch
 
