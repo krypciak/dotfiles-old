@@ -10,6 +10,7 @@ DOTFILES_DIR="$(dirname "$0" | xargs realpath)"
 SYMLINK_FROM_TO="\
     .config/at_login.sh \
     .config/nvim \
+    .local/share/nvim \
     .config/fish \
     .config/tealdeer \
     .bashrc \
