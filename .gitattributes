@@ -14,3 +14,6 @@ dotfiles/.config/gtk-4.0/** linguist-vendored
 
 dotfiles/.config/dwl/dpms-off/** linguist-vendored
 
+dotfiles/.local/share/nvim/** linguist-vendored
+
+
