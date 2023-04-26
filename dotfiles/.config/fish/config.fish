@@ -72,6 +72,8 @@ if status is-interactive
 
     alias awesomesuperbroken='xmodmap -e "clear mod4"; xmodmap -e "add mod4 = Super_L Super_L Super_L Hyper_L"'
 
+    alias watch='watch -c'
+
     function last_history_item
         echo $history[1]
     end
