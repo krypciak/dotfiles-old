@@ -19,6 +19,8 @@ SYMLINK_FROM_TO="\
     .config/topgrade.toml \
     .config/ttyper \
     .config/animdl \
+    .shellcheckrc \
+
     \
     .config/alacritty \
     .config/wallpapers \
