@@ -191,7 +191,9 @@ chmod +x "$USER_HOME/.config/awesome/run/run.sh"
 chmod +x "$USER_HOME/.config/at_login.sh"
 chmod +x "$USER_HOME"/.config/dotfiles/scripts/*.sh
 
-# Update nvim plugins
-printf 'Updating neovim plugins...\n'
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerUpdate' > /dev/null 2>&1
-echo Done
+# Update nvim plugins if there is internet
+if nc -z 8.8.8.8 53 -w 1; then
+    printf 'Updating neovim plugins...\n'
+    nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerUpdate' > /dev/null 2>&1
+    echo Done
+fi
