@@ -1,18 +1,18 @@
 #!/bin/sh
-DOTFILES_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd | xargs realpath )
+DOTFILES_DIR="$(dirname "$0" | xargs realpath)"
 
 mkdir -p /root/.config/nvim
-cp -r $DOTFILES_DIR/dotfiles/.config/nvim /root/.config/
+cp -r "$DOTFILES_DIR/dotfiles/.config/nvim" /root/.config/
 chown -R root:root /root/.config/nvim
 
 mkdir -p /root/.config/fish
-cp -r $DOTFILES_DIR/dotfiles/.config/fish /root/.config/
+cp -r "$DOTFILES_DIR/dotfiles/.config/fish" /root/.config/
 chown -R root:root /root/.config/fish
 
-cp -r $DOTFILES_DIR/dotfiles/.bashrc /root/
+cp -r "$DOTFILES_DIR/dotfiles/.bashrc" /root/
 chown -R root:root /root/.bashrc
 
-cp -r $DOTFILES_DIR/dotfiles/.config/at_login.sh /root/.config/
+cp -r "$DOTFILES_DIR/dotfiles/.config/at_login.sh" /root/.config/
 chown -R root:root /root/.config/at_login.sh
 
 # Update nvim plugins if there is internet

@@ -1,5 +1,8 @@
-#!/bin/bash
-DOTFILES_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+#!/bin/sh
+
+set -e
+
+DOTFILES_DIR="$(dirname "$0" | xargs realpath)"
 
 LGREEN='\033[1;32m'
 GREEN='\033[0;32m'
@@ -8,13 +11,13 @@ RED='\033[0;31m'
 NC='\033[0m' 
 
 pri() {
-    echo -e "$GREEN ||| $LGREEN$1$NC"
+    printf "$GREEN ||| $LGREEN$1$NC\n"
 }
 
 RETRY=1
 retry() {
-    echo -en "$LBLUE |||$LGREEN Do you wanna retry? $LBLUE(Y/n)? >> $NC"
-    read choice
+    printf "$LBLUE |||$LGREEN Do you wanna retry? $LBLUE(Y/n)? >> $NC"
+    read -r choice
     case "$choice" in 
     y|Y|"" ) RETRY=1;;
     n|N ) RETRY=0;;
@@ -34,22 +37,22 @@ find $GNUPG_DIR -type d -exec chmod 700 {} \; # Set 700 for directories
 PRIV_DIR=$DOTFILES_DIR/dotfiles/private
 ENCRYPTED_ARCHIVE=$DOTFILES_DIR/dotfiles/private.tar.gz.gpg
 
-cd $DOTFILES_DIR/dotfiles/
+cd "$DOTFILES_DIR/dotfiles"
 # Check archive
 sha512sum --check $ENCRYPTED_ARCHIVE.sha512
-if [[ $? == 1 ]]; then
-	echo Encrypted archive is corrupted!
-	echo $ENCRYPTED_ARCHIVE
+if [ "$?" -eq 1 ]; then
+	printf "Encrypted archive is corrupted!\n"
+	printf "$ENCRYPTED_ARCHIVE\n"
 	exit 1
 fi
 
 # Decrypt
 n=0
 until [ "$n" -ge 5 ]; do
-    if [ ! -z $PRIVATE_DOTFILES_PASSWORD ] && [ $PRIVATE_DOTFILES_PASSWORD != '' ]; then
-        pri 'Trying auto-decryption...'
+    if [ ! -z "$PRIVATE_DOTFILES_PASSWORD" ] && [ $PRIVATE_DOTFILES_PASSWORD != '' ]; then
+        info 'Trying auto-decryption...'
         ( echo $PRIVATE_DOTFILES_PASSWORD; ) | gpg --batch --yes --passphrase-fd 0 --no-symkey-cache --output /tmp/private.tar.gz --decrypt --pinentry-mode=loopback $ENCRYPTED_ARCHIVE && break
-        pri "${RED}Auto decryption failed with password: '$PRIVATE_DOTFILES_PASSWORD'"
+        info "${RED}Auto decryption failed with password: '$PRIVATE_DOTFILES_PASSWORD'"
         export -n PRIVATE_DOTFILES_PASSWORD
     fi
     gpg --output /tmp/private.tar.gz --decrypt --pinentry-mode=loopback $ENCRYPTED_ARCHIVE && break
