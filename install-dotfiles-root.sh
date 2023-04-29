@@ -1,9 +1,17 @@
 #!/bin/sh
-DOTFILES_DIR="$(dirname "$0" | xargs realpath)"
+
+if [ -z $DOTFILES_DIR ]; then
+    DOTFILES_DIR="$(dirname "$0" | xargs realpath)"
+fi
 
 mkdir -p /root/.config/nvim
 cp -r "$DOTFILES_DIR/dotfiles/.config/nvim" /root/.config/
 chown -R root:root /root/.config/nvim
+
+mkdir -p /root/.local/share/nvim
+cp -r "$DOTFILES_DIR/dotfiles/.local/share/nvim" /root/.local/share/
+chown -R root:root /root/.local/share/nvim
+
 
 mkdir -p /root/.config/fish
 cp -r "$DOTFILES_DIR/dotfiles/.config/fish" /root/.config/
