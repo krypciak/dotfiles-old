@@ -13,12 +13,6 @@ local wallpapers = {
 local custom_scaling_wallpapers = {}
 custom_scaling_wallpapers['oneshot/MemoryOfaDistantPlace.gif'] = { swww='Nearest', mpv='nearest' }
 
-local hour_wallpapers = true
-local hour_wallpapers_array = {
-    { hour_start = 6, hour_end = 21, wallpaper = 'oneshot/MemoryOfaDistantPlace.gif' },
-    { hour_start = 21, hour_end = 6, wallpaper = 'oneshot/main.png' },
-}
-
 local wallpaper_name_map = {}
 for group=1, #wallpapers, 1 do
     for index=1, #wallpapers[group], 1 do
@@ -46,15 +40,6 @@ if arg then
         in_index = tonumber(arg[3])
     elseif mode == 'wayland-gui' then
         mode = 'gui'
-        isx11 = false
-    elseif mode == 'x11-gui' then
-        mode = 'gui'
-        isx11 = true
-    elseif mode == 'x11-hour_check' then
-        mode = 'hour_check'
-        isx11 = true
-    elseif mode == 'wayland-hour_check' then
-        mode = 'hour_check'
         isx11 = false
     end
 end
@@ -101,20 +86,6 @@ if mode == 'inc' then
 elseif mode == 'set' then
     group = in_group
     index = in_index
-
-elseif mode == 'hour_check' then
-    if not hour_wallpapers then return end
-    local time = os.date("*t")
-    for i=1, #hour_wallpapers_array, 1 do
-        local tuple = hour_wallpapers_array[i]
-
-        if tuple.hour_start < tuple.hour_end and (time.hour >= tuple.hour_start and time.hour <= tuple.hour_end) or (time.hour >= tuple.hour_start or time.hour <= tuple.hour_end) then
-            local tuple1 = wallpaper_name_map[tuple.wallpaper]
-            group = tuple1.group
-            index = tuple1.index
-            print('matched: ' .. tuple.hour_start .. '-' .. tuple.hour_end .. ' ' .. tuple.wallpaper)
-        end
-    end
 end
 
 
