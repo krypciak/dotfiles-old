@@ -72,3 +72,6 @@ autocmd WinLeave * setlocal nocursorline
 highlight CursorLine ctermbg=235
 ]]
 
+cmd [[
+set ff=unix
+]]
