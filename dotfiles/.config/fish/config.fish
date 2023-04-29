@@ -4,37 +4,11 @@ if status is-interactive
     end
 
     set fish_greeting
-    alias ls='lsd'
-    alias l='lsd -l'
-    alias la='lsd -a'
-    alias lla='lsd -la'
-    alias lt='lsd --tree'
-    alias tree='lsd --tree'
-
-    alias reboot='loginctl reboot'
-    alias poweroff='loginctl poweroff'
-    alias suspend='awesome-client "suspend()"'
-    alias hibernate='awesome-client "hibernate()"'
-    
-    alias f='fdisk -l'
-
-    alias motherboard='cat /sys/devices/virtual/dmi/id/board_{vendor,name,version}'
-    alias topcmds='history | awk \'{print $1}\' | sort | uniq -c | sort -nr | head -20'
 
     source /usr/share/autojump/autojump.fish
 
     atuin init fish | source
     
-    alias cat=bat
-    alias diff=difft
-    alias du='echo Use dust.'
-    alias find='echo Use fd.'
-    alias ti='hyperfine'
-    alias df='echo Use lfs.'
-    alias ps='echo Use procs.'
-    
-    alias dust='dust --reverse'
-
     function lsp
         ls -d "$PWD/$argv" | head -c -1
     end
@@ -64,25 +38,13 @@ if status is-interactive
         end
     end
     
-    alias iforgothowtosyncfork='printf "# Sync your fork\ngit fetch upstream\ngit checkout master\ngit merge upstream/master\n"'
-    alias gitignorenowork='printf "#Remember to commit everything you\'ve changed before you do this!\ngit rm -rf --cached .\ngit add .\n"'
-    alias iuploadedmycreditcardnumbertogitwhatnow='printf "git filter-repo --invert-paths --path <path to the file or directory>"\n'
-    alias mountqcow2='printf "# Mount\ndoas modprobe nbd max_part=8\ndoas qemu-nbd --connect=/dev/nbd0 IMAGE.qcow2\ndoas mount /dev/nbd0 MNT\n\n# Umount\ndoas umount MNT\ndoas qemu-ndp --disconnect /dev/nbd0"'
-    alias blkiduuid='blkid -s UUID -o value /dev/vda1'
-
-    alias awesomesuperbroken='xmodmap -e "clear mod4"; xmodmap -e "add mod4 = Super_L Super_L Super_L Hyper_L"'
-
-    alias watch='watch -c'
 
     function last_history_item
         echo $history[1]
     end
     abbr -a !! --position anywhere --function last_history_item
 
-    globabbr 'dps' 'doas pacman -Syu'
-    globabbr 'sudo' 'doas'
-    globabbr 'sl' 'ls'
-    globabbr 'rmm' 'rmtrash'
-    globabbr 'cd..' 'cd ..'
-    globabbr 'cd,,' 'cd ..'
+    source ~/.config/aliases.sh
+
+    alias topcmds='history | awk "{print \$1}" | sort | uniq -c | sort -nr | head -20'
 end

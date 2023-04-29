@@ -4,3 +4,4 @@ then
 	exec fish
 fi
 source ~/.config/at-login.sh
+source ~/.config/aliases.sh

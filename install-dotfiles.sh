@@ -8,7 +8,8 @@ FAKE_USER_HOME="$USER_HOME/home"
 DOTFILES_DIR="$(dirname "$0" | xargs realpath)"
 
 SYMLINK_FROM_TO="\
-    .config/at_login.sh \
+    .config/at-login.sh \
+    .config/aliases.sh \
     .config/nvim \
     .local/share/nvim \
     .config/fish \
@@ -190,7 +191,8 @@ sed -i "s|USER_HOME|$USER_HOME|g" "$USER_HOME/.config/dotfiles/scripts/update-ar
 
 
 chmod +x "$USER_HOME/.config/awesome/run/run.sh"
-chmod +x "$USER_HOME/.config/at_login.sh"
+chmod +x "$USER_HOME/.config/at-login.sh"
+chmod +x "$USER_HOME/.config/aliases.sh"
 chmod +x "$USER_HOME"/.config/dotfiles/scripts/*.sh
 
 # Update nvim plugins if there is internet
