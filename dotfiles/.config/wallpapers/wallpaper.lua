@@ -8,7 +8,8 @@ local default_index = 2
 local wallpapers = {
     {  'oneshot/main.png', 'oneshot/MemoryOfaDistantPlace.gif', 'oneshot/library.png', 'oneshot/factory.png' },
     { 'autumn.png' },
-    { '#000000', '#303030' }
+    { 'anime/tenken-fran.png' },
+    { '#000000', '#303030' },
 }
 local custom_scaling_wallpapers = {}
 custom_scaling_wallpapers['oneshot/MemoryOfaDistantPlace.gif'] = { swww='Nearest', mpv='nearest' }
