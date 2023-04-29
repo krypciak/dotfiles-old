@@ -16,4 +16,11 @@ if command -v ntpd > /dev/null && ping -c 1 gnu.org > /dev/null 2>&1; then
     set -e
 fi
 
+if [ "$MODE" != 'live' ]; then
+    cleanup /tmp 
+fi
+
+set +e
+find / -name '*.pacnew' -name '*.pacsave' -name '*.pacorig' -delete > /dev/null 2>&1
+set -e
 
