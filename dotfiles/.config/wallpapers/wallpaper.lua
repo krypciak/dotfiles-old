@@ -123,6 +123,8 @@ if not isx11 then
             local scaling_method = custom_scaling_wallpapers[wallpaper]
             if scaling_method then
                 scaling_method = '--filter ' .. scaling_method.swww .. ' '
+            else
+                scaling_method=''
             end
             os.execute('swww img --sync ' .. scaling_method .. wallpaper_dir .. wallpaper)
         end
@@ -144,6 +146,8 @@ if isx11 then
         local scaling_method = custom_scaling_wallpapers[current_wallpaper]
         if scaling_method then
             scaling_method = '--scale=' .. scaling_method.mpv .. ' '
+        else
+            scaling_method=''
         end
         os.execute('mpv --wid=0 --loop-file=inf ' .. scaling_method .. wallpaper_dir .. current_wallpaper .. ' &')
         set_wallpaper('#000000', true)
