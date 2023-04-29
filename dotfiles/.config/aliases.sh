@@ -22,10 +22,11 @@ alias f='fdisk -l'
 
 alias motherboard='cat /sys/devices/virtual/dmi/id/board_{vendor,name,version}'
 
-alias cat=bat
-alias diff=difft
+alias cat='bat'
+alias diff='difft'
 alias ti='hyperfine'
 alias ps='echo Use procs.'
+alias man='batman'
 
 alias dust='dust --reverse'
 
@@ -38,5 +39,4 @@ alias blkiduuid='blkid -s UUID -o value /dev/vda1'
 alias awesomesuperbroken='xmodmap -e "clear mod4"; xmodmap -e "add mod4 = Super_L Super_L Super_L Hyper_L"'
 
 alias watch='watch -c'
-
 
