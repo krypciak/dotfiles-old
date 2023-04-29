@@ -126,7 +126,8 @@ if not isx11 then
             else
                 scaling_method=''
             end
-            os.execute('swww img --sync ' .. scaling_method .. wallpaper_dir .. wallpaper)
+
+            os.execute('swww img --transition-duration 0  --transition-type left --sync ' .. scaling_method .. wallpaper_dir .. wallpaper)
         end
     end
 
