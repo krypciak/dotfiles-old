@@ -12,7 +12,3 @@ grub-install --target=x86_64-efi --efi-directory="$BOOT_DIR_ALONE" --bootloader-
 
 info "Generating grub config"
 grub-mkconfig -o /boot/grub/grub.cfg > $OUTPUT 2>&1
-
-info "Generating initcpio"
-mkinitcpio -P > $OUTPUT 2>&1
-
