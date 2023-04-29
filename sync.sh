@@ -46,7 +46,7 @@ for ((i = 0; i < ${#DIRS[@]}; i++)); do
         	#if [ -e "$dest" ]; then confirm "$dest"; fi
 
 	        mkdir -p "$(dirname $dest| head --lines 1)"
-	        cp -rvf "$from" "$dest"
+	        cp -rf "$from" "$dest"
 		    chown -R $USER1:$USER1 "$dest"
     	fi
 done
@@ -59,7 +59,7 @@ for (( i=0; i<${#DIRS[@]}; i+=2 )); do
     DEST="$DOTFILES_DIR/dotfiles/$T1"
 
     mkdir -p "$(dirname $DEST | head --lines 1)"
-	cp -rvf "$FROM" "$DEST"
+	cp -rf "$FROM" "$DEST"
 	chown -R $USER1:$USER1 "$DEST"
 done
 
