@@ -144,6 +144,7 @@ for dir in $LINK_HOME_DIRS; do
 	ln -sfT "$FAKE_USER_HOME/$dir" "$DEST"
 done
 
+cd "$DOTFILES_DIR" || exit 1
 git submodule update --init --recursive
 
 for path in $SYMLINK_FROM_TO; do
