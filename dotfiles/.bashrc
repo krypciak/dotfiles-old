@@ -9,5 +9,5 @@ source /usr/share/autojump/autojump.bash
 source ~/.config/at-login.sh
 source ~/.config/aliases.sh
 
-[[ -f ~/.bash-preexec.sh ]] && source ~/.config/.bash-preexec.sh
+[ -f ~/.config/.bash-preexec.sh ] && source ~/.config/.bash-preexec.sh
 eval "$(atuin init bash)"
