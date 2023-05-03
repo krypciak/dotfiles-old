@@ -1,4 +1,4 @@
-source ~/.config/at_login.sh
+source ~/.config/at-login.sh
 
 
 export MOZ_ENABLE_WAYLAND=1
