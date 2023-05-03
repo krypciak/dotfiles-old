@@ -40,6 +40,8 @@ if [ "$ALL_DRIVERS" == "0" ]; then
     CPU='amd'
 fi
 
+COPY_OFFLINE_PACKAGES=0
+
 
 PACKAGE_GROUPS=(
     'base'      # packages installing pre-chroot

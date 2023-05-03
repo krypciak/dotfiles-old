@@ -1,4 +1,4 @@
 #!/bin/sh
 
-info "Generating initcpio"
+info "Generating initramfs"
 mkinitcpio -P > $OUTPUT 2>&1

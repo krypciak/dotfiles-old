@@ -6,12 +6,11 @@ source "$SCRIPTS_DIR/common.sh"
 
 
 _help() {
-    echo '  Usage:'
-    echo '  --disk or --live or --dir DIRECTORY'
-    echo '  --variant   artix, arch'
-    echo '  --iso       for iso installs'
-    echo '  --offline   for offline installs'
-    echo '  --quiet     silence a lot of output'
+    printf '  Usage:\n'
+    printf '  --disk or \n    --live or \n    --dir DIRECTORY or\n    --iso=ISO_OUT_DIR\n'
+    printf '  --variant      artix, arch\n'
+    printf '  --offline      for offline installs\n'
+    printf '  --quiet        silence a lot of output\n'
     exit 2
 }
 
@@ -26,7 +25,7 @@ if [ "$(whoami)" != 'root' ]; then
 fi
 
 SHORT=""
-LONG="live,disk,dir:,variant:,iso,offline,quiet"
+LONG="live,disk,dir:,variant:,iso:,offline,quiet"
 OPTS=$(getopt --alternative --name install --options "$SHORT" --longoptions "$LONG" -- "$@") 
 if [ $? != '0' ]; then
     exit
@@ -63,7 +62,9 @@ while [ : ]; do
         ;;
     --iso)
         TYPE='iso'
-        shift 1
+        MODE='iso'
+        ISO_OUT_DIR="$2"
+        shift 2
         ;;
     --offline)
         NET='offline'
@@ -86,7 +87,7 @@ while [ : ]; do
 done
 
 
-if [ "$MODE" != 'live' ] && [ "$MODE" != 'disk' ] && [ "$MODE" != 'dir' ]; then
+if [ "$MODE" != 'live' ] && [ "$MODE" != 'disk' ] && [ "$MODE" != 'dir' ] && [ "$MODE" != 'iso' ]; then
     echo '--mode argument is required.'; _help
 fi
 
@@ -111,11 +112,18 @@ fi
 
 info "${GREEN}Mode: ${LBLUE}$MODE  ${GREEN}Variant: ${LBLUE}$VARIANT  ${GREEN}Type: ${LBLUE}$TYPE  ${GREEN}Net: ${LBLUE}$NET"
 
-source "$SCRIPTS_DIR/vars.conf.sh"
+if [ "$MODE" = 'iso' ]; then
+    . "$SCRIPTS_DIR/vars.conf.iso.sh"
+else
+    . "$SCRIPTS_DIR/vars.conf.sh"
+fi
 
 
 if [ "$MODE" == 'live' ]; then
     source $SCRIPTS_DIR/live/live.sh
+
+elif [ "$MODE" == 'iso' ]; then
+    source $SCRIPTS_DIR/iso.sh
 
 elif [ "$MODE" == 'disk' ]; then
     source $SCRIPTS_DIR/disk.sh

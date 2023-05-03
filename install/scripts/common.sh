@@ -10,14 +10,14 @@ NC='\033[0m'
 
 SCRIPTS_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd | xargs realpath )
 
-INSTALL_DIR="$(dirname $SCRIPTS_DIR)"
-PACKAGES_DIR="$INSTALL_DIR/packages"
-CONF_FILES_DIR="$INSTALL_DIR/config-files"
+INSTALL_DOT_DIR="$(dirname $SCRIPTS_DIR)"
+PACKAGES_DIR="$INSTALL_DOT_DIR/packages"
+CONF_FILES_DIR="$INSTALL_DOT_DIR/config-files"
 COMMON_ROOT_DIR="$CONF_FILES_DIR/common-root"
 COMMON_CONFIGS_DIR="$CONF_FILES_DIR/common-configs"
 
 
-DOTFILES_DIR="$(dirname $INSTALL_DIR)"
+DOTFILES_DIR="$(dirname $INSTALL_DOT_DIR)"
 
 
 info() {
@@ -36,7 +36,9 @@ confirm() {
     case "$choice" in 
     y|Y|"" ) return 0;;
     n|N ) echo -e "$RED Exiting..."; exit;;
-    shell ) pri "Entering shell..."; bash; pri "Exiting shell..."; confirm "$1" "ignore"; return 0;;
+    shell ) info "Entering shell..."; bash; info "Exiting shell..."; confirm "$1" "ignore"; return 0;;
     * ) confirm "$1" "ignore"; return 0;;
     esac
 }
+
+GIT_DISCOVERY_ACROSS_FILESYSTEM=1

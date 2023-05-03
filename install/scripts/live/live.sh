@@ -2,7 +2,13 @@
 set -a
 
 source "$SCRIPTS_DIR/common.sh"
-source "$SCRIPTS_DIR/vars.conf.sh"
+
+if [ "$MODE" = 'iso' ]; then
+    . "$SCRIPTS_DIR/vars.conf.iso.sh"
+else
+    . "$SCRIPTS_DIR/vars.conf.sh"
+fi
+
 
 VARIANT_ROOT_DIR="$CONF_FILES_DIR/$VARIANT/root"
 VARIANT_CONFIGS_DIR="$CONF_FILES_DIR/$VARIANT/configs"
@@ -18,14 +24,11 @@ source $SCRIPTS_DIR/live/install-dotfiles.sh
 source $SCRIPTS_DIR/live/set-passwords.sh
 source $SCRIPTS_DIR/live/configure-packages.sh
 source $SCRIPTS_DIR/live/cleanup.sh
-source $VARIANT_SCRIPTS_DIR/cleanup.sh
 
-if [ "$TYPE" = 'normal' ]; then
-    source $SCRIPTS_DIR/live/configure-fstab.sh
-    source $SCRIPTS_DIR/live/install-grub.sh
-else
-    source "$VARIANT_SCRIPTS_DIR/iso.sh"
-fi
+source $SCRIPTS_DIR/live/configure-fstab.sh
+source $SCRIPTS_DIR/live/install-grub.sh
+source $SCRIPTS_DIR/live/mkinitcpio.sh
+
 
 command -v 'neofetch' > /dev/null 2>&1 && neofetch
 

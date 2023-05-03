@@ -1,7 +1,6 @@
 #!/bin/bash
 
 if [ -f /90-mkinitcpio-install.hook ]; then
-    info "Enabling mkinitpckio"
     mv /90-mkinitcpio-install.hook /usr/share/libalpm/hooks/90-mkinitcpio-install.hook
 fi
 
@@ -9,10 +8,11 @@ fi
 if command -v ntpd > /dev/null && ping -c 1 gnu.org > /dev/null 2>&1; then
     set +e
     info "Removing pacman orphans"
-    paru -Sy > $OUTPUT 2>&1
-    paru --noconfirm -Rs $(paru -Qqtd) > $OUTPUT 2>&1
+    paru -Sy > /dev/null 2>&1
+    ORPHANS="$(paru -Qqtd)"
+    [ "$ORPHANS" != '' ] && paru --noconfirm -Rs  > /dev/null 2>&1
     info "Cleaning pacman cache"
-    paru --noconfirm -Sc > /dev/null 2>&1
+    paru --noconfirm -Scc > /dev/null 2>&1
     set -e
 fi
 
@@ -23,4 +23,3 @@ fi
 set +e
 find / -name '*.pacnew' -name '*.pacsave' -name '*.pacorig' -delete > /dev/null 2>&1
 set -e
-
