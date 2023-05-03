@@ -1,6 +1,6 @@
 if status is-interactive
     if test -z "$AT_LOGIN_SOURCED" 
-        exec bash -c "source ~/.config/at_login.sh; exec fish"
+        exec bash -c "source ~/.config/at-login.sh; exec fish"
     end
 
     set fish_greeting
