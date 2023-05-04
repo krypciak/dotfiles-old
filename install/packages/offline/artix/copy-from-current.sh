@@ -132,6 +132,9 @@ echo 'Copying AUR packages...'
 GREP_AUR_COPY="$(echo $AUR | tr ' ' '\n' | awk '{print "-e " $1 }' | xargs)"
 ls /home/$USER1/.cache/paru/clone/ -1 | grep -E -e $GREP_AUR_COPY | awk "{printf(\"/home/$USER1/.cache/paru/clone/%s/\", \$1); system(\"pacman -Qi \$AUR | grep -E 'Version|Name|Architecture' | awk '{print \$3}' | grep -A 2 \" \$1 \" | xargs | tr ' ' '-' | head -c -1\"); printf(\".pkg.tar.zst\n\")}" | xargs -I _ cp _ $_DIR/packages/
 
+
+rm $_DIR/packages/ttf-nerd-fonts-symbols-2048-em-2.3.3-1-any.pkg.tar.zst
+
 echo 'Creating a repo...'
 #rm -f $_DIR/packages/offline.db.tar.gz
 rm -f $_DIR/packages/offline.db
