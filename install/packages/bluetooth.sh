@@ -15,11 +15,15 @@ artix_bluetooth_configure() {
     sed -e '/add_file\t\/usr\/share\/dbus-1\/system-services\/org\.bluez\.service/ s/^#*/#/' -i /usr/lib/initcpio/install/bluetooth
     sed -e '/add_file\t\/usr\/lib\/tmpfiles\.d\/dbus.conf/ s/^#*/#/' -i /usr/lib/initcpio/install/bluetooth
 
-    rc-update add bluetoothd default
-    rc-update add bluetooth-autoconnect default
+    if [ "$TYPE" = 'iso' ]; then
+        rc-update add bluetoothd default
+        rc-update add bluetooth-autoconnect default
+    fi
 }
 
 arch_bluetooth_configure() {
-    systemctl enable bluetoothd
-    systemctl enable blutooth-autoconnect
+    if [ "$TYPE" = 'iso' ]; then
+        systemctl enable bluetoothd
+        systemctl enable blutooth-autoconnect
+    fi
 }
