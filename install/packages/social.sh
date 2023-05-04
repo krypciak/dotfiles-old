@@ -9,8 +9,12 @@ arch_social_install() {
 }
 
 _configure_discord1() {
-    timeout 15s xvfb-run -a discord > /dev/null 2>&1
-    betterdiscordctl install
+    if  ping -c 1 gnu.org > /dev/null 2>&1 && [ "$TYPE" = 'iso' ]; then
+        set +e
+        timeout 15s xvfb-run -a discord > /dev/null 2>&1
+        betterdiscordctl install > /dev/null 2>&1
+        set -e
+    fi
 }
 
 _configure_discord() {
