@@ -89,9 +89,9 @@ function theme.at_screen_connect(s)
     s.widgets = {
         spr = wibox.widget.textbox(' '),
         mem = create_widget("󰍛", 2,  'sh -c "$HOME/.config/dotfiles/scripts/bar/mem.sh"'),
-        swap = create_widget("󰓡", 2,  'sh -c "$HOME/.config/dotfiles/scripts/bar/swap.sh"'),
+        swap = create_widget("", 2,  'sh -c "$HOME/.config/dotfiles/scripts/bar/swap.sh"'),
         cpu = create_widget("", 2,  'sh -c "$HOME/.config/dotfiles/scripts/bar/cpu.sh"'),
-        cputemp = create_widget("", 1,  'sh -c "$HOME/.config/dotfiles/scripts/bar/cputemp.sh"'),
+        cputemp = create_widget("", 1,  'sh -c "$HOME/.config/dotfiles/scripts/bar/cputemp.sh"'),
         screentemp = create_widget("", 15, 'sh -c "$HOME/.config/dotfiles/scripts/bar/screentemp_redshift.sh"'),
         network = create_widget("", 5, 'sh -c "$HOME/.config/dotfiles/scripts/bar/network-traffic.sh"'),
         updates = create_widget("󰘍", 60, 'sh -c "cat $HOME/.cache/update"'),

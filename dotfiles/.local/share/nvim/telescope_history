@@ -1,5 +1,3 @@
-mkinit
-iso/iso
 grub
 mkini
 mkinit
@@ -98,3 +96,5 @@ iso/is
 iso/i
 iso/co
 clean
+grub
+artix/is
