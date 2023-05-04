@@ -30,7 +30,6 @@ SYMLINK_FROM_TO="\
     .config/cmus/red_theme.theme \
     .config/cmus/notify.cfg \
     \
-    .xinitrc \
     .config/awesome \
     .config/redshift \
     .config/copyq \
