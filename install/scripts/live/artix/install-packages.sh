@@ -21,7 +21,7 @@ rm -f /usr/bin/sudo
 info "Installing groups:${LBLUE}$GROUP_LIST"
 
 if [ "$NET" = 'offline' ]; then
-    cd "$USER_HOME/home/.config/dotfiles/install/packages/offline/$VARIANT/packages" || exit
+    cd "$USER_HOME/home/.config/dotfiles/install/packages/offline/$VARIANT/packages" || exit 1
     pacman --noconfirm --needed -U $(ls *.pkg.tar.zst -1 | grep -E -e $(echo $PACKAGE_LIST | tr ' ' '\n' | awk '{print "-e ^" $1 "-"}' | xargs)) 2> /dev/stdout | grep -v 'skipping' > $OUTPUT 2>&1
 else
     n=0
@@ -31,7 +31,7 @@ else
         err "Package installation failed. Attempt $n/5"
         sleep 3
     done
-    if [ "$n" -eq 5 ]; then err "Package installation failed."; sh; exit; fi
+    if [ "$n" -eq 5 ]; then err "Package installation failed."; sh; exit 1; fi
 fi
 
 

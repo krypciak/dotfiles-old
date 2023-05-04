@@ -66,7 +66,7 @@ if [ "$ENCRYPT" == '1' ]; then
         info "Opening $CRYPT_PART as $CRYPT_NAME"
         info "${NC}Automaticly filling password..."
         echo $LUKS_PASSWORD | cryptsetup open $CRYPT_PART $CRYPT_NAME > $OUTPUT
-        if [ $? -ne 0 ]; then err "LUKS error."; exit; fi
+        if [ $? -ne 0 ]; then err "LUKS error."; exit 1; fi
     else
         while true; do
             info "Setting up luks on $CRYPT_PART $RED(DATA WARNING)"
@@ -96,62 +96,62 @@ confirm "Set up LVM on ${LVM_PART}?"
 
 info "Creating LVM group $LVM_GROUP_NAME"
 pvcreate --force $LVM_TARGET_FILE > $OUTPUT
-if [ $? -ne 0 ]; then err "LVM error."; exit; fi
+if [ $? -ne 0 ]; then err "LVM error."; exit 1; fi
 vgcreate $LVM_GROUP_NAME $LVM_TARGET_FILE > $OUTPUT
-if [ $? -ne 0 ]; then err "LVM error."; exit; fi
+if [ $? -ne 0 ]; then err "LVM error."; exit 1; fi
 
 info "Creating volumes"
 if [ "$ENABLE_SWAP" == '1' ]; then
     info "Creating SWAP"
     lvcreate -C y -L $SWAP_SIZE $LVM_GROUP_NAME -n swap > $OUTPUT
-    if [ $? -ne 0 ]; then err "LVM error."; exit; fi
+    if [ $? -ne 0 ]; then err "LVM error."; exit 1; fi
 fi
 info "Creating ROOT of size $ROOT_SIZE"
 lvcreate -C y -L $ROOT_SIZE $LVM_GROUP_NAME -n root > $OUTPUT
-if [ $? -ne 0 ]; then err "LVM error."; exit; fi
+if [ $? -ne 0 ]; then err "LVM error."; exit 1; fi
 
 info "Creating HOME of size 100%FREE"
 lvcreate -C y -l 100%FREE $LVM_GROUP_NAME -n home > $OUTPUT
-if [ $? -ne 0 ]; then err "LVM error."; exit; fi
+if [ $? -ne 0 ]; then err "LVM error."; exit 1; fi
 
 info "Formatting volumes"
 if [ "$ENABLE_SWAP" == '1' ]; then
     info "SWAP"
     mkswap -L swap $LVM_DIR/swap > $OUTPUT
-    if [ $? -ne 0 ]; then err "mkswap error."; exit; fi
+    if [ $? -ne 0 ]; then err "mkswap error."; exit 1; fi
 fi
 
 info "ROOT"
 $ROOT_FORMAT_COMMAND > /dev/null 2>&1
-if [ $? -ne 0 ]; then err "format error."; exit; fi
+if [ $? -ne 0 ]; then err "format error."; exit 1; fi
 
 info "HOME"
 $HOME_FORMAT_COMMAND > /dev/null 2>&1
-if [ $? -ne 0 ]; then err "format error."; exit; fi
+if [ $? -ne 0 ]; then err "format error."; exit 1; fi
 
 info "BOOT"
 $BOOT_FORMAT_COMMAND 
-if [ $? -ne 0 ]; then err "format error."; exit; fi
+if [ $? -ne 0 ]; then err "format error."; exit 1; fi
 
 
 info "Mounting ${LBLUE}$LVM_DIR/root ${LGREEN}to ${LBLUE}$INSTALL_DIR/"
 mount $LVM_DIR/root $INSTALL_DIR/ > $OUTPUT
-if [ $? -ne 0 ]; then err "mount error."; exit; fi
+if [ $? -ne 0 ]; then err "mount error."; exit 1; fi
 
 info "Mounting ${LBLUE}$LVM_DIR/home${LGREEN} to ${LBLUE}$INSTALL_DIR/home/$USER1/"
 mkdir -p $INSTALL_DIR/home/$USER1
 mount $LVM_DIR/home $INSTALL_DIR/home/$USER1/ > $OUTPUT
-if [ $? -ne 0 ]; then err "mount error."; exit; fi
+if [ $? -ne 0 ]; then err "mount error."; exit 1; fi
 
 info "Mounting ${LBLUE}${BOOT_PART}${LGREEN} to ${LBLUE}$BOOT_DIR"
 mkdir -p $BOOT_DIR
 mount $BOOT_PART $BOOT_DIR > $OUTPUT
-if [ $? -ne 0 ]; then err "mount error."; exit; fi
+if [ $? -ne 0 ]; then err "mount error."; exit 1; fi
 
 if [ "$ENABLE_SWAP" == '1' ]; then
     info "Turning swap on"
     swapon $LVM_DIR/swap > $OUTPUT
-    if [ $? -ne 0 ]; then err "swap error."; exit; fi
+    if [ $? -ne 0 ]; then err "swap error."; exit 1; fi
 fi
 
 source $SCRIPTS_DIR/chroot.sh

@@ -35,7 +35,7 @@ confirm() {
     read choice
     case "$choice" in 
     y|Y|"" ) return 0;;
-    n|N ) echo -e "$RED Exiting..."; exit;;
+    n|N ) echo -e "$RED Exiting..."; exit 1;;
     shell ) info "Entering shell..."; bash; info "Exiting shell..."; confirm "$1" "ignore"; return 0;;
     * ) confirm "$1" "ignore"; return 0;;
     esac

@@ -17,7 +17,7 @@ if ! command -v "paru" > /dev/null 2>&1; then
         git clone https://aur.archlinux.org/paru-bin.git /tmp/paru > $OUTPUT 2>&1
         chown -R $USER1:$USER_GROUP /tmp/paru
         chmod -R +wrx /tmp/paru
-        cd /tmp/paru || exit
+        cd /tmp/paru || exit 1
         doas -u $USER1 makepkg -si --noconfirm --needed > $OUTPUT 2>&1
     fi
 fi

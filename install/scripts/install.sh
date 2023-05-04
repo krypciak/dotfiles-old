@@ -22,9 +22,6 @@ fi
 SHORT=""
 LONG="live,disk,dir:,variant:,iso:,offline,quiet"
 OPTS=$(getopt --alternative --name install --options "$SHORT" --longoptions "$LONG" -- "$@") 
-if [ $? != '0' ]; then
-    exit
-fi
 
 MODE='null'
 VARIANT='null'
@@ -76,7 +73,7 @@ while [ : ]; do
       ;;
     *)
       echo "Unexpected option: $1"
-      exit
+      exit 1
       ;;
   esac
 done
