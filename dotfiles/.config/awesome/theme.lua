@@ -131,6 +131,7 @@ function theme.at_screen_connect(s)
         {
             layout = wibox.layout.fixed.horizontal,
             s.widgets.mem,
+            s.widgets.swap,
             s.widgets.cpu,
             s.widgets.cputemp,
             s.widgets.screentemp,
