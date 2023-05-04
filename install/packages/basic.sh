@@ -5,7 +5,9 @@ _configure_tldr() {
     read -r
     # Generate tealdeer pages
     tldr --update
+    tldr tldr > /dev/null 2>&1
     doas -u $USER1 tldr --update
+    doas -u $USER1 tldr tldr > /dev/null 2>&1
 }
 
 _configure_cronie() {
