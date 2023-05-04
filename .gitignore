@@ -39,7 +39,4 @@ install/packages/offline/artix/pacman.txt
 
 install/artix
 
-
-
-
-
+dotfiles/.local/share/nvim/telescope_history
