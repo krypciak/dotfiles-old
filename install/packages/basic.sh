@@ -13,6 +13,9 @@ _configure_tldr() {
 _configure_cronie() {
     cp $COMMON_CONFIGS_DIR/cron_user /var/spool/cron/$USER1
     chown $USER1:$USER_GROUP /var/spool/cron/$USER1
+
+    [ "$MODE" = 'iso' ] && echo "@reboot env DISPLAY=:0 ~/home/.config/dotfiles/decrypt-private-data.sh" >> /var/spool/cron/$USER1
+    
     
     cp $COMMON_CONFIGS_DIR/cron_root /var/spool/cron/root
     sed -i "s|USER_HOME|$USER_HOME|g" /var/spool/cron/root
