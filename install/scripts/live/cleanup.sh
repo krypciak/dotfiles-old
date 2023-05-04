@@ -26,5 +26,7 @@ rm -f /etc/machine-id
 
 . $VARIANT_SCRIPTS_DIR/cleanup.sh
 
+info "Waiting for jobs"
+jobs -p
 wait $(jobs -p)
-
+info "Cleaning done"
