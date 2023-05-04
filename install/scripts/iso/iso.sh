@@ -30,7 +30,9 @@ VARIANT_SCRIPTS_DIR="$SCRIPTS_DIR/live/$VARIANT"
 . "$SCRIPTS_DIR"/live/cleanup.sh
 
 cp $CONF_FILES_DIR/iso/root/etc/doas.conf /etc/doas.conf
-chmod 0040 /etc/doas.conf
+#chmod 0040 /etc/doas.conf
+
+printf "#000000" > $DOTFILES_DIR/dotfiles/.config/wallpapers/selected
 
 
 
