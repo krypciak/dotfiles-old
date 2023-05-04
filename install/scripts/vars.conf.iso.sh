@@ -27,7 +27,7 @@ LANG='en_US.UTF-8'
 
 # Packages
 LIB32=1
-PACMAN_ARGUMENTS='--ignore ttf-nerd-fonts-symbols --color=always --noconfirm --needed'
+PACMAN_ARGUMENTS='--ignore ttf-nerd-fonts-symbols-2048-em --color=always --noconfirm --needed'
 PARU_ARGUMENTS='--noremovemake --skipreview --noupgrademenu'
 
 # If ALL_DRIVERS is set to 1, GPU and CPU options are ignored
@@ -40,7 +40,7 @@ if [ "$ALL_DRIVERS" == "0" ]; then
     CPU='amd'
 fi
 
-COPY_OFFLINE_PACKAGES=0
+COPY_OFFLINE_PACKAGES=1
 
 PACKAGE_GROUPS=(
     'base'      # packages installing pre-chroot
