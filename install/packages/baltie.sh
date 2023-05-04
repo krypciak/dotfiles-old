@@ -1,5 +1,8 @@
 #!/bin/sh
 _install_baltie() {
+    set +e
+    ping -c 1 gnu.org > /dev/null 2>&1 || return
+
     [ ! -f '/tmp/baltie.zip' ] && wget https://sgpsys.com/download/b3/b3_u_plk.zip -O /tmp/baltie.zip
     [ ! -f '/tmp/setup.exe' ] && unzip /tmp/baltie.zip -d /tmp/
     
@@ -24,6 +27,7 @@ _install_baltie() {
 
     pkill -9 wine
     pkill -9 '.exe'
+    set -e
 }
 
 artix_baltie_install() {

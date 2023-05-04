@@ -1,6 +1,8 @@
 #!/bin/bash
 _setup_cmus_notifications() {
     set +e
+    ping -c 1 gnu.org > /dev/null 2>&1 || return
+
     export PATH="$PATH:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
     cd /tmp
     info "Installing HTML::Entities using cpan..."
