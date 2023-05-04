@@ -11,3 +11,7 @@ source ~/.config/aliases.sh
 
 [ -f ~/.config/.bash-preexec.sh ] && source ~/.config/.bash-preexec.sh
 eval "$(atuin init bash)"
+
+_doas_func() { if [ "$1" = "su" ] || [ "$1" = "sh" ] || [ "$1" = "bash" ] || [ "$1" = "fish" ]; then echo no; else doas "$@"; fi; }
+alias doas='_doas_func'
+

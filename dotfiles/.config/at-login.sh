@@ -11,7 +11,7 @@ if [ "$USER1" == '' ]; then
     export USER1=$USER
 fi
 
-export PATH="/home/$USER1/.local/bin:/home/$USER1/.cargo/bin$PATH"
+export PATH="/home/$USER1/.local/bin:/home/$USER1/.cargo/bin$PATH:/home/$USER1/home/.config/dotfiles/scripts"
 
 export XDG_DATA_HOME="/home/$USER1/.local/share"
 export XDG_STATE_HOME="/home/$USER1/.local/state"
