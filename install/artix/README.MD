@@ -1,1 +1,0 @@
-# Full Artix system installation
