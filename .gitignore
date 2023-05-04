@@ -35,8 +35,7 @@ scripts/auto-download/scripts/subs.sh
 
 install/scripts/vars.conf.sh
 install/packages/offline/artix/packages
-install/packages/offline/artix/deplist.txt
-install/packages/offline/artix/aurpackages.txt
+install/packages/offline/artix/pacman.txt
 
 install/artix
 
