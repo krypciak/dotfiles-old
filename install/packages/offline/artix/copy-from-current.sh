@@ -2,19 +2,23 @@
 
 set -a
 
+if [ "$(whoami)" != 'root' ]; then
+    echo This script needs to be run as root.
+    exit 1
+fi
+
+
 _PWD="$(pwd)"
 _DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd | xargs realpath )
 OFFLINE_DIR=$(dirname $_DIR)
 PACKAGES_DIR=$(dirname $OFFLINE_DIR)
 
 
-doas sh -c "\
-    echo 'Updaing system'; \
-    pacman --noconfirm -Syu; \
-    echo 'Removing cache'; \
-    paccache -rk 1; \
-    echo -e 'Done.\n\n'; \
-"
+echo 'Updaing system'; \
+pacman --noconfirm -Syu; \
+echo 'Removing cache'; \
+paccache -rk 1; \
+echo -e 'Done.\n\n'; \
 
 PACKAGE_GROUPS=(
     'base'
@@ -45,10 +49,10 @@ PACKAGE_GROUPS=(
 PACKAGES="$(sh $PACKAGES_DIR/get-package-names.sh)"
 
 
-doas rm -f /tmp/aurpackages
-doas rm -rf /tmp/blankdb
-doas mkdir -p /tmp/blankdb
-doas pacman --dbpath /tmp/blankdb -Sy
+rm -f /tmp/aurpackages
+rm -rf /tmp/blankdb
+mkdir -p /tmp/blankdb
+pacman --dbpath /tmp/blankdb -Sy
 
 ALL_PACKAGES="$(echo $PACKAGES | xargs -n 1 pactree -u -l | awk -F "[=<>\t]+" '{print $1}' | sort --unique | xargs)"
 
@@ -104,3 +108,5 @@ rm -f $_DIR/packages/offline.db
 repo-add $_DIR/packages/offline.db.tar.gz $_DIR/packages/*.pkg.tar.zst --quiet
 
 cd "$PWD"
+
+chown -R $USER1:$USER1 $_DIR/
