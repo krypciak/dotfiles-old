@@ -3,34 +3,18 @@ local g = vim.g
 
 -- Share system clipboard with vim clipboard
 cmd('set clipboard+=unnamedplus')
-if os.getenv('WAYLAND_DISPLAY') then
-    -- Wayland
-    g.clipboard = {
-        copy = {
-            ['+'] = 'wl-copy',
-            ['*'] = 'wl-copy',
-        },
-        paste = {
-            ['+'] = 'wl-paste',
-            ['*'] = 'wl-paste',
-        },
-        cache_enabled = 1,
-    }
-else
-    -- X11
-    g.clipboard = {
-        copy = {
-            ['+'] = 'xsel -ib',
-            ['*'] = 'xsel -ib',
-        },
-        paste = {
-            ['+'] = 'xsel -ob',
-            ['*'] = 'xsel -ob',
-        },
-        cache_enabled = 1,
-    }
-end
---
+
+g.clipboard = {
+    copy = {
+        ['+'] = 'copy',
+        ['*'] = 'copy',
+    },
+    paste = {
+        ['+'] = 'pst',
+        ['*'] = 'pst',
+    },
+    cache_enabled = 1,
+}
 
 o.relativenumber = true
 vim.wo.number = true

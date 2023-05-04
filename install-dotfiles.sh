@@ -191,11 +191,13 @@ cp "$USER_HOME/.config/dotfiles/scripts/update-arch.sh-tofill" "$USER_HOME/.conf
 sed -i "s|USER_HOME|$USER_HOME|g" "$USER_HOME/.config/dotfiles/scripts/update-arch.sh"
 
 
-chmod +x "$USER_HOME/.config/awesome/run/run.sh"
-chmod +x "$USER_HOME/.config/at-login.sh"
-chmod +x "$USER_HOME/.config/aliases.sh"
-chmod +x "$USER_HOME/.config/.bash-preexec.sh"
+chmod +x "$USER_HOME"/.config/awesome/run/run.sh
+chmod +x "$USER_HOME"/.config/at-login.sh
+chmod +x "$USER_HOME"/.config/aliases.sh
+chmod +x "$USER_HOME"/.config/.bash-preexec.sh
 chmod +x "$USER_HOME"/.config/dotfiles/scripts/*.sh
+chmod +x "$USER_HOME"/.config/dotfiles/scripts/copy
+chmod +x "$USER_HOME"/.config/dotfiles/scripts/pst
 
 # Update nvim plugins if there is internet
 if nc -z 8.8.8.8 53 -w 1; then
