@@ -27,3 +27,13 @@ chown $USER1:$USER1 "$ISO_OUT_FILE"
 info "Building ISO done."
 echo $ISO_OUT_FILE
 
+# there should be a entry in /etc/fstab that mounts
+# the pendrive to /mnt/blackpen
+confirm "Copy to pendrive? (insert it)"
+mount -a
+rm /mnt/blackpen/artix-iso*
+cp "$ISO_OUT_FILE" /mnt/blackpen/
+sync
+umount /mnt/blackpen
+info "Done."
+info "You can unplug your pendrive now"
