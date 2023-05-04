@@ -10,7 +10,7 @@ PACKAGES_DIR=$(dirname $OFFLINE_DIR)
 
 doas sh -c "\
     echo 'Updaing system'; \
-    pacman --ignore ttf-nerd-fonts-symbols --noconfirm -Syu; \
+    pacman --noconfirm -Syu; \
     echo 'Removing cache'; \
     paccache -rk 1; \
     echo -e 'Done.\n\n'; \
