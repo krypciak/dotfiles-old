@@ -34,7 +34,7 @@ cp $CONF_FILES_DIR/iso/root/etc/doas.conf /etc/doas.conf
 
 printf "#000000" > $DOTFILES_DIR/dotfiles/.config/wallpapers/selected
 
-
+echo 'export WINIT_X11_SCALE_FACTOR=1.2' >> $USER_HOME/.config/at-login.sh
 
 . "$SCRIPTS_DIR"/iso/mkinitcpio.sh
 
