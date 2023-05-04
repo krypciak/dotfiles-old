@@ -70,43 +70,6 @@ echo -e '\nPacman:'
 echo $PACMAN
 echo -e '\n'
 
-#if [ ! -f $_DIR/deplist.txt ]; then 
-#    doas rm -f /tmp/aurpackages
-#    doas rm -rf /tmp/blankdb
-#    doas mkdir -p /tmp/blankdb
-#    doas pacman --dbpath /tmp/blankdb -Sy
-#
-#    echo 'Builidng dependency list...'
-#    PACMAN="$(echo $PACKAGES | xargs -n 1 pactree -s --dbpath /tmp/blankdb -u -l 2>> $_DIR/aurpackages.txt | sort --unique | xargs)"
-#    echo $PACMAN > $_DIR/deplist.txt
-#else
-#    PACMAN=$(cat $_DIR/deplist.txt)
-#fi
-#echo $PACMAN
-#
-#
-#echo -e '\nBuild aur package list...'
-#if [ ! -f $_DIR/aurpackages.txt ]; then
-#    paru -Pc | awk '{print $1}' > /tmp/allaur
-#    PACKAGES_GREP_ARGS="$(echo $PACKAGES | tr ' ' '\n' | awk '{print "-e " $1 }' | xargs)"
-#    AUR="$(grep -x -e $PACKAGES_GREP_ARGS /tmp/allaur | grep -v -x -e $(pacman -Sl | awk '{print "-e \"" $2 "\""}' | xargs))"
-#    rm /tmp/allaur
-#else
-#    AUR="$(cat aurpackages.txt | awk '{print substr($0, 17, length($0)-27)}' | xargs)"
-#fi
-#
-#echo -e '\nAUR:'
-#echo $AUR
-#echo -e '\n'
-#
-#echo 'AUR deps:'
-#AUR_DEPS="$(echo $AUR | xargs -n 1 pactree -u -l | sort --unique | xargs)"
-#echo $AUR_DEPS
-#PACKAGES="'$(echo $PACKAGES $AUR_DEPS | tr ' ' '\n' | sort --unique | xargs)"
-#
-#PACMAN="$(echo $PACKAGES | xargs -n 1 pactree --dbpath /tmp/blankdb -u -l 2>> $_DIR/aurpackages.txt | sort --unique | xargs)"
-#echo $PACMAN > $_DIR/deplist.txt
-
 
 echo -e '\nCopying official packages...'
 mkdir -p $_DIR/packages
@@ -133,7 +96,7 @@ GREP_AUR_COPY="$(echo $AUR | tr ' ' '\n' | awk '{print "-e " $1 }' | xargs)"
 ls /home/$USER1/.cache/paru/clone/ -1 | grep -E -e $GREP_AUR_COPY | awk "{printf(\"/home/$USER1/.cache/paru/clone/%s/\", \$1); system(\"pacman -Qi \$AUR | grep -E 'Version|Name|Architecture' | awk '{print \$3}' | grep -A 2 \" \$1 \" | xargs | tr ' ' '-' | head -c -1\"); printf(\".pkg.tar.zst\n\")}" | xargs -I _ cp _ $_DIR/packages/
 
 
-rm $_DIR/packages/ttf-nerd-fonts-symbols-2048-em-2.3.3-1-any.pkg.tar.zst
+rm -f "$_DIR/packages/ttf-nerd-fonts-symbols-2048-em-2.3.3-1-any.pkg.tar.zst"
 
 echo 'Creating a repo...'
 #rm -f $_DIR/packages/offline.db.tar.gz
