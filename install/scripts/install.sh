@@ -14,11 +14,6 @@ _help() {
     exit 2
 }
 
-if [ ! -f $SCRIPTS_DIR/vars.conf.sh ]; then
-    err "Config file vars.conf.sh doesn't exist."
-    exit 3
-fi
-
 if [ "$(whoami)" != 'root' ]; then
     err "This script needs to be run as root."
     exit 1
@@ -113,8 +108,16 @@ fi
 info "${GREEN}Mode: ${LBLUE}$MODE  ${GREEN}Variant: ${LBLUE}$VARIANT  ${GREEN}Type: ${LBLUE}$TYPE  ${GREEN}Net: ${LBLUE}$NET"
 
 if [ "$MODE" = 'iso' ]; then
+    if [ ! -f "$SCRIPTS_DIR/vars.conf.iso.sh" ]; then
+        err "Config file vars.conf.iso.sh doesn't exist."
+        exit 3
+    fi
     . "$SCRIPTS_DIR/vars.conf.iso.sh"
 else
+    if [ ! -f "$SCRIPTS_DIR/vars.conf.sh" ]; then
+        err "Config file vars.conf.sh doesn't exist."
+        exit 3
+    fi
     . "$SCRIPTS_DIR/vars.conf.sh"
 fi
 
