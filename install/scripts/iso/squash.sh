@@ -8,10 +8,8 @@ set -e
 
 mkdir -p "$ISO_LIVEOS"
 
-if [ ! -f "$ISO_LIVEOS"/rootfs.img ]; then
 info "Generating squashfs image"
 mksquashfs "$ISO_ROOTFS" "$ISO_LIVEOS"/rootfs.img -comp zstd -Xcompression-level 15 -noappend
-fi
 
 cd "$ISO_LIVEOS"/
 md5sum rootfs.img > rootfs.img.md5
