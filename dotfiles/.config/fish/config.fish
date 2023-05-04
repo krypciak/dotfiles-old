@@ -49,7 +49,7 @@ if status is-interactive
     alias topcmds='history | awk "{print \$1}" | sort | uniq -c | sort -nr | head -20'
 
     function doas
-        if test "$argv[1]" = 'su' -o "$argv[1]" = 'sh' -o "$argv[1]" = 'bash' -o "$argv[1]" = 'fish'
+        if test "$argv[1]" = 'su' -o "$argv[1]" = 'bash' -o "$argv[1]" = 'fish'
             echo no
         else
             /bin/doas $argv
