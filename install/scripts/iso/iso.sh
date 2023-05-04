@@ -24,13 +24,15 @@ VARIANT_SCRIPTS_DIR="$SCRIPTS_DIR/live/$VARIANT"
 . "$SCRIPTS_DIR"/live/install-dotfiles.sh
 . "$SCRIPTS_DIR"/live/set-passwords.sh
 . "$SCRIPTS_DIR"/live/configure-packages.sh
+
+[ -f "$VARIANT_SCRIPTS_DIR"/iso.sh ] && . "$VARIANT_SCRIPTS_DIR"/iso.sh
+
 . "$SCRIPTS_DIR"/live/cleanup.sh
 
 cp $CONF_FILES_DIR/iso/root/etc/doas.conf /etc/doas.conf
 chmod 0040 /etc/doas.conf
 
 
-[ -f "$VARIANT_SCRIPTS_DIR"/iso.sh ] && . "$VARIANT_SCRIPTS_DIR"/iso.sh
 
 . "$SCRIPTS_DIR"/iso/mkinitcpio.sh
 
