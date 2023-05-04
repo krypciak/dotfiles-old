@@ -7,8 +7,10 @@ info "Installing paru (AUR manager)"
 if [ -d /tmp/paru ]; then rm -rf /tmp/paru; fi
 # If paru is already installed, skip this step
 if ! command -v "paru" > /dev/null 2>&1; then
+    set +e
     PARU_FILE="$(ls $PACKAGES_DIR/offline/$VARIANT/packages/paru-bin*.pkg.tar.zst)"
-    if [ -f $PARU_FILE ]; then
+    set -e
+    if [ -f "$PARU_FILE" ]; then
         pacman $PACMAN_ARGUMENTS -U "$PARU_FILE" > $OUTPUT 2>&1
     else
         pacman $PACMAN_ARGUMENTS -S git doas > $OUTPUT 2>&1
