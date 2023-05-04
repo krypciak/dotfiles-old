@@ -154,7 +154,7 @@ if [ "$ENABLE_SWAP" == '1' ]; then
     if [ $? -ne 0 ]; then err "swap error."; exit 1; fi
 fi
 
-source $SCRIPTS_DIR/chroot.sh
+source $SCRIPTS_DIR/chroot/prepare-chroot.sh
 
 if [ $AUTO_REBOOT -eq 0 ]; then
     confirm "Reboot?" "ignore"
