@@ -1,8 +1,8 @@
 #!/bin/bash
-artix_android_install() {
+artix_office_install() {
     echo 'libreoffice-fresh'
 }
 
-arch_android_install() {
+arch_office_install() {
     echo 'libreoffice-fresh'
 }

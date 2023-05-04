@@ -1,7 +1,7 @@
 #!/bin/bash
 _configure_awesome() {
     if [ "$PORTABLE" == 1 ]; then
-        cd $USER_HOME/.config/awesome
+        cd $USER_HOME/.config/awesome || exit 1
 
         sed -i 's/run_if_not_running_pgrep({"redshift/--run_if_not_running_pgrep({"redshift/g' autostart.lua
         sed -i 's/run_if_not_running_pgrep("keepassxc/--run_if_not_running_pgrep("keepassxc/g' autostart.lua
@@ -10,19 +10,19 @@ _configure_awesome() {
     fi
 }
 
-artix_install_awesome() {
+artix_awesome_install() {
     echo 'awesome'
 }
 
-arch_install_awesome() {
+arch_awesome_install() {
     echo 'awesome'
 }
 
-artix_configure_awesome() {
+artix_awesome_configure() {
     _configure_awesome
 }
 
-arch_configure_awesome() {
+arch_awesome_configure() {
     _configure_awesome
 }
 
