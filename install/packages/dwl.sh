@@ -9,19 +9,20 @@ _make_dwl() {
 
     if [ "$PORTABLE" == 1 ]; then
         # Disable keepassxc, tutanota, blueman applet, wlr-output and gammastep startup
-        sed -i 's/"\[ \\"$(pgrep keepassxc/\/\/"\[ \\"$(pgrep keepassxc/g' config.h
-        sed -i 's/"\[ \\"$(pgrep tutanota/\/\/"\[ \\"$(pgrep tutanota/g' config.h
-        sed -i 's/"gammastep -r"/\/\/"gammastep -r"/g' config.h
-        sed -i 's/"blueman-applet"/\/\/"blueman-applet"/g' config.h
-        sed -i 's/{ "HDMI-A-1"/\/\/{ "HDMI-A-1"/g' config.h
-        sed -i 's/{ "DP-2"/\/\/{ "DP-2"/g' config.h
-        sed -i 's/\"alacritty --class cmus/\/\/\"alacritty --class cmus/g' config.h
-        sed -i 's/\"wlr-randr --output DP-1 --off/\/\/\"wlr-randr --output DP-1 --off/g' config.h
+        str='"\[ \\"\$(pgrep keepassxc';        sed -i "s|$str|//$str|g" config.h
+        str='"\[ \\"\$(pgrep tutanota';         sed -i "s|$str|//$str|g" config.h
+        str='"gammastep -r"';                   sed -i "s|$str|//$str|g" config.h
+        str='"blueman-applet"';                 sed -i "s|$str|//$str|g" config.h
+        str='{ "HDMI-A-1"';                     sed -i "s|$str|//$str|g" config.h
+        str='{ "DP-1"';                         sed -i "s|$str|//$str|g" config.h
+        str='\"alacritty --class cmus';         sed -i "s|$str|//$str|g" config.h
+        str='\"wlr-randr --output DP-1 --off';  sed -i "s|$str|//$str|g" config.h
     fi
 
     if [ "$ISO" == "yes" ]; then
         # Run private archive decryption prompt at startup
-        sed -i 's/"amixer set Capture nocap",/"amixer set Capture nocap",\n\t"env USER_GROUP=\\\"1001\\\" sh $HOME\/.config\/dotfiles\/decrypt-private-data\.sh",/g' config.h
+        str1='\t"sh $HOME/.config/dotfiles/decrypt-private-data.sh",'
+        str='"fnott",\n'; sed -i "s|$str|$str$str1|g" config.h
     fi
 
     doas -u $USER1 make
