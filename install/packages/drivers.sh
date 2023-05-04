@@ -10,16 +10,16 @@ _artix_arch_driver_install() {
     
         if [ "$GPU" == 'amd' ]; then 
             # amdvlk lib32-amdvlk
-            DRIVER_LIST="$DRIVER_LIST xf86-video-amdgpu vulkan-radeon lib32-vulkan-radeon"
+            DRIVER_LIST="$DRIVER_LIST xf86-video-amdgpu amdvlk lib32-amdvlk vulkan-radeon lib32-vulkan-radeon"
             cp $COMMON_CONFIGS_DIR/20-amdgpu.conf /etc/X11/xorg.conf.d/
-        elif [ "$GPU" == 'ati' ]; then DRIVER_LIST="$DRIVER_LIST xf86-video-ati vulkan-radeon lib32-vulkan-radeon"
+        elif [ "$GPU" == 'ati' ]; then DRIVER_LIST="$DRIVER_LIST xf86-video-ati amdvlk lib32-amdvlk vulkan-radeon lib32-vulkan-radeon"
         elif [ "$GPU" == 'intel' ]; then DRIVER_LIST="$DRIVER_LIST xf86-video-intel vulkan-intel lib32-vulkan-intel"
         elif [ "$GPU" == 'nvidia' ]; then DRIVER_LIST="$DRIVER_LIST xf86-video-nouveau"
         else confirm "Invalid GPU: $GPU" "ignore"; fi
     
     elif [ $ALL_DRIVERS -eq 1 ]; then
         DRIVER_LIST="$DRIVER_LIST amd-ucode intel-ucode"
-        DRIVER_LIST="$DRIVER_LIST xf86-input-vmmouse xf86-video-amdgpu xf86-video-ati xf86-video-dummy xf86-video-fbdev xf86-video-intel xf86-video-nouveau xf86-video-vesa xf86-video-vmware"
+        DRIVER_LIST="$DRIVER_LIST xf86-input-vmmouse xf86-video-amdgpu xf86-video-ati xf86-video-dummy xf86-video-fbdev xf86-video-intel xf86-video-nouveau xf86-video-vesa xf86-video-vmware nvidia-utlils vulkan-radeon"
     fi
     echo $DRIVER_LIST
 }
