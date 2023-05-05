@@ -109,9 +109,9 @@ local globalkeys_awesome = awful.util.table.join(
 		{description = "show help", group = "awesome"}),
 	awful.key({super, shift, ctrl}, "q", function()
         awful.spawn("pkill redshift")
-        os.execute("for pid in $(ps -ef | awk '/clipmenud/ {print $2}'); do kill $pid; done")
-        os.execute("for pid in $(ps -ef | awk '/clipmenud/ {print $2}'); do kill $pid; done")
-        os.execute("for pid in $(ps -ef | awk '/clipmenud/ {print $2}'); do kill $pid; done")
+        os.execute("ps -ef | awk '/clipmenud/' | grep -v 'awk' | xargs kill -9")
+        os.execute("ps -ef | awk '/clipmenud/' | grep -v 'awk' | xargs kill -9")
+        os.execute("ps -ef | awk '/clipmenud/' | grep -v 'awk' | xargs kill -9")
         awesome.quit()
         end, {description = "quit awesome", group = "awesome"}),
 	-- Restart awesome 
