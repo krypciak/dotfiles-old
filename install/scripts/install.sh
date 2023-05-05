@@ -6,11 +6,14 @@ source "$SCRIPTS_DIR/common.sh"
 
 
 _help() {
-    printf '  Usage:\n'
+    printf ' Usage:\n'
     printf '  --disk or \n    --live or \n    --dir DIRECTORY or\n    --iso=ISO_OUT_DIR\n'
     printf '  --variant      artix, arch\n'
-    printf '  --offline      for offline installs\n'
+    printf '  --offline      install packages from disk\n'
     printf '  --quiet        silence a lot of output\n'
+    printf ' Iso options:\n'
+    printf '  --iso-copy-to  copy the iso to that dir and delete all previous iso'
+    printf '  --wait-for-dir dont start iso build until that dir is mounted'
     exit 2
 }
 
@@ -20,7 +23,7 @@ if [ "$(whoami)" != 'root' ]; then
 fi
 
 SHORT=""
-LONG="live,disk,dir:,variant:,iso:,offline,quiet"
+LONG="live,disk,dir:,variant:,iso:,offline,quiet,iso-copy-to:,wait-for-dir:"
 OPTS=$(getopt --alternative --name install --options "$SHORT" --longoptions "$LONG" -- "$@") 
 
 MODE='null'
@@ -66,6 +69,14 @@ while [ : ]; do
         QUIET=1
         OUTPUT='/dev/null'
         shift 1
+        ;;
+    --iso-copy-to)
+        ISO_COPY_TO_DIR="$2"
+        shift 2
+        ;;
+    --wait-for-dir)
+        ISO_WAIT_FOR_DIR="$2"
+        shift 2
         ;;
     --)
       shift;
