@@ -25,7 +25,6 @@ alias motherboard='cat /sys/devices/virtual/dmi/id/board_{vendor,name,version}'
 alias cat='bat'
 alias diff='difft'
 alias ti='hyperfine'
-alias ps='echo Use procs.'
 alias man='batman'
 
 alias dust='dust --reverse'
@@ -41,6 +40,3 @@ alias awesomesuperbroken='xmodmap -e "clear mod4"; xmodmap -e "add mod4 = Super_
 alias watch='watch -c'
 
 alias publicip='curl ifconfig.me'
-
-# fix for submodules
-alias lazygit='lazygit --git-dir=$(git rev-parse --git-dir)'
