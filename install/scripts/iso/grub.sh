@@ -14,13 +14,18 @@ sed -e "s|@kopts@|$kopts|" \
     -e "s|@rw_opts@|$rw_opts|" \
     -i "$ISO_ROOTFS"/usr/share/grub/cfg/kernels.cfg
 
+sed -i -e "s|VARIANT_NAME|$VARIANT_NAME|g" "$ISO_ROOTFS"/usr/share/grub/cfg/kernels.cfg
+sed -i -e "s|VARIANT|$VARIANT|g"           "$ISO_ROOTFS"/usr/share/grub/cfg/kernels.cfg
 
 mkdir -p "$ISO_ROOT"/boot/grub/i386-pc
 
 mkdir -p "$ISO_ROOT"/efi/boot
 mkdir -p "$ISO_ROOT"/boot/grub/x86_64-efi
 
+cp "$CONF_FILES_DIR"/iso/configs/$VARIANT-logo.png "$ISO_ROOTFS"/usr/share/grub/themes/iso/
+
 cp -r "$ISO_ROOTFS"/usr/share/grub/* "$ISO_ROOT"/boot/grub/
+rm -r "$ISO_ROOT"/boot/grub/cfg
 cp "$ISO_ROOTFS"/usr/share/grub/cfg/*.cfg "$ISO_ROOT"/boot/grub/
 
 cp "$ISO_ROOTFS"/usr/lib/grub/i386-pc/* "$ISO_ROOT"/boot/grub/i386-pc
