@@ -108,6 +108,9 @@ elseif mode == 'gui' and isx11 then
 else
     current_wallpaper = wallpapers[group][index]
 end
+if current_wallpaper == '' then
+    return
+end
 print(current_wallpaper)
 
 file = io.open(wallpaper_selected_file, "w")
