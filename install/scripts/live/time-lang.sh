@@ -18,5 +18,6 @@ export LC_COLLATE="C"
 
 info "Setting the hostname"
 echo "$HOSTNAME" > /etc/hostname
+mkdir -p /etc/conf.d
 echo "hostname='$HOSTNAME'" > /etc/conf.d/hostname
 
