@@ -41,6 +41,7 @@ map('n', '<leader>j', '', { noremap = true, callback = function()
         ftype = vim.bo.filetype
         if ftype == 'rust' then rust_run()
         elseif ftype == 'python' then python_run()
+        elseif ftype == 'sh' then sh_run()
         else print('Unsupported filetype: '.. ftype) end
    end })
 
@@ -112,3 +113,4 @@ require("lspconf")
 require("lang/python")
 require("lang/rust")
 require("lang/c")
+require("lang/sh")
